@@ -1,0 +1,24 @@
+// navigation
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Tabs(name string, tabs []model.Tab) {
+	<div role="tablist" class="tabs tabs-lifted">
+		for i, tab := range tabs {
+			<input
+				type="radio"
+				name={ name }
+				role="tab"
+				class={ "tab" }
+				aria-label={ tab.Label }
+				if i == 0 {
+					checked="checked"
+				}
+			/>
+			<div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6 overflow-x-auto">
+				@tab.Content
+			</div>
+		}
+	</div>
+}

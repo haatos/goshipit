@@ -1,0 +1,15 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BasicSteps() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Steps() {
+			@components.Step("Register", true, nil)
+			@components.Step("Choose plan", true, nil)
+			@components.Step("Purchase", false, nil)
+			@components.Step("Receive product", false, nil)
+		}
+	</div>
+}

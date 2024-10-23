@@ -1,0 +1,43 @@
+// data_input
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Toggle(toggle model.Toggle) {
+	<div class="form-control">
+		<label class="label cursor-pointer space-x-2">
+			<span
+				class={
+					"label-text",
+					templ.KV("text-primary", toggle.Highlight && !toggle.Checked),
+				}
+			>{ toggle.Before }</span>
+			<input
+				{ toggle.Attrs... }
+				type="checkbox"
+				name={ toggle.Name }
+				class={ "toggle", toggle.Class }
+				if toggle.Checked {
+					checked="checked"
+				}
+				if toggle.Highlight {
+					onclick="toggler(event)"
+				}
+			/>
+			<span
+				class={
+					"label-text",
+					templ.KV("text-primary", toggle.Highlight && toggle.Checked),
+				}
+			>{ toggle.After }</span>
+		</label>
+		if toggle.Highlight {
+			<script>
+			function toggler(evt) {
+				evt.target.previousElementSibling.classList.toggle("text-primary")
+				evt.target.nextElementSibling.classList.toggle("text-primary")
+			}
+		</script>
+		}
+	</div>
+}

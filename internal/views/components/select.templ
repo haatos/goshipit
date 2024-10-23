@@ -1,0 +1,39 @@
+// data_input
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Select(s model.Select) {
+	<label
+		class={ "form-control", templ.KV("pb-2", s.Label != "") }
+	>
+		if s.Label != "" {
+			<div class="label pr-2">
+				<span class="label-text">{ s.Label }</span>
+			</div>
+		}
+		<select
+			name={ s.Name }
+			class="select select-bordered"
+			{ s.Attrs... }
+		>
+			@SelectOptions(s.Options)
+		</select>
+	</label>
+}
+
+templ SelectOptions(options []model.SelectOption) {
+	for i := range options {
+		<option
+			if options[i].Selected {
+				selected
+			}
+			if options[i].Disabled {
+				disabled
+			}
+			value={ options[i].Value }
+		>
+			{ options[i].Label }
+		</option>
+	}
+}

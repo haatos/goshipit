@@ -1,0 +1,12 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ CollapseExample() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Collapse("Click me to show/hide content") {
+			<p>Collapse content</p>
+		}
+	</div>
+}

@@ -1,0 +1,17 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicStats() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Stats() {
+			@components.Stat(model.Stat{Title: "Downloads", Value: "31k", Description: "Jan 1st - Feb 1st"})
+			@components.Stat(model.Stat{Title: "New Users", Value: "4,200", Description: "↗︎ 400 (22%)"})
+			@components.Stat(model.Stat{Title: "New Registers", Value: "1,200", Description: "↘︎ 90 (14%)"})
+		}
+	</div>
+}

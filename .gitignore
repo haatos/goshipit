@@ -1,0 +1,11 @@
+.vscode/
+.env
+package-lock.json
+*_templ.go
+*_templ.txt
+node_modules/
+bin/
+build-tailwind.sh
+static/css/tw.css
+*.sqlite*
+static/css/tw.css

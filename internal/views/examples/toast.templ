@@ -1,0 +1,71 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ InfoToast() {
+	<div class="relative min-h-60">
+		@components.Toast(
+			model.Toast{
+				Name:         "info-toast",
+				ToastClasses: "absolute toast-end toast-top",
+				AlertClasses: "alert-info",
+			},
+		) {
+			<span>Info toast</span>
+		}
+	</div>
+}
+
+// example
+templ WarningToast() {
+	<div class="relative min-h-60">
+		@components.Toast(
+			model.Toast{
+				Name:         "warning-toast",
+				ToastClasses: "absolute toast-end toast-bottom",
+				AlertClasses: "alert-warning",
+			},
+		) {
+			<span>Warning toast</span>
+		}
+	</div>
+}
+
+// example
+templ ErrorToast() {
+	<div class="relative min-h-60">
+		@components.Toast(
+			model.Toast{
+				Name:         "error-toast",
+				ToastClasses: "absolute toast-center toast-top",
+				AlertClasses: "alert-error",
+			},
+		) {
+			<span>Error toast</span>
+		}
+	</div>
+}
+
+// example
+templ InfoToastConfirm() {
+	<div class="relative min-h-60">
+		@components.Toast(model.Toast{
+			Name:         "error-toast",
+			ToastClasses: "absolute toast-end toast-top",
+			AlertClasses: "alert-info",
+		},
+		) {
+			<span>Info toast</span>
+			<button onclick="remover(event)" class="btn btn-info">OK</button>
+			<script>
+            function remover(evt) {
+                evt.target.closest("div[name=toast-error]").remove()
+            }
+        </script>
+		}
+	</div>
+}

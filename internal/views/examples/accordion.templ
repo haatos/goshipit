@@ -1,0 +1,24 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ AccordionExample() {
+	<div class="w-full flex join join-vertical pt-4">
+		@components.AccordionRow("Label 1") {
+			<p class="pt-4">Label 1 content</p>
+		}
+		@components.AccordionRow("Label 2") {
+			<h2 class="text-xl font-bold py-4">Content 2</h2>
+			<p>Label 2 content</p>
+		}
+		@components.AccordionRow("Label 3") {
+			<h2 class="text-xl font-bold py-4">Content 3</h2>
+			<ul class="list-disc [&>li]:ml-4">
+				<li>Item 1</li>
+				<li>Item 2</li>
+				<li>Item 3</li>
+			</ul>
+		}
+	</div>
+}

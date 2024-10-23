@@ -1,0 +1,34 @@
+// data_display
+package components
+
+import "fmt"
+
+templ InfiniteScrollTable(rows []templ.Component) {
+	@Table(
+		[]templ.Component{PlainText("Name"), PlainText("Email")},
+		rows,
+		nil,
+	)
+	<div class="flex justify-center"><span id="spinner" class="htmx-indicator loading loading-spinner"></span></div>
+}
+
+templ InfiniteScrollRows(rows []templ.Component) {
+	for _, r := range rows {
+		@r
+	}
+}
+
+templ InfiniteScrollRow(name, email string, page int, hasMore bool) {
+	<tr
+		if hasMore {
+			hx-get={ fmt.Sprintf("/infinite-scroll-rows?page=%d", page+1) }
+			hx-target="this"
+			hx-trigger="intersect once"
+			hx-swap="afterend"
+			hx-indicator="#spinner"
+		}
+	>
+		<td>{ name }</td>
+		<td>{ email }</td>
+	</tr>
+}

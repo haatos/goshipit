@@ -1,0 +1,55 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicPaginationExample() {
+	@BasicPagination(
+		"example-pagination",
+		model.PaginationItem{
+			URL:      "/pagination-pages",
+			Page:     1,
+			Low:      1,
+			High:     7,
+			MaxPages: 20,
+		},
+		[][]string{
+			{"Key0", "Value0"},
+			{"Key1", "Value1"},
+			{"Key2", "Value2"},
+			{"Key3", "Value3"},
+			{"Key4", "Value4"},
+			{"Key5", "Value5"},
+			{"Key6", "Value6"},
+			{"Key7", "Value7"},
+			{"Key8", "Value8"},
+			{"Key9", "Value9"},
+		},
+	)
+}
+
+templ BasicPagination(id string, p model.PaginationItem, data [][]string) {
+	@components.Pagination("example-pagination", p) {
+		<div class="overflow-x-auto">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Key</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					for _, d := range data {
+						<tr>
+							<td>{ d[0] }</td>
+							<td>{ d[1] }</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	}
+}

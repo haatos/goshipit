@@ -1,0 +1,10 @@
+// navigation
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ SocialsLink(socialLink model.Anchor) {
+	<a href={ templ.SafeURL(socialLink.Href) }>
+		@socialLink.Icon
+	</a>
+}

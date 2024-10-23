@@ -1,0 +1,35 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BasicHero() {
+	<div class="pt-4">
+		@components.Hero("/images/avatar.jpg", false) {
+			<div class="prose">
+				<h1>Lorem ipsum!</h1>
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+					Ex quibusdam dicta necessitatibus! Deleniti temporibus iure
+					porro cupiditate dolorum modi voluptate perferendis velit
+					tempora repudiandae expedita, impedit omnis vitae. Laborum,
+					dignissimos?
+				</p>
+				<button class="btn btn-primary">Get Started</button>
+			</div>
+		}
+		@components.Hero("/images/avatar.jpg", true) {
+			<div class="prose">
+				<h1>Lorem ipsum!</h1>
+				<p>
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+					Ex quibusdam dicta necessitatibus! Deleniti temporibus iure
+					porro cupiditate dolorum modi voluptate perferendis velit
+					tempora repudiandae expedita, impedit omnis vitae. Laborum,
+					dignissimos?
+				</p>
+				<button class="btn btn-primary">Get Started</button>
+			</div>
+		}
+	</div>
+}

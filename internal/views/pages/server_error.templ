@@ -1,0 +1,21 @@
+package pages
+
+import (
+	"github.com/haatos/goshipit/internal"
+)
+
+templ InternalServerError() {
+	@SideNavLayout(nil) {
+		<main class="w-full max-w-screen-lg px-8 xl:px-0">
+			<div class="w-full max-w-screen-lg mx-auto px-8 lg:px-0 min-h-svh pt-12 md:pt-12 pb-24">
+				<div class="mx-auto max-w-sm">
+					<h2 class="text-xl font-bold">500 - Internal server error</h2>
+					<p>
+						Something went terribly wrong! Please contact us at { internal.Settings.ContactEmail }
+						in case the problem persists.
+					</p>
+				</div>
+			</div>
+		</main>
+	}
+}

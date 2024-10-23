@@ -1,0 +1,22 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ CarouselExample() {
+	<div class="max-h-80 pt-4 max-w-screen-md">
+		@components.Carousel(
+			[]model.Image{
+				{Source: "/images/avatar.jpg", Alt: "avatar image"},
+				{Source: "/images/avatar.jpg", Alt: "avatar image"},
+				{Source: "/images/avatar.jpg", Alt: "avatar image"},
+				{Source: "/images/avatar.jpg", Alt: "avatar image"},
+				{Source: "/images/avatar.jpg", Alt: "avatar image"},
+				{Source: "/images/avatar.jpg", Alt: "avatar image"},
+			},
+		)
+	</div>
+}

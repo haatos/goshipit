@@ -1,0 +1,29 @@
+// data_display
+package components
+
+templ Table(headers []templ.Component, rows []templ.Component, attrs templ.Attributes) {
+	<div class="overflow-x-auto">
+		<table { attrs... } class="table">
+			<thead>
+				<tr>
+					for _, header := range headers {
+						<th>
+							@header
+						</th>
+					}
+				</tr>
+			</thead>
+			<tbody>
+				for _, trow := range rows {
+					@trow
+				}
+			</tbody>
+		</table>
+	</div>
+}
+
+// Component to use as plain text when
+// templ.Component is used as argument
+templ PlainText(content string) {
+	{ content }
+}

@@ -1,0 +1,42 @@
+// data_display
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ TestimonialGrid(title string, testimonials []model.Testimonial) {
+	<section>
+		<div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+			<h2 class="text-center text-4xl font-bold tracking-tight sm:text-5xl">
+				{ title }
+			</h2>
+			<div class="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
+				for i := range testimonials {
+					<div class="mb-8 sm:break-inside-avoid">
+						<blockquote class="rounded-lg bg-base-300 p-6 shadow-sm sm:p-8">
+							<div class="flex items-center gap-4">
+								if testimonials[i].Avatar != nil {
+									@testimonials[i].Avatar
+								}
+								<div>
+									@RatingDisplay(model.Rating{
+										Name:  fmt.Sprintf("review-rating-%d", i),
+										Min:   1,
+										Max:   5,
+										Value: testimonials[i].Rating,
+									})
+									<p class="mt-0.5 text-lg font-medium">{ testimonials[i].Name }</p>
+								</div>
+							</div>
+							<p class="mt-4">
+								{ testimonials[i].Content }
+							</p>
+						</blockquote>
+					</div>
+				}
+			</div>
+		</div>
+	</section>
+}

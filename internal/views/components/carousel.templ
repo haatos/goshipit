@@ -1,0 +1,14 @@
+// data_display
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Carousel(images []model.Image) {
+	<div class="carousel carousel-center rounded-box">
+		for _, img := range images {
+			<div class="carousel-item [&:not(:last-child)]:border-r border-r-base-300">
+				<img class="max-w-xs" src={ img.Source } alt={ img.Alt }/>
+			</div>
+		}
+	</div>
+}

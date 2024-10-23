@@ -1,0 +1,60 @@
+// data_input
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ FileInput(input model.Input) {
+	<div
+		hx-target={ fmt.Sprintf("#%s-error", input.Name) }
+		hx-swap="outerHTML"
+		class="w-full"
+	>
+		<label class="form-control w-full pb-2">
+			if input.Label != "" {
+				<div class="label pr-2">
+					<span class="label-text">{ input.Label }</span>
+				</div>
+			}
+			<div
+				id={ input.Name + "-container" }
+				class={
+					"relative !px-0 bg-transparent w-full flex items-center flex-grow",
+					templ.KV("!pl-3", input.Icon != nil),
+				}
+			>
+				<input
+					{ input.Attrs... }
+					type="file"
+					name={ input.Name }
+					class={
+						"w-full file-input file-input-bordered",
+						templ.KV("input-error", input.Err != ""),
+					}
+					value={ input.Value }
+				/>
+				<script>
+					document.addEventListener("htmx:afterRequest", (evt) => {
+						let name = evt.detail.elt.getAttribute("name")
+						let div = document.getElementById(name + "-div")
+						if (div === null) {
+							return
+						}
+						let inp = div.querySelector("input[name=" + name + "]")
+						if (200 <= evt.detail.xhr.status && evt.detail.xhr.status < 300) {
+							if (inp.classList.contains("input-error")) {
+								inp.classList.toggle("input-error")
+							}
+						} else {
+							if (!inp.classList.contains("input-error")) {
+								inp.classList.toggle("input-error")
+							}
+						}
+					})
+				</script>
+			</div>
+		</label>
+	</div>
+}

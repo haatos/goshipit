@@ -1,0 +1,14 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicFileInput() {
+	@components.FileInput(model.Input{
+		Label: "File upload",
+		Name:  "file",
+	})
+}

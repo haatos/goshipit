@@ -1,0 +1,35 @@
+// data_input
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+/*
+Note: usage requires alpine.js
+*/
+
+templ Range(r model.Range) {
+	<script src="/js/alpine.js" defer></script>
+	<div class="form-control">
+		<label
+			class="label space-x-1"
+			x-data={ fmt.Sprintf("{ value: %d }", r.Value) }
+		>
+			if r.Label != "" {
+				<span>{ r.Label }</span>
+			}
+			<input
+				type="range"
+				name={ r.Name }
+				min={ fmt.Sprintf("%d", r.Min) }
+				max={ fmt.Sprintf("%d", r.Max) }
+				x-model="value"
+				class={ "range", r.Class }
+				step={ fmt.Sprintf("%d", r.Step) }
+			/>
+			<div x-text="value" class="w-full max-w-7"></div>
+		</label>
+	</div>
+}

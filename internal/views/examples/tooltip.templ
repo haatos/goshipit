@@ -1,0 +1,12 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BasicTooltip() {
+	<div class="min-h-60 flex justify-center items-center">
+		@components.Tooltip("Hello") {
+			<button class="btn">Hover me</button>
+		}
+	</div>
+}

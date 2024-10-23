@@ -1,0 +1,18 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ ImageDiff() {
+	<div class="flex mx-auto pt-4 min-h-[240px] sm:min-h-[300px] lg:min-h-[480px]">
+		@components.Diff(
+			16,
+			19,
+			model.Image{Source: "/images/diff1.png", Alt: "diff image 1"},
+			model.Image{Source: "/images/diff2.png", Alt: "diff image 2"},
+		)
+	</div>
+}

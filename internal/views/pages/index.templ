@@ -1,0 +1,388 @@
+package pages
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+	"github.com/haatos/goshipit/internal/views/scripts"
+)
+
+templ IndexPage() {
+	@SideNavLayout(nil) {
+		<div class="w-full space-y-12">
+			<div class="pt-12 lg:pt-24 pb-8 lg:pb-12 flex flex-col lg:flex-row w-full max-w-screen-md mx-auto">
+				<div class="hero">
+					<div class="flex flex-col text-6xl sm:text-7xl md:text-8xl font-orbitron text-transparent bg-clip-text bg-gradient-to-b from-base-content/80 via-base-content to-base-content/80 uppercase">
+						<span>Go</span>
+						<br/>
+						<span class="pl-[44px] sm:pl-[52px] md:pl-[72px]">Ship</span>
+						<br/>
+						<span class="pl-[86px] sm:pl-[104px] md:pl-[142px]">. it</span>
+					</div>
+				</div>
+				<div class="flex justify-center items-center w-full max-w-72 sm:max-w-lg mx-auto text-xl sm:text-2xl lg:max-w-5xl pt-8 lg:pt-2">
+					<ul class="flex flex-col justify-center items-center space-y-1">
+						<p class="text-neutral font-bold text-center md:text-start">
+							The component library to
+						</p>
+						<p class="text-neutral font-bold text-center md:text-start">
+							give your Go applications
+						</p>
+						<p class="text-neutral font-bold text-center md:text-start">
+							a running start
+						</p>
+					</ul>
+				</div>
+			</div>
+			@components.Features(
+				"",
+				[]model.Feature{
+					{
+						Icon:        goIcon(),
+						Title:       "Golang",
+						Description: "simple and efficient programming language ideal for building scalable, high-performance applications",
+						URL:         "https://go.dev",
+					},
+					{
+						Icon:        templIcon(),
+						Title:       "Templ",
+						Description: "fast, type-safe templating engine for Go to create HTML templates using Go code",
+						URL:         "https://templ.guide",
+					},
+					{
+						Icon:        htmxIcon(),
+						Title:       "HTMX",
+						Description: "lightweight JavaScript library to simplify building dynamic, interactive web applications",
+						URL:         "https://htmx.org",
+					},
+					{
+						Icon:        tailwindcssIcon(),
+						Title:       "TailwindCSS",
+						Description: "utility-first CSS framework to create flexible and efficient modern web interfaces",
+						URL:         "https://tailwindcss.com",
+					},
+					{
+						Icon:        daisyuiIcon(),
+						Title:       "DaisyUI",
+						Description: "component library to create attractive, responsive user interfaces with minimal custom styling",
+						URL:         "https://daisyui.com",
+					},
+					{
+						Icon:        modelIcon(),
+						Title:       "Types",
+						Description: "optional component arguments to simplify usage and reduce boilerplate code",
+						URL:         "https://goship.it/types",
+					},
+				},
+			)
+			<section class="prose w-full max-w-screen-sm mx-auto">
+				<h2>Develop with the stack you love and go ship it</h2>
+				<p>
+					goship.it is a Golang + Templ + HTMX (+ TailwindCSS + DaisyUI) component library that enables you to quickly develop an application using the GOTH stack, and put it in the hands of potential customers as quickly as possible.
+				</p>
+				<p>
+					The library contains DaisyUI components translated into <i>Templ</i> components that can be easily customized using both TailwindCSS and DaisyUI.
+				</p>
+				<p>
+					Examples here use <a href="https://echo.labstack.com/" class="link">Echo</a> as the router. For usage with other routers or frameworks, refer to the integration guides found at <a href="https://templ.guide/integrations/web-frameworks" class="link">templ.guide</a> to see examples of rendering in different frameworks/libraries.
+				</p>
+			</section>
+		</div>
+	}
+}
+
+templ goIcon() {
+	<svg
+		class="w-32 h-32"
+		viewBox="0 -160 512 512"
+		version="1.1"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		preserveAspectRatio="xMidYMid"
+	>
+		<g>
+			<path d="M292.533152,13.2950639 L293.657233,14.0455076 C306.869315,22.7704678 316.342129,34.7361275 322.574244,49.1946331 C324.069951,51.4381943 323.072813,52.6846171 320.081398,53.4324709 L315.017741,54.7277932 C303.571167,57.6768058 294.487155,60.1566573 283.191384,63.10567 L276.74841,64.7843862 C274.428264,65.3583626 273.787695,65.1170696 271.320433,62.3073717 L270.972336,61.9081465 C267.453024,57.9195933 264.816991,55.2559574 260.154613,52.878088 L259.255961,52.4353326 C243.551033,44.7075107 228.344673,46.9510719 214.135452,56.1746012 C197.184101,67.1431227 188.459141,83.3466202 188.708425,103.538671 C188.95771,123.481438 202.668362,139.93422 222.361843,142.67635 C239.313195,144.919911 253.522416,138.937081 264.740222,126.223568 C266.983783,123.481438 268.978059,120.490023 271.470905,117.000039 L223.358982,117.000039 C218.124006,117.000039 216.877583,113.759339 218.622575,109.521501 L219.486848,107.487264 C222.690544,100.033179 227.659682,89.3185944 230.887235,83.1925665 L231.591356,81.8743455 C232.452883,80.3801337 234.202861,78.3609287 237.568203,78.3609287 L317.791861,78.3603482 C321.394911,66.9456209 327.24084,56.159659 335.038473,45.9539335 C353.236247,22.0226141 375.17329,9.55838523 404.838154,4.32340907 C430.265181,-0.163713323 454.196501,2.32913245 475.884259,17.0369225 C495.577741,30.4982897 507.792685,48.6960639 511.033385,72.6273834 C515.271222,106.280802 505.549124,133.702105 482.365658,157.134856 C465.912876,173.836922 445.720825,184.306875 422.537359,189.043282 C415.806676,190.289704 409.075992,190.538989 402.594593,191.286843 C379.909697,190.788274 359.219077,184.306875 341.769156,169.3498 C329.496056,158.740849 321.041799,145.701725 316.840932,130.522127 C313.926247,136.409796 310.44016,142.04853 306.370746,147.412757 C288.422257,171.094792 264.989506,185.802582 235.324641,189.791135 C210.894753,193.031835 188.209856,188.295428 168.26709,173.338353 C149.820031,159.378417 139.350079,140.931358 136.607949,117.997177 C133.367249,90.8251575 141.344356,66.3952689 157.797138,44.9567952 C175.496343,21.7733295 198.929093,7.06553943 227.59682,1.8305633 C250.59563,-2.32879605 272.633891,0.235689133 292.533152,13.2950639 L292.533152,13.2950639 Z M411.120284,49.0171223 L410.322415,49.1946331 C387.138949,54.4296092 372.181875,69.1373993 366.697614,92.5701496 C362.210492,112.014347 371.683306,131.707829 389.631795,139.684935 C403.342447,145.667765 417.053099,144.919911 430.265181,138.189228 C449.958663,127.96856 460.6779,112.014347 461.924323,90.575873 C461.675038,87.3351735 461.675038,84.8423277 461.176469,82.3494819 C456.739764,57.9476028 434.511926,44.025432 411.120284,49.0171223 L411.120284,49.0171223 Z M116.415898,94.5644262 C117.413036,94.5644262 117.911605,95.3122799 117.911605,96.3094183 L117.413036,102.292248 C117.413036,103.289387 116.415898,104.03724 115.668044,104.03724 L61.3240061,103.787956 C60.3268678,103.787956 60.0775833,103.040102 60.5761524,102.292248 L64.0661365,96.0601337 C64.5647057,95.3122799 65.561844,94.5644262 66.5589823,94.5644262 L116.415898,94.5644262 Z M121.900159,71.6302451 C122.897297,71.6302451 123.395866,72.3780988 123.146581,73.1259525 L121.152305,79.1087824 C120.90302,80.1059207 119.905882,80.6044899 118.908744,80.6044899 L0.99713831,80.8537744 C0,80.8537744 -0.249284578,80.3552053 0.249284578,79.6073515 L5.48426071,72.8766679 C5.98282987,72.1288142 7.22925276,71.6302451 8.22639107,71.6302451 L121.900159,71.6302451 Z M134.862957,48.6960639 C135.860095,48.6960639 136.109379,49.4439176 135.61081,50.1917714 L131.372973,56.6731704 C130.874403,57.4210241 129.62798,58.1688779 128.880127,58.1688779 L38.6391096,57.9195933 C37.6419713,57.9195933 37.3926867,57.4210241 37.8912558,56.6731704 L43.126232,49.9424868 C43.6248011,49.1946331 44.871224,48.6960639 45.8683623,48.6960639 L134.862957,48.6960639 Z" fill="#00ACD7" fill-rule="nonzero"></path>
+		</g>
+	</svg>
+}
+
+templ templIcon() {
+	<div class="h-32 flex justify-center items-center">
+		<img src="/images/templ.png" alt="templ" class="max-h-12 mx-auto"/>
+	</div>
+}
+
+templ htmxIcon() {
+	<div class="h-32 flex justify-center items-center text-4xl md:text-6xl font-bold ">
+		<span>{ "<" }</span><span class="text-[#3d72d7]">/</span><span>{ ">" }</span>
+	</div>
+}
+
+templ tailwindcssIcon() {
+	<div class="h-32 flex justify-center items-center">
+		<svg
+			class="w-20 h-20 mx-auto"
+			viewBox="0 0 24 24"
+			role="img"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="#38bdf8"
+		><title>Tailwind CSS icon</title><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"></path></svg>
+	</div>
+}
+
+templ daisyuiIcon() {
+	<div class="h-32 flex justify-center items-center">
+		<svg
+			class="w-20 h-20"
+			viewBox="0 0 1024 1024"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<rect x="256" y="670.72" width="512" height="256" rx="128" fill="#1AD1A5"></rect>
+			<circle cx="512" cy="353.28" r="256" fill="white"></circle>
+			<circle cx="512" cy="353.28" r="261" stroke="black" stroke-opacity="0.2" stroke-width="10"></circle>
+			<circle cx="512" cy="353.28" r="114.688" fill="#FF9903"></circle>
+		</svg>
+	</div>
+}
+
+templ modelIcon() {
+	<div class="h-32 flex justify-center items-center">
+		<svg class="fill-base-content/75 w-20 h-20" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<style>
+      .cls-1 {
+        fill: none;
+      }
+    </style>
+			</defs>
+			<path d="M28.4473,16.1055,23,13.3818V7a1,1,0,0,0-.5527-.8945l-6-3a1.0008,1.0008,0,0,0-.8946,0l-6,3A1,1,0,0,0,9,7v6.3818L3.5527,16.1055A1,1,0,0,0,3,17v7a1,1,0,0,0,.5527.8945l6,3a1.001,1.001,0,0,0,.8946,0L16,25.1182l5.5527,2.7763a1.001,1.001,0,0,0,.8946,0l6-3A1,1,0,0,0,29,24V17A1,1,0,0,0,28.4473,16.1055ZM21,13.3818l-4,2V10.6182l4-2ZM16,5.1182,19.7637,7,16,8.8818,12.2363,7Zm-5,3.5,4,2v4.7636l-4-2ZM9,25.3818l-4-2V18.6182l4,2Zm1-6.5L6.2363,17,10,15.1182,13.7637,17Zm1,1.7364,4-2v4.7636l-4,2Zm10,4.7636-4-2V18.6182l4,2Zm1-6.5L18.2363,17,22,15.1182,25.7637,17Zm5,4.5-4,2V20.6182l4-2Z"></path>
+			<rect id="_Transparent_Rectangle_" data-name="<Transparent Rectangle>" class="cls-1" width="32" height="32"></rect>
+		</svg>
+	</div>
+}
+
+templ AboutPage() {
+	@SideNavLayout(nil) {
+		@AboutPageMain()
+	}
+}
+
+templ AboutPageMain() {
+	<div class="flex flex-col justify-center items-center w-full max-w-screen-md mx-auto px-8 xl:px-0 min-h-svh pb-24">
+		<div class="hero">
+			<div class="hero-content !px-4 lg:!px-0 flex-col-reverse lg:flex-row-reverse">
+				<img
+					src="/images/profile-long.jpg"
+					class="hidden lg:block max-w-[240px] rounded-box"
+				/>
+				<img
+					src="/images/profile.jpg"
+					class="lg:hidden max-w-[240px] rounded-box"
+				/>
+				<div>
+					<h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
+						Hi, my name is <span class="text-primary text-5xl md:text-8xl">Tomi</span>
+					</h1>
+					<p class="pt-6">
+						I'm a software developer from Finland. I'm a creative problem solver
+						who enjoys creating quality driven software.
+					</p>
+					<p class="pt-6">
+						Many of my hobby projects are available on <a href="https://github.com/haatos" class="link">Github</a>, mostly written in
+						<span class="text-primary font-bold">Go</span> and <span class="text-primary font-bold">Python</span>,
+						with some <span class="text-primary font-bold">Javascript</span> (React & Nextjs) sprinkled in.
+					</p>
+					<p class="pt-6">
+						My website <a href="https://haatos.com" class="link">haatos.com </a> contains articles on learning programming (using Go), and a few more advanced tutorials on how to create specific functionality for your web applications.
+					</p>
+					<p class="pt-6">
+						You can reach me on <a href="https://linkedin.com/in/tomihaapalainen" class="link link-primary">LinkedIn</a>
+						or by emailing me at <a href="mailto:tomi@haatos.com" class="link link-primary">tomi@haatos.com</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+templ GettingStartedPage(html string) {
+	@SideNavLayout(nil) {
+		@GettingStartedPageMain(html)
+	}
+	@scripts.CodeCopyButtonScript()
+}
+
+templ GettingStartedPageMain(html string) {
+	<div class="prose !max-w-screen-lg pt-8">
+		@templ.Raw(html)
+	</div>
+	@scripts.HXCodeCopyButtonScript()
+}
+
+templ TypesPage(html string) {
+	@SideNavLayout(nil) {
+		@TypesPageMain(html)
+	}
+	@scripts.CodeCopyButtonScript()
+}
+
+templ TypesPageMain(html string) {
+	<div class="prose !max-w-screen-lg pt-8">
+		@templ.Raw(html)
+	</div>
+	@scripts.HXCodeCopyButtonScript()
+}
+
+templ PrivacyPage(domain, contactEmail string) {
+	@SideNavLayout(nil) {
+		@PrivacyMain(domain, contactEmail)
+	}
+}
+
+templ PrivacyMain(domain, contactEmail string) {
+	<section class="w-full max-w-screen-md mx-auto px-8 xl:px-0 prose pt-12 pb-32 min-h-screen flex flex-col text-justify">
+		<h1>
+			Privacy Policy for { domain }
+		</h1>
+		<p>
+			At { domain }, the privacy of our visitors is of utmost importance to us.
+			This Privacy Policy document outlines the types of personal information that
+			is received and collected by { domain } and how it is used.
+		</p>
+		<h2>
+			Information We Collect
+		</h2>
+		<p>
+			Personal Information: When you visit { domain }, we may collect personal information
+			that you voluntarily provide to us, such as your name, email address, and any other
+			information you choose to provide when contacting us or signing up for our services.
+		</p>
+		<p>
+			Log Files: Like many other websites, { domain } makes use of log files. The information
+			inside the log files includes internet protocol (IP) addresses, type of browser,
+			Internet Service Provider (ISP), date/time stamp, referring/exit pages, and number of
+			clicks to analyze trends, administer the site, track user's movement around the site,
+			and gather demographic information. IP addresses and other such information are not
+			linked to any information that is personally identifiable.
+		</p>
+		<p>
+			Cookies and Web Beacons: { domain } uses cookies to store information about visitors'
+			preferences, to record user-specific information on which pages the user accesses or
+			visits, and to customize web page content based on visitors' browser type or other
+			information that the visitor sends via their browser.
+		</p>
+		<h2>
+			How We Use Your Information
+		</h2>
+		<ul>
+			<li>
+				We may use the information we collect from you to personalize your experience and to provide you with better service.
+			</li>
+			<li>
+				Your information helps us to more effectively respond to your customer service requests and support needs.
+			</li>
+			<li>
+				We may periodically send promotional emails about new products, special offers, or
+				other information which we think you may find interesting using the email address
+				which you have provided.
+			</li>
+			<li>
+				We may use the information to improve our products and services.
+			</li>
+		</ul>
+		<h2>
+			Disclosure of Information
+		</h2>
+		<p>
+			{ domain } does not sell, trade, or otherwise transfer your personally identifiable
+			information to outside parties. This does not include trusted third parties who
+			assist us in operating our website, conducting our business, or servicing you, so
+			long as those parties agree to keep this information confidential. We may also release
+			your information when we believe release is appropriate to comply with the law, enforce
+			our site policies, or protect ours or others' rights, property, or safety.
+		</p>
+		<h2>
+			Consent
+		</h2>
+		<p>
+			By using our website, you hereby consent to our Privacy Policy and agree to its terms.
+		</p>
+		<h2>
+			Updates
+		</h2>
+		<p>
+			This Privacy Policy may change from time to time, and all updates will be posted on this page.
+		</p>
+		<p>
+			If you require any more information or have any questions about our Privacy Policy,
+			please feel free to contact us through email at { contactEmail }.
+		</p>
+	</section>
+}
+
+templ TermsOfService(domain, contactEmail string) {
+	@SideNavLayout(nil) {
+		@TermsOfServiceMain(domain, contactEmail)
+	}
+}
+
+templ TermsOfServiceMain(domain, contactEmail string) {
+	<section class="prose pt-12 pb-32 px-8 xl:px-0 w-full mx-auto max-w-screen-md min-h-screen flex flex-col text-justify">
+		<h1>Terms of Service for { domain }</h1>
+		<p>
+			These Terms of Service govern your use of { domain }. By accessing or using { domain },
+			you agree to be bound by these Terms of Service.
+		</p>
+		<h2>Use of Content</h2>
+		<p>
+			The content provided on { domain } is for your general information and personal use only.
+			It is subject to change without notice.
+		</p>
+		<p>
+			Reproduction of any material from { domain } is prohibited unless it is in accordance
+			with the copyright notice, which forms part of these terms and conditions.
+		</p>
+		<p>
+			All trademarks reproduced on { domain }, which are not the property of, or licensed
+			to the operator, are acknowledged on the website.
+		</p>
+		<h2>User Conduct</h2>
+		<p>
+			You agree not to use { domain }<span>for</span> any unlawful purpose or in any way that could damage,
+			disable, overburden, or impair the site or interfere with any other party's use and enjoyment
+			of { domain }.
+		</p>
+		<p>
+			You must not attempt to gain unauthorized access to { domain }, the server on which it is stored,
+			or any server, computer, or database connected to { domain }.
+		</p>
+		<h2>Links to Other Websites</h2>
+		<p>
+			{ domain } may contain links to other websites. These links are provided for your convenience
+			to provide further information. They do not signify that we endorse the website(s).
+			We have no responsibility for the content of the linked website(s).
+		</p>
+		<h2>Limitation of Liability</h2>
+		<p>
+			In no event shall { domain } or its owners, operators, or affiliates be liable for any direct,
+			indirect, punitive, incidental, special, or consequential damages arising out of, or in any way
+			connected with, the use of { domain } or with the delay or inability to use { domain }.
+		</p>
+		<h2>Indemnity</h2>
+		<p>
+			You agree to indemnify and hold { domain } and its owners, operators, and affiliates harmless
+			from any claim or demand, including reasonable attorneys' fees, made by any third party due to
+			or arising out of your breach of these Terms of Service or your violation of any law or the rights
+			of a third party.
+		</p>
+		<h2>Changes to Terms of Service</h2>
+		<p>
+			{ domain } reserves the right to revise these Terms of Service at any time without notice.
+			By using { domain }, you are agreeing to be bound by the then-current version of these
+			Terms of Service.
+		</p>
+		<p>
+			If you have any questions about these Terms of Service, please contact us at { contactEmail }.
+		</p>
+	</section>
+}

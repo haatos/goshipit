@@ -1,0 +1,19 @@
+// data_display
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ Diff(w, h int, image1, image2 model.Image) {
+	<div class={ "diff", fmt.Sprintf("aspect-[%d/%d]", w, h) }>
+		<div class="diff-item-1">
+			<img alt={ image1.Alt } src={ image1.Source }/>
+		</div>
+		<div class="diff-item-2">
+			<img alt={ image2.Alt } src={ image2.Source }/>
+		</div>
+		<div class="diff-resizer"></div>
+	</div>
+}

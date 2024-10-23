@@ -1,0 +1,59 @@
+// data_input
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ Rating(r model.Rating) {
+	<div class="rating">
+		for i := r.Min; i <= r.Max; i++ {
+			if i == 0 {
+				<input
+					type="radio"
+					name={ r.Name }
+					value={ fmt.Sprintf("%d", i) }
+					class="rating-hidden"
+				/>
+			} else {
+				<input
+					type="radio"
+					name={ r.Name }
+					value={ fmt.Sprintf("%d", i) }
+					class={ "mask mask-star-2 bg-yellow-400", r.Class }
+					if i+1 == r.Max {
+						checked="checked"
+					}
+				/>
+			}
+		}
+	</div>
+}
+
+templ RatingDisplay(r model.Rating) {
+	<div class="rating">
+		for i := r.Min; i <= r.Max; i++ {
+			if i == 0 {
+				<input
+					type="radio"
+					name={ r.Name }
+					value={ fmt.Sprintf("%d", i) }
+					class="rating-hidden cursor-default"
+					disabled
+				/>
+			} else {
+				<input
+					type="radio"
+					name={ r.Name }
+					value={ fmt.Sprintf("%d", i) }
+					class={ "mask mask-star-2 bg-accent cursor-default", r.Class }
+					if i == r.Value {
+						checked="checked"
+					}
+					disabled
+				/>
+			}
+		}
+	</div>
+}

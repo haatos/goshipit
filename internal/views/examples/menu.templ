@@ -1,0 +1,25 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ MenuExample() {
+	<div class="mx-auto max-w-xs pt-4">
+		@components.Menu() {
+			@components.MenuItem("Section 1", templ.Attributes{"class": "menu-title"})
+			@components.MenuItem("Section 2", templ.Attributes{"class": "menu-title"}) {
+				@components.MenuItem("2.1", nil) {
+					@components.MenuItem("2.1.1", nil)
+					@components.MenuItem("2.1.2", nil)
+				}
+				@components.MenuItem("2.2", nil) {
+					@components.MenuItem("2.2.1", nil)
+				}
+				@components.MenuItem("2.3", nil)
+			}
+			@components.MenuItem("Section 3", templ.Attributes{"class": "menu-title"}) {
+				@components.MenuItem("3.1", nil)
+			}
+		}
+	</div>
+}

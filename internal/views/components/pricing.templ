@@ -1,0 +1,67 @@
+// data_display
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Pricing(checked bool, prices []model.Price) {
+	<div class="w-full mx-auto py-8 max-w-screen-md">
+		<div class="max-w-xs mx-auto">
+			@Toggle(model.Toggle{
+				Before:    "Paid monthly",
+				After:     "Paid annually",
+				Name:      "period",
+				Checked:   checked,
+				Highlight: true,
+				Attrs: templ.Attributes{
+					"hx-get":    "/pricing",
+					"hx-target": "#price-grid",
+					"hx-swap":   "outerHTML",
+				},
+			})
+		</div>
+		@PriceGrid(prices)
+	</div>
+}
+
+templ PriceGrid(prices []model.Price) {
+	<div id="price-grid" class="grid grid-cols-1 md:grid-cols-3 px-4 pt-4 gap-4 w-full mx-auto">
+		for i := range prices {
+			@Price(prices[i], nil)
+		}
+	</div>
+}
+
+templ Price(price model.Price, footer templ.Component) {
+	<div class="card ring-1 ring-base-content/60 rounded-box w-full max-w-xs p-6 space-y-8 mx-auto">
+		<div class="card-title text-3xl"><h2 class="mx-auto">{ price.Title }</h2></div>
+		<p class="text-center text-3xl font-bold">{ price.Price } <span class="text-xs font-normal">{ price.Per }</span></p>
+		<button { price.CallToAction.Attrs... }>
+			{ price.CallToAction.Label }
+		</button>
+		<div class="text-sm">
+			<ul class="space-y-4">
+				for i := range price.IncludedFeatures {
+					<li class="flex items-center space-x-2">
+						<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+							<path class="fill-base-content" fill-rule="evenodd" clip-rule="evenodd" d="M21.5821 5.54289C21.9726 5.93342 21.9726 6.56658 21.5821 6.95711L10.2526 18.2867C9.86452 18.6747 9.23627 18.6775 8.84475 18.293L2.29929 11.8644C1.90527 11.4774 1.89956 10.8443 2.28655 10.4503C2.67354 10.0562 3.30668 10.0505 3.70071 10.4375L9.53911 16.1717L20.1679 5.54289C20.5584 5.15237 21.1916 5.15237 21.5821 5.54289Z"></path>
+						</svg>
+						<span>{ price.IncludedFeatures[i] }</span>
+					</li>
+				}
+			</ul>
+			if len(price.ExcludedFeatures) > 0 {
+				<div class="divider !my-2"></div>
+			}
+			<ul class="space-y-4">
+				for i := range price.ExcludedFeatures {
+					<li class="flex items-center space-x-2 pl-6">
+						<span class="text-base-content/50">{ price.ExcludedFeatures[i] }</span>
+					</li>
+				}
+			</ul>
+		</div>
+		if footer != nil {
+			@footer
+		}
+	</div>
+}

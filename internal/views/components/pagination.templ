@@ -1,0 +1,121 @@
+// navigation
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ Pagination(id string, p model.PaginationItem) {
+	<div id={ id }>
+		<!-- paginated content goes here -->
+		{ children... }
+		<!-- -->
+		<div class="join">
+			@PaginationButton(id, p.URL, 1, p.Page == 1) {
+				@AnglesLeft()
+			}
+			@PaginationButton(id, p.URL, p.Page-1, p.Page == 1) {
+				@ChevronLeft()
+			}
+			for i := p.Low; i <= p.High; i++ {
+				@PaginationButton(id, p.URL, i+1, p.Page == i+1) {
+					{ fmt.Sprintf("%d", i+1) }
+				}
+			}
+			@PaginationButton(id, p.URL, p.Page+1, p.Page == p.MaxPages) {
+				@ChevronRight()
+			}
+			@PaginationButton(id, p.URL, p.MaxPages, p.Page == p.MaxPages) {
+				@AnglesRight()
+			}
+		</div>
+	</div>
+}
+
+templ PaginationButton(id, url string, urlPage int, disabled bool) {
+	<button
+		if url != "" {
+			hx-get={ fmt.Sprintf("%s?page=%d", url, urlPage) }
+			hx-target={ fmt.Sprintf("#%s", id) }
+			hx-swap="outerHTML"
+		}
+		class={
+			"join-item btn btn-square disabled:opacity-40",
+			templ.KV("btn-disabled", disabled),
+		}
+		if disabled {
+			disabled
+		}
+	>
+		{ children... }
+	</button>
+}
+
+templ AnglesRight() {
+	<svg
+		class="w-4 h-4"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M6 17L11 12L6 7M13 17L18 12L13 7"
+			class="stroke-base-content"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		></path>
+	</svg>
+}
+
+templ AnglesLeft() {
+	<svg
+		class="w-4 h-4"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M18 17L13 12L18 7M11 17L6 12L11 7"
+			class="stroke-base-content"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		></path>
+	</svg>
+}
+
+templ ChevronRight() {
+	<svg
+		class="w-4 h-4"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M9 6L15 12L9 18"
+			class="stroke-base-content"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		></path>
+	</svg>
+}
+
+templ ChevronLeft() {
+	<svg
+		class="w-4 h-4"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M15 6L9 12L15 18"
+			class="stroke-base-content"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		></path>
+	</svg>
+}

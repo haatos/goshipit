@@ -1,0 +1,16 @@
+// navigation
+package components
+
+templ Steps() {
+	<ul class="steps">
+		{ children... }
+	</ul>
+}
+
+templ Step(label string, done bool, attrs templ.Attributes) {
+	<li
+		class={ "step", templ.KV("step-primary", done) }
+	>
+		<a { attrs... }>{ label }</a>
+	</li>
+}

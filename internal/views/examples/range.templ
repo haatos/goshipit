@@ -1,0 +1,21 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicRange() {
+	<div class="max-w-sm mx-auto pt-4">
+		@components.Range(
+			model.Range{
+				Name:  "my-range",
+				Value: 25,
+				Min:   0,
+				Max:   100,
+				Step:  5,
+			},
+		)
+	</div>
+}

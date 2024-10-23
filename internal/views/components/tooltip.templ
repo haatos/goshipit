@@ -1,0 +1,14 @@
+// feedback
+package components
+
+templ Tooltip(tip string) {
+	<div class="tooltip" data-tip={ tip }>
+		{ children... }
+	</div>
+}
+
+templ TooltipError(tip string) {
+	<div class="tooltip tooltip-top tooltip-error" data-tip={ tip }>
+		{ children... }
+	</div>
+}

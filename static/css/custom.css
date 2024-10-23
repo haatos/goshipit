@@ -1,0 +1,50 @@
+.font-orbitron {
+    font-family: "Orbitron", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+}
+
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+.htmx-request .htmx-indicator {
+    opacity: 1
+}
+
+.htmx-request.htmx-indicator {
+    opacity: 1
+}
+
+article>p>img {
+    margin: auto;
+}
+
+pre[class=chroma] {
+    position: relative;
+    overflow: auto;
+
+    /* make space  */
+    margin: 5px 0;
+    padding: 1.75rem 0 1.75rem 1rem;
+    border-radius: 10px;
+}
+
+pre[class=chroma] button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+pre[class=chroma] button:hover {
+    cursor: pointer;
+}

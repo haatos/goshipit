@@ -1,0 +1,35 @@
+package pages
+
+templ NotFound() {
+	@SideNavLayout(nil) {
+		<div class="w-full max-w-screen-lg mx-auto px-8 lg:px-0 min-h-svh pt-12 md:pt-12 pb-24">
+			<div class="mx-auto max-w-xs">
+				<h2 class="text-xl font-bold">404 - Not Found</h2>
+				<p>There seems to be nothing here.</p>
+			</div>
+		</div>
+	}
+}
+
+templ Forbidden(message string) {
+	@SideNavLayout(nil) {
+		<div class="w-full max-w-screen-lg mx-auto px-8 lg:px-0 min-h-svh pt-12 md:pt-12 pb-24">
+			<div class="mx-auto max-w-xs">
+				<h2 class="text-xl font-bold">403 - Forbidden</h2>
+				<p>Invalid permissions to access this page.</p>
+				<p>{ message }</p>
+			</div>
+		</div>
+	}
+}
+
+templ Unauthorized() {
+	@SideNavLayout(nil) {
+		<div class="w-full max-w-screen-lg mx-auto px-8 lg:px-0 min-h-svh pt-12 md:pt-12 pb-24">
+			<div class="mx-auto max-w-xs">
+				<h2 class="text-xl font-bold">401 - Unauthorized</h2>
+				<p>This page is for authenticated users only.</p>
+			</div>
+		</div>
+	}
+}

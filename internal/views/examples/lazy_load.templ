@@ -1,0 +1,18 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ LazyLoadExample() {
+	@components.LazyLoad("/lazy-load")
+}
+
+templ LazyLoadResult() {
+	<div class="bg-warning text-warning-content rounded-box w-28 h-28 flex justify-center items-center text-center">
+		LAZY
+		<br/>
+		LOAD
+		<br/>
+		COMPLETE
+	</div>
+}

@@ -1,0 +1,20 @@
+// navigation
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Breadcrumbs(links []model.Button) {
+	<div class="breadcrumbs text-sm">
+		<ul>
+			for i, l := range links {
+				<li class="select-none">
+					if i < len(links) - 1 {
+						<a { l.Attrs... }>{ l.Label }</a>
+					} else {
+						{ l.Label }
+					}
+				</li>
+			}
+		</ul>
+	</div>
+}

@@ -1,0 +1,29 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ DefaultRadioGroup() {
+	<div class="max-w-xs mx-auto pt-4">
+		@components.RadioGroup(
+			"my-radio-group1",
+			"",
+			map[string]string{
+				"Apples":  "apples",
+				"Oranges": "oranges",
+			})
+	</div>
+}
+
+// example
+templ PrimaryRadioGroup() {
+	<div class="max-w-xs mx-auto pt-4">
+		@components.RadioGroup(
+			"my-radio-group2",
+			"radio-primary",
+			map[string]string{
+				"Apples":  "apples",
+				"Oranges": "oranges",
+			})
+	</div>
+}

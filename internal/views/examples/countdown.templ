@@ -1,0 +1,13 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/views/components"
+	"time"
+)
+
+// example
+templ CountdownExample() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Countdown(time.Now().UTC().Add(time.Hour*48 - 40*time.Second))
+	</div>
+}

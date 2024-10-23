@@ -1,0 +1,34 @@
+// data_input
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ Textarea(textarea model.Textarea) {
+	<label class="form-control">
+		<div class="label">
+			<span class="label-text">{ textarea.Label }</span>
+		</div>
+		<textarea
+			{ textarea.Attrs... }
+			name={ textarea.Name }
+			class={
+				"textarea textarea-bordered resize-none",
+				templ.KV("textarea-error", textarea.Err != ""),
+				textarea.Class,
+			}
+			if textarea.Rows > 0 {
+				rows={ fmt.Sprintf("%d", textarea.Rows) }
+			} else {
+				rows="3"
+			}
+		>
+			{ textarea.Value }
+		</textarea>
+		<div class="label h-6 !p-0">
+			<span class="label-text-alt text-error">{ textarea.Err }</span>
+		</div>
+	</label>
+}

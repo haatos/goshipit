@@ -1,0 +1,39 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicTabs() {
+	@components.Tabs(
+		"basic-tabs",
+		[]model.Tab{
+			{
+				Label:   "Home",
+				Content: homeTabContent(),
+			},
+			{
+				Label:   "Info",
+				Content: infoTabContent(),
+			},
+			{
+				Label:   "Stats",
+				Content: statsTabContent(),
+			},
+		},
+	)
+}
+
+templ homeTabContent() {
+	<p>This is the home tab</p>
+}
+
+templ infoTabContent() {
+	<p>This is the info tab</p>
+}
+
+templ statsTabContent() {
+	<p>This is the stats tab</p>
+}

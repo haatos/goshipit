@@ -1,0 +1,126 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ SignUpFormExample() {
+	<div class="w-full max-w-xs mx-auto pt-12 pb-4">
+		<h2 class="text-xl text-center mb-8">Sign Up</h2>
+		@OAuthButtons()
+		<div class="divider !my-6">OR</div>
+		@SignUpForm(
+			"", "",
+			"", "",
+			"", "",
+			"", "",
+		)
+	</div>
+}
+
+// Sign up form with inline validation
+templ SignUpForm(
+	firstName, firstNameError,
+	lastName, lastNameError,
+	email, emailError,
+	password, passwordError string,
+) {
+	<div class="w-full max-w-xs mx-auto">
+		@components.Form(
+			templ.Attributes{
+				"hx-swap": "outerHTML",
+				"class":   "space-y-1",
+			},
+		) {
+			@components.Input(
+				model.Input{
+					Label: "First name",
+					Name:  "first_name",
+					Value: firstName,
+					Err:   firstNameError,
+					Attrs: templ.Attributes{
+						"type":    "text",
+						"hx-post": "/validate/string/first_name?v=notempty",
+					},
+				},
+			)
+			@components.Input(
+				model.Input{
+					Label: "Last name",
+					Name:  "last_name",
+					Value: lastName,
+					Err:   lastNameError,
+					Attrs: templ.Attributes{
+						"type":    "text",
+						"hx-post": "/validate/string/last_name?v=notempty",
+					},
+				},
+			)
+			@components.Input(
+				model.Input{
+					Label: "Email",
+					Name:  "email",
+					Value: email,
+					Err:   emailError,
+					Attrs: templ.Attributes{
+						"type":    "text",
+						"hx-post": "/validate/string/email?v=email",
+					},
+				},
+			)
+			@components.Input(
+				model.Input{
+					Label: "Password",
+					Name:  "password",
+					Value: password,
+					Err:   passwordError,
+					Attrs: templ.Attributes{
+						"type":    "password",
+						"hx-post": "/validate/string/password?v=hasupper&v=haslower&v=hasdigit",
+					},
+				},
+			)
+			<button type="submit" class="w-full btn btn-primary mt-4">
+				Sign up
+			</button>
+		}
+	</div>
+}
+
+templ OAuthButtons() {
+	<div class="w-full max-w-xs flex flex-col space-y-4 items-center justify-center">
+		@GoogleOAuthLink("")
+		@GithubOAuthLink("")
+	</div>
+}
+
+templ GoogleOAuthLink(href string) {
+	<a
+		href={ templ.SafeURL(href) }
+		class="w-full max-w-sm py-3 flex justify-center gap-2 bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-black text-slate-950 dark:text-slate-50 rounded-box shadow-md transition-colors duration-300"
+	>
+		<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+			<path d="M30.0014 16.3109C30.0014 15.1598 29.9061 14.3198 29.6998 13.4487H16.2871V18.6442H24.1601C24.0014 19.9354 23.1442 21.8798 21.2394 23.1864L21.2127 23.3604L25.4536 26.58L25.7474 26.6087C28.4458 24.1665 30.0014 20.5731 30.0014 16.3109Z" fill="#4285F4"></path>
+			<path d="M16.2863 29.9998C20.1434 29.9998 23.3814 28.7553 25.7466 26.6086L21.2386 23.1863C20.0323 24.0108 18.4132 24.5863 16.2863 24.5863C12.5086 24.5863 9.30225 22.1441 8.15929 18.7686L7.99176 18.7825L3.58208 22.127L3.52441 22.2841C5.87359 26.8574 10.699 29.9998 16.2863 29.9998Z" fill="#34A853"></path>
+			<path d="M8.15964 18.769C7.85806 17.8979 7.68352 16.9645 7.68352 16.0001C7.68352 15.0356 7.85806 14.1023 8.14377 13.2312L8.13578 13.0456L3.67083 9.64746L3.52475 9.71556C2.55654 11.6134 2.00098 13.7445 2.00098 16.0001C2.00098 18.2556 2.55654 20.3867 3.52475 22.2845L8.15964 18.769Z" fill="#FBBC05"></path>
+			<path d="M16.2864 7.4133C18.9689 7.4133 20.7784 8.54885 21.8102 9.4978L25.8419 5.64C23.3658 3.38445 20.1435 2 16.2864 2C10.699 2 5.8736 5.1422 3.52441 9.71549L8.14345 13.2311C9.30229 9.85555 12.5086 7.4133 16.2864 7.4133Z" fill="#EB4335"></path>
+		</svg>
+		<span>Sign in with Google</span>
+	</a>
+}
+
+templ GithubOAuthLink(href string) {
+	<a
+		href={ templ.SafeURL(href) }
+		class="py-3 px-4 max-w-md flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition-colors duration-300 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-box"
+	>
+		<svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="mr-2" viewBox="0 0 1792 1792">
+			<path
+				d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z"
+			></path>
+		</svg>
+		<span>Sign in with GitHub</span>
+	</a>
+}

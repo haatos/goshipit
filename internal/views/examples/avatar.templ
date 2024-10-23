@@ -1,0 +1,14 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ AvatarExample1() {
+	<div class="flex justify-center items-center space-x-4 pt-4">
+		@components.AvatarXXL("/images/avatar.jpg")
+		@components.AvatarXL("/images/avatar.jpg")
+		@components.AvatarLG("/images/avatar.jpg")
+		@components.AvatarSM("/images/avatar.jpg")
+		@components.AvatarXS("/images/avatar.jpg")
+	</div>
+}

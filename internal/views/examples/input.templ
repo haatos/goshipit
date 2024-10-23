@@ -1,0 +1,47 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicTextInput() {
+	<div class="max-w-xs mx-auto pt-4">
+		@components.Input(
+			model.Input{
+				Label: "Name",
+				Name:  "name",
+				Attrs: templ.Attributes{"type": "text", "placeholder": "Your name..."},
+			},
+		)
+	</div>
+}
+
+// example
+templ PasswordInput() {
+	<div class="max-w-xs mx-auto pt-4">
+		@components.Input(
+			model.Input{
+				Label: "Password",
+				Name:  "password",
+				Attrs: templ.Attributes{"type": "password", "placeholder": "Password..."},
+			},
+		)
+	</div>
+}
+
+// example
+templ EmailInput() {
+	<div class="max-w-xs mx-auto pt-4">
+		@components.Input(
+			model.Input{
+				Label: "Email",
+				Name:  "email",
+				Value: "not@a.valid@email.com",
+				Err:   "Please provide a valid email",
+				Attrs: templ.Attributes{"type": "text", "placeholder": "Email..."},
+			},
+		)
+	</div>
+}

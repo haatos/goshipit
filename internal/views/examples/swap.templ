@@ -1,0 +1,21 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BasicSwap() {
+	<div class="flex justify-center items-center h-20">
+		@components.Swap(
+			SwapExampleOn(),
+			SwapExampleOff(),
+		)
+	</div>
+}
+
+templ SwapExampleOn() {
+	<span class="font-bold text-success">ON</span>
+}
+
+templ SwapExampleOff() {
+	<span class="font-bold text-neutral">OFF</span>
+}

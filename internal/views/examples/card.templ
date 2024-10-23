@@ -1,0 +1,29 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicCard() {
+	<div class="flex justify-center items-center py-4">
+		@components.Card(model.Card{Title: "This is a card", Content: "And this is the card's content."})
+	</div>
+}
+
+// example
+templ BasicCardWithImage() {
+	<div class="flex justify-center items-center py-4">
+		@components.Card(
+			model.Card{
+				Title:   "Card with image",
+				Content: "Card with image content",
+				Source:  "/images/avatar.jpg",
+				Alt:     "avatar image",
+			},
+		) {
+			<button class="btn btn-sm btn-primary">Contact</button>
+		}
+	</div>
+}

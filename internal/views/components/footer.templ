@@ -1,0 +1,43 @@
+// layout
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Footer(companyInfo model.CompanyInfo, socialLinks []model.Anchor) {
+	<footer class="footer bg-base-200 text-base-content p-10 mt-24">
+		{ children... }
+	</footer>
+	<footer class="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
+		<aside class="grid-flow-col items-center">
+			if companyInfo.Icon != nil {
+				<div class="w-6 h-6">
+					@companyInfo.Icon
+				</div>
+			}
+			<p>
+				if companyInfo.Copyright != "" {
+					<span>&copy; { companyInfo.Copyright }</span>
+				}
+				{ companyInfo.Name }
+				<br/>
+				{ companyInfo.Description }
+			</p>
+		</aside>
+		<nav class="md:place-self-center md:justify-self-end">
+			<div class="grid grid-flow-col gap-4">
+				for _, socialLink := range socialLinks {
+					@SocialsLink(socialLink)
+				}
+			</div>
+		</nav>
+	</footer>
+}
+
+templ FooterNav(title string, links []model.Anchor) {
+	<nav>
+		<h6 class="footer-title">{ title }</h6>
+		for _, link := range links {
+			<a { link.Attrs... } class="link link-hover">{ link.Label }</a>
+		}
+	</nav>
+}

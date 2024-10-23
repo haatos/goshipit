@@ -1,0 +1,355 @@
+.bg {
+    color: #b0c4de;
+    background-color: #282c34
+}
+
+.chroma {
+    color: #b0c4de;
+    background-color: #282c34;
+}
+
+.chroma .lntd {
+    vertical-align: top;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.chroma .lntable {
+    border-spacing: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.chroma .hl {
+    background-color: #3d4148
+}
+
+.chroma .lnt {
+    white-space: pre;
+    user-select: none;
+    margin-right: 0.4em;
+    padding: 0 0.4em 0 0.4em;
+    color: #58626f
+}
+
+.chroma .ln {
+    white-space: pre;
+    user-select: none;
+    margin-right: 0.4em;
+    padding: 0 0.4em 0 0.4em;
+    color: #58626f
+}
+
+.chroma .line {
+    display: flex;
+}
+
+.chroma .k {
+    color: #76a9f9
+}
+
+.chroma .kc {
+    color: #e5c07b
+}
+
+.chroma .kd {
+    color: #76a9f9
+}
+
+.chroma .kn {
+    color: #76a9f9
+}
+
+.chroma .kp {
+    color: #76a9f9
+}
+
+.chroma .kr {
+    color: #76a9f9
+}
+
+.chroma .kt {
+    color: #e5c07b
+}
+
+.chroma .n {
+    color: #aa89ea
+}
+
+.chroma .na {
+    color: #cebc3a
+}
+
+.chroma .nb {
+    color: #e5c07b
+}
+
+.chroma .bp {
+    color: #aa89ea
+}
+
+.chroma .nc {
+    color: #ca72ff
+}
+
+.chroma .no {
+    color: #aa89ea;
+    font-weight: bold
+}
+
+.chroma .nd {
+    color: #e5c07b
+}
+
+.chroma .ni {
+    color: #bda26f
+}
+
+.chroma .ne {
+    color: #fd7474;
+    font-weight: bold
+}
+
+.chroma .nf {
+    color: #00b1f7
+}
+
+.chroma .fm {
+    color: #aa89ea
+}
+
+.chroma .nl {
+    color: #f5a40d
+}
+
+.chroma .nn {
+    color: #ca72ff
+}
+
+.chroma .nx {
+    color: #aa89ea
+}
+
+.chroma .py {
+    color: #cebc3a
+}
+
+.chroma .nt {
+    color: #76a9f9
+}
+
+.chroma .nv {
+    color: #dcaeea
+}
+
+.chroma .vc {
+    color: #dcaeea
+}
+
+.chroma .vg {
+    color: #dcaeea;
+    font-weight: bold
+}
+
+.chroma .vi {
+    color: #e06c75
+}
+
+.chroma .vm {
+    color: #dcaeea
+}
+
+.chroma .l {
+    color: #98c379
+}
+
+.chroma .ld {
+    color: #98c379
+}
+
+.chroma .s {
+    color: #98c379
+}
+
+.chroma .sa {
+    color: #98c379
+}
+
+.chroma .sb {
+    color: #98c379
+}
+
+.chroma .sc {
+    color: #98c379
+}
+
+.chroma .dl {
+    color: #98c379
+}
+
+.chroma .sd {
+    color: #7e97c3
+}
+
+.chroma .s2 {
+    color: #63c381
+}
+
+.chroma .se {
+    color: #d26464;
+    font-weight: bold
+}
+
+.chroma .sh {
+    color: #98c379
+}
+
+.chroma .si {
+    color: #98c379
+}
+
+.chroma .sx {
+    color: #70b33f
+}
+
+.chroma .sr {
+    color: #56b6c2
+}
+
+.chroma .s1 {
+    color: #98c379
+}
+
+.chroma .ss {
+    color: #56b6c2
+}
+
+.chroma .m {
+    color: #d19a66
+}
+
+.chroma .mb {
+    color: #d19a66
+}
+
+.chroma .mf {
+    color: #d19a66
+}
+
+.chroma .mh {
+    color: #d19a66
+}
+
+.chroma .mi {
+    color: #d19a66
+}
+
+.chroma .il {
+    color: #d19a66
+}
+
+.chroma .mo {
+    color: #d19a66
+}
+
+.chroma .o {
+    color: #54b1c7
+}
+
+.chroma .ow {
+    color: #b756ff;
+    font-weight: bold
+}
+
+.chroma .p {
+    color: #abb2bf
+}
+
+.chroma .c {
+    color: #8a93a5;
+    font-style: italic
+}
+
+.chroma .ch {
+    color: #8a93a5;
+    font-weight: bold;
+    font-style: italic
+}
+
+.chroma .cm {
+    color: #8a93a5;
+    font-style: italic
+}
+
+.chroma .c1 {
+    color: #8a93a5;
+    font-style: italic
+}
+
+.chroma .cs {
+    color: #8a93a5;
+    font-style: italic
+}
+
+.chroma .cp {
+    color: #8a93a5;
+    font-style: italic
+}
+
+.chroma .cpf {
+    color: #8a93a5;
+    font-style: italic
+}
+
+.chroma .ge {
+    font-style: italic
+}
+
+.chroma .gh {
+    color: #a2cbff;
+    font-weight: bold
+}
+
+.chroma .gi {
+    color: #a6e22e
+}
+
+.chroma .go {
+    color: #a6e22e
+}
+
+.chroma .gp {
+    color: #a6e22e
+}
+
+.chroma .gs {
+    font-weight: bold
+}
+
+.chroma .gu {
+    color: #a2cbff
+}
+
+.chroma .gt {
+    color: #a2cbff
+}
+
+.chroma .gl {
+    text-decoration: underline
+}
+
+.chroma {
+    padding: 5px;
+    border-radius: 16px;
+    max-width: 1024px;
+    overflow-x: auto;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+    .chroma {
+        padding: 10px;
+    }
+}

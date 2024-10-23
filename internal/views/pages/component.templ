@@ -1,0 +1,58 @@
+package pages
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/markdown"
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+	"github.com/haatos/goshipit/internal/views/scripts"
+)
+
+templ ComponentPage(name, code string, examples []model.ComponentExample) {
+	@SideNavLayout(nil) {
+		@ComponentMain(name, code, examples)
+	}
+	@scripts.CodeCopyButtonScript()
+}
+
+templ ComponentMain(name string, code string, examples []model.ComponentExample) {
+	<div class="w-full min-h-svh pt-8">
+		<section class="relative w-full !max-w-screen-lg">
+			<h1 class="text-4xl font-bold pb-8">
+				{ name }
+			</h1>
+			if code != "" {
+				<h2 class="text-2xl font-bold pt-12 pb-8">Code</h2>
+				<div class="relative w-full flex flex-col">
+					@templ.Raw(markdown.GetHTMLFromMarkdown([]byte(code)))
+				</div>
+			}
+			if len(examples) > 0 {
+				<h2 class="text-2xl font-bold pt-12 pb-8">Examples</h2>
+			}
+			<div class="w-full flex flex-col space-y-8">
+				for i, example := range examples {
+					@components.Tabs(
+						fmt.Sprintf("%s-%d-tabs", name, i),
+						[]model.Tab{
+							{Label: "Preview", Content: templ.Raw(example.HTML)},
+							{Label: "Code", Content: templ.Raw(example.Code)},
+						},
+					)
+				}
+			</div>
+		</section>
+	</div>
+	@scripts.HXCodeCopyButtonScript()
+}
+
+templ ComponentExampleCode(code string) {
+	<div class="relative w-full flex flex-col mt-4">
+		@templ.Raw(markdown.GetHTMLFromMarkdown([]byte(code)))
+	</div>
+	@scripts.HXCodeCopyButtonScript()
+}
+
+templ RawHTML(html string) {
+	@templ.Raw(html)
+}

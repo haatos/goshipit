@@ -1,0 +1,13 @@
+// data_display
+package components
+
+templ LazyLoad(url string) {
+	<div
+		hx-get={ url }
+		hx-trigger="load"
+		hx-target="this"
+		class="flex justify-center items-center py-8"
+	>
+		<span class="loading loading-spinner"></span>
+	</div>
+}

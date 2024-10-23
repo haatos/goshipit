@@ -1,0 +1,18 @@
+// data_input
+package components
+
+templ RadioGroup(name, classes string, labelsToValues map[string]string) {
+	for l, v := range labelsToValues {
+		<div class="form-control">
+			<label class="label cursor-pointer">
+				<span class="label-text">{ l }</span>
+				<input
+					type="radio"
+					name={ name }
+					value={ v }
+					class={ "radio", classes }
+				/>
+			</label>
+		</div>
+	}
+}

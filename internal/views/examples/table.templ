@@ -1,0 +1,42 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicTable() {
+	@components.Table(
+		[]templ.Component{
+			components.Checkbox(
+				model.Checkbox{
+					Name: "all",
+				},
+			),
+			components.PlainText("Name"),
+			components.PlainText("Email"),
+		},
+		[]templ.Component{
+			TableExampleRow("John Doe", "john.doe@example.com"),
+			TableExampleRow("Jane Doe", "Jane.doe@example.com"),
+			TableExampleRow("Jim Smith", "jim.smith@example.com"),
+			TableExampleRow("Julie Smith", "julie.smith@example.com"),
+		},
+		nil,
+	)
+}
+
+templ TableExampleRow(name, email string) {
+	<tr>
+		<td>
+			@components.Checkbox(model.Checkbox{Name: email})
+		</td>
+		<td>
+			@components.PlainText(name)
+		</td>
+		<td>
+			@components.PlainText(email)
+		</td>
+	</tr>
+}

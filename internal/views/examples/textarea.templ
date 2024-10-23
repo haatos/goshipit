@@ -1,0 +1,31 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicTextarea() {
+	<div class="pt-4">
+		@components.Textarea(
+			model.Textarea{
+				Label: "Description",
+				Name:  "description",
+			},
+		)
+	</div>
+}
+
+// example
+templ BasicTextareaWithError() {
+	<div class="pt-4">
+		@components.Textarea(
+			model.Textarea{
+				Label: "Description",
+				Name:  "description",
+				Err:   "Description cannot be empty",
+			},
+		)
+	</div>
+}

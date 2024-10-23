@@ -1,0 +1,67 @@
+package examples
+
+import "fmt"
+import "github.com/haatos/goshipit/internal/model"
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ PricingExample() {
+	@components.Pricing(true, PriceDataExample(true))
+}
+
+var ProductPrices = map[string]map[bool]int{
+	"Starter": {
+		true:  10,
+		false: 12,
+	},
+	"Professional": {
+		true:  20,
+		false: 24,
+	},
+}
+
+func PriceDataExample(yearly bool) []model.Price {
+	return []model.Price{
+		{
+			Title:            "Free",
+			Description:      "My free plan",
+			Price:            "$ 0",
+			Per:              "/ month",
+			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3"},
+			ExcludedFeatures: []string{"Feature 4", "Feature 5"},
+			CallToAction: model.Button{
+				Label: "Start now",
+				Attrs: templ.Attributes{
+					"class": "btn btn-outline btn-sm",
+				},
+			},
+		},
+		{
+			Title:            "Starter",
+			Description:      "My starter plan",
+			Price:            fmt.Sprintf("$ %d", ProductPrices["Starter"][yearly]),
+			Per:              "/ month",
+			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3", "Feature 4"},
+			ExcludedFeatures: []string{"Feature 4"},
+			CallToAction: model.Button{
+				Label: "Start free trial",
+				Attrs: templ.Attributes{
+					"class": "btn btn-primary btn-sm",
+				},
+			},
+		},
+		{
+			Title:            "Professional",
+			Description:      "My professional plan",
+			Price:            fmt.Sprintf("$ %d", ProductPrices["Professional"][yearly]),
+			Per:              "/ month",
+			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"},
+			CallToAction: model.Button{
+				Label: "Start free trial",
+				Attrs: templ.Attributes{
+					"class": "btn btn-primary btn-sm",
+				},
+			},
+		},
+	}
+}

@@ -1,0 +1,391 @@
+package pages
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal"
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+	"github.com/haatos/goshipit/internal/views/examples"
+	"time"
+)
+
+templ DefaultHead() {
+	@Head(
+		"goship.it",
+		[]string{
+			"/css/tw.css",
+			"/css/custom.css",
+			"/css/chroma.css",
+		},
+		[]model.Script{
+			{Source: "/js/htmx.min.js"},
+		},
+	)
+}
+
+templ Head(title string, stylesheets []string, scripts []model.Script) {
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Orbitron:wght@600&display=swap');
+		</style>
+		for _, st := range stylesheets {
+			<link rel="stylesheet" href={ st }/>
+		}
+		for _, sc := range scripts {
+			<script if sc.Defer {
+	defer="true"
+} src={ sc.Source }>
+</script>
+		}
+		<title>{ title }</title>
+	</head>
+}
+
+templ SideNavLayout(head templ.Component) {
+	<!DOCTYPE html>
+	<html data-theme="getColorScheme()" lang="en">
+		@DefaultHead()
+		<body>
+			<div class="drawer xl:drawer-open">
+				<input id="nav-drawer" type="checkbox" class="drawer-toggle"/>
+				<div class="drawer-content">
+					<div class="flex space-x-1 items-center">
+						<label for="nav-drawer" class="cursor-pointer btn btn-ghost drawer-button xl:hidden">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-5 w-5"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M4 6h16M4 12h8m-8 6h16"
+								></path>
+							</svg>
+						</label>
+						<a
+							href="/"
+							class="group btn !shadow-none !bg-transparent !border-none flex items-center xl:hidden"
+						>
+							<img class="max-w-8 hidden dark:block" src="/images/dark.png" alt="Logo"/>
+							<img class="max-w-8 dark:hidden" src="/images/light.png" alt="Logo"/>
+						</a>
+					</div>
+					<main class="w-full max-w-screen-lg min-h-svh pl-8 pr-8 xl:pr-0">
+						{ children... }
+					</main>
+					@components.Footer(
+						model.CompanyInfo{
+							Name:      "Haatos Ltd",
+							Copyright: fmt.Sprintf("%s", time.Now().UTC().Format("2006")),
+						},
+						[]model.Anchor{
+							{Icon: examples.GithubIcon(), Href: "https://github.com/haatos"},
+							{Icon: examples.LinkedInIcon(), Href: "https://linkedin.com/in/tomihaapalainen"},
+						}) {
+						@components.FooterNav(
+							"Links",
+							[]model.Anchor{
+								{
+									Label: "Getting started",
+									Attrs: templ.Attributes{
+										"name":        "hx-anchor",
+										"hx-get":      "/get-started",
+										"hx-target":   "main",
+										"hx-swap":     "innerHTML",
+										"hx-push-url": "true",
+									},
+								},
+								{
+									Label: "Types",
+									Attrs: templ.Attributes{
+										"name":        "hx-anchor",
+										"hx-get":      "/types",
+										"hx-target":   "main",
+										"hx-swap":     "innerHTML",
+										"hx-push-url": "true",
+									},
+								},
+								{
+									Label: "GitHub",
+									Icon:  examples.GithubIcon(),
+									Attrs: templ.Attributes{
+										"href": "https://github.com/haatos/goshipit",
+									},
+								},
+								{
+									Label: "About the creator",
+									Attrs: templ.Attributes{
+										"name":        "hx-anchor",
+										"hx-get":      "/about",
+										"hx-target":   "main",
+										"hx-swap":     "innerHTML",
+										"hx-push-url": "true",
+									},
+								},
+							})
+						@components.FooterNav(
+							"Legal",
+							[]model.Anchor{
+								{
+									Label: "Privacy policy",
+									Attrs: templ.Attributes{
+										"name":        "hx-anchor",
+										"hx-get":      "/privacy",
+										"hx-target":   "main",
+										"hx-swap":     "innerHTML",
+										"hx-push-url": "true",
+									},
+								},
+								{
+									Label: "Terms of Service",
+									Attrs: templ.Attributes{
+										"name":        "hx-anchor",
+										"hx-get":      "/terms-of-service",
+										"hx-target":   "main",
+										"hx-swap":     "innerHTML",
+										"hx-push-url": "true",
+									},
+								},
+							})
+					}
+				</div>
+				@drawerSide(
+					[]model.Anchor{
+						{
+							Label: "Getting started",
+							Attrs: templ.Attributes{
+								"hx-get":      "/get-started",
+								"hx-target":   "main",
+								"hx-swap":     "innerHTML",
+								"hx-push-url": "true",
+							},
+						},
+						{
+							Label: "Types",
+							Attrs: templ.Attributes{
+								"hx-get":      "/types",
+								"hx-target":   "main",
+								"hx-swap":     "innerHTML",
+								"hx-push-url": "true",
+							},
+						},
+						{
+							Label: "GitHub",
+							Icon:  examples.GithubIcon(),
+							Attrs: templ.Attributes{
+								"href": "https://github.com/haatos/goshipit",
+							},
+						},
+					},
+				)
+			</div>
+			<script>
+				function getColorScheme() {
+					if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+						return "dark"
+					} else {
+						return "light"
+					}
+				}
+
+				// check request status before htmx swap
+				// set swapping incoming html to true and isError to false
+				document.addEventListener("DOMContentLoaded", function() {
+					document.addEventListener("htmx:beforeSwap", function(evt) {
+						if (evt.detail.xhr.status === 422 || evt.detail.xhr.status === 403 || evt.detail.xhr.status == 500) {
+							evt.detail.shouldSwap = true;
+							evt.detail.isError = false;
+						}
+					})
+				})
+			</script>
+			<script>
+				document.addEventListener("DOMContentLoaded", () => {
+					document.addEventListener("htmx:afterRequest", (evt) => {
+						if (
+							evt.detail.successful &&
+							evt.detail.elt.getAttribute("name") === "hx-anchor"
+						) {
+							document.querySelector("input.drawer-toggle").checked = false
+							document.querySelector("body").scrollIntoView({behavior: "smooth", block: "start"})
+						}
+					})
+				})
+			</script>
+		</body>
+	</html>
+}
+
+templ drawerSide(anchors []model.Anchor) {
+	<div class="drawer-side">
+		<label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+		<ul class="menu bg-base-300 text-base-content min-h-full w-80 p-4 space-y-2">
+			<li class="pb-4">
+				<a href="/" class="group hover:!bg-transparent flex justify-center items-center">
+					<img class="max-w-12 hidden dark:block" src="/images/dark.png" alt="Logo"/>
+					<img class="max-w-12 dark:hidden" src="/images/light.png" alt="Logo"/>
+				</a>
+			</li>
+			<div id="my-active-search" class="pl-1">
+				@components.ActiveSearchInput("component-search-input", "/components/search", "#search-dropdown-side")
+				<div class="relative w-full max-w-xs">
+					<div
+						id="search-dropdown-side"
+						class="w-full max-w-xs absolute top-2 left-0 z-50 rounded-box bg-base-200"
+					></div>
+				</div>
+				<script>
+					document.addEventListener("click", (evt) => {
+						let activeSearch = evt.target.closest("#my-active-search")
+						if (activeSearch === null) {
+							let activeSearchDiv = document.getElementById("my-active-search")
+							activeSearchDiv.querySelectorAll("div[name=search-list-item]").forEach(el => {
+								el.remove()
+							})
+							activeSearchDiv.querySelector("form").reset()
+						}
+					})
+				</script>
+			</div>
+			<!-- Sidebar content here -->
+			for _, a := range anchors {
+				<li>
+					<a
+						name="hx-anchor"
+						{ a.Attrs... }
+						if a.Href != "" {
+							href={ templ.SafeURL(a.Href) }
+						}
+					>
+						if a.Icon != nil {
+							@a.Icon
+						}
+						{ a.Label }
+					</a>
+				</li>
+			}
+			<div class="divider"></div>
+			<div hx-get="/component-anchors" hx-swap="outerHTML" hx-trigger="intersect once"></div>
+		</ul>
+	</div>
+}
+
+type ComponentSearchItem struct {
+	Slug     string
+	Category string
+	Name     string
+}
+
+templ ComponentSearchListItems(cs []ComponentSearchItem) {
+	for i := range cs {
+		<div name="search-list-item" class="m-2 px-2 py-1 bg-base-100 rounded-box cursor-pointer">
+			<a
+				name="component-search-anchor"
+				href={ templ.SafeURL(fmt.Sprintf("/components/%s", cs[i].Slug)) }
+			>
+				<p class="text-xs text-base-content/75">
+					{ cs[i].Category }
+				</p>
+				<p class="font-bold">
+					{ cs[i].Name }
+				</p>
+			</a>
+		</div>
+	}
+}
+
+type ComponentAnchor struct {
+	Slug string
+	Name string
+}
+
+templ ComponentAnchors(keys []string, m model.ComponentCodeMap) {
+	<ul class="menu">
+		for _, k := range keys {
+			<li>
+				<h4 class="menu-title">{ internal.SnakeCaseToNormal(k) }</h4>
+				<ul>
+					for _, c := range m[k] {
+						<li>
+							<a
+								name="hx-anchor"
+								hx-get={ fmt.Sprintf("/components/%s/%s", k, c.Name) }
+								hx-target="main"
+								hx-swap="innerHTML"
+								hx-push-url="true"
+							>
+								{ c.Label }
+							</a>
+						</li>
+					}
+				</ul>
+			</li>
+		}
+	</ul>
+}
+
+templ MyFooter(anchors []model.Anchor, legal []model.Anchor) {
+	<footer class="footer p-10 text-base-content border-t border-base-content/25 mt-24">
+		<aside>
+			<p>&copy; 2024 Haatos Ltd</p>
+		</aside>
+		if len(anchors) > 0 {
+			<nav>
+				<h6 class="footer-title">Links</h6>
+				for _, a := range anchors {
+					<a
+						name="hx-anchor"
+						{ a.Attrs... }
+						if a.Href != "" {
+							href={ templ.SafeURL(a.Href) }
+						}
+						class="link link-hover"
+					>
+						{ a.Label }
+					</a>
+				}
+			</nav>
+		}
+		if len(legal) > 0 {
+			<nav>
+				<h6 class="footer-title">Legal</h6>
+				for _, a := range legal {
+					<a
+						name="hx-anchor"
+						{ a.Attrs... }
+						if a.Href != "" {
+							href={ templ.SafeURL(a.Href) }
+						}
+						class="link link-hover"
+					>{ a.Label }</a>
+				}
+			</nav>
+		}
+	</footer>
+}
+
+templ JoinExample1() {
+	<div class="w-full flex justify-center mx-auto pt-4">
+		<div class="join">
+			<button class="btn btn-primary join-item">1</button>
+			<button class="btn btn-primary join-item">2</button>
+			<button class="btn btn-primary join-item">3</button>
+		</div>
+	</div>
+}
+
+templ StackExample1() {
+	<div class="w-full flex justify-center mx-auto pt-4">
+		<div class="stack">
+			<div class="rounded-box w-32 h-32 bg-red-500"></div>
+			<div class="rounded-box w-32 h-32 bg-green-500"></div>
+			<div class="rounded-box w-32 h-32 bg-blue-500"></div>
+		</div>
+	</div>
+}

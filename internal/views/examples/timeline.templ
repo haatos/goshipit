@@ -1,0 +1,21 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicTimeline() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Timeline(
+			[]model.TimelineItem{
+				{Start: "1984", Middle: components.TimelineCheckbox(true), End: "First Macintosh computer"},
+				{Start: "1998", Middle: components.TimelineCheckbox(true), End: "iMac"},
+				{Start: "2001", Middle: components.TimelineCheckbox(false), End: "iPod"},
+				{Start: "2007", Middle: components.TimelineCheckbox(false), End: "iPhone"},
+				{Start: "2015", Middle: components.TimelineCheckbox(false), End: "Apple Watch"},
+			},
+		)
+	</div>
+}

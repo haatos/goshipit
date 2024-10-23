@@ -1,0 +1,74 @@
+package examples
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ ActiveSearchExampleTable() {
+	<div class="h-[600px]">
+		@ActiveSearchExample(
+			"active-search-example-table",
+			[]templ.Component{
+				components.PlainText("First name"),
+				components.PlainText("Last name"),
+				components.PlainText("Email"),
+			},
+			activeSearchTableDataComponents(),
+		)
+	</div>
+}
+
+templ ActiveSearchExample(id string, headers []templ.Component, rows []templ.Component) {
+	<div class="py-8">
+		@components.ActiveSearchInput("active-search-example-input", "/active-search", fmt.Sprintf("#%s > tbody", id))
+		@components.Table(
+			headers,
+			activeSearchTableDataComponents(),
+			templ.Attributes{"id": "active-search-example-table"},
+		)
+	</div>
+}
+
+func activeSearchTableDataComponents() []templ.Component {
+	coms := make([]templ.Component, len(ActiveSearchTableData))
+	for i := range ActiveSearchTableData {
+		coms[i] = ActiveSearchTableRow(
+			ActiveSearchTableData[i].FirstName,
+			ActiveSearchTableData[i].LastName,
+			ActiveSearchTableData[i].Email)
+	}
+	return coms
+}
+
+var ActiveSearchTableData = []struct {
+	FirstName string
+	LastName  string
+	Email     string
+}{
+	{FirstName: "John", LastName: "Smith", Email: "john.smith@email.com"},
+	{FirstName: "Emily", LastName: "Johnson", Email: "emily.johnson@email.com"},
+	{FirstName: "Michael", LastName: "Brown", Email: "michael.brown@email.com"},
+	{FirstName: "Jessica", LastName: "Williams", Email: "jessica.williams@email.com"},
+	{FirstName: "David", LastName: "Jones", Email: "david.jones@email.com"},
+	{FirstName: "Sarah", LastName: "Miller", Email: "sarah.miller@email.com"},
+	{FirstName: "Christopher", LastName: "Davis", Email: "chris.davis@email.com"},
+	{FirstName: "Amanda", LastName: "Wilson", Email: "amanda.wilson@email.com"},
+	{FirstName: "James", LastName: "Taylor", Email: "james.taylor@email.com"},
+	{FirstName: "Laura", LastName: "Moore", Email: "laura.moore@email.com"},
+}
+
+templ ActiveSearchTableRows(rows []templ.Component) {
+	for _, r := range rows {
+		@r
+	}
+}
+
+templ ActiveSearchTableRow(firstName, lastName, email string) {
+	<tr>
+		<td>{ firstName }</td>
+		<td>{ lastName }</td>
+		<td>{ email }</td>
+	</tr>
+}

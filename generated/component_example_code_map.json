@@ -1,0 +1,1674 @@
+{
+  "accordion": [
+    {
+      "name": "AccordionExample",
+      "code": [
+        "templ AccordionExample() {",
+        "\t\u003cdiv class=\"w-full flex join join-vertical pt-4\"\u003e",
+        "\t\t@components.AccordionRow(\"Label 1\") {",
+        "\t\t\t\u003cp class=\"pt-4\"\u003eLabel 1 content\u003c/p\u003e",
+        "\t\t}",
+        "\t\t@components.AccordionRow(\"Label 2\") {",
+        "\t\t\t\u003ch2 class=\"text-xl font-bold py-4\"\u003eContent 2\u003c/h2\u003e",
+        "\t\t\t\u003cp\u003eLabel 2 content\u003c/p\u003e",
+        "\t\t}",
+        "\t\t@components.AccordionRow(\"Label 3\") {",
+        "\t\t\t\u003ch2 class=\"text-xl font-bold py-4\"\u003eContent 3\u003c/h2\u003e",
+        "\t\t\t\u003cul class=\"list-disc [\u0026\u003eli]:ml-4\"\u003e",
+        "\t\t\t\t\u003cli\u003eItem 1\u003c/li\u003e",
+        "\t\t\t\t\u003cli\u003eItem 2\u003c/li\u003e",
+        "\t\t\t\t\u003cli\u003eItem 3\u003c/li\u003e",
+        "\t\t\t\u003c/ul\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "active_search": [
+    {
+      "name": "ActiveSearchExampleTable",
+      "code": [
+        "templ ActiveSearchExampleTable() {",
+        "\t\u003cdiv class=\"h-[600px]\"\u003e",
+        "\t\t@ActiveSearchExample(",
+        "\t\t\t\"active-search-example-table\",",
+        "\t\t\t[]templ.Component{",
+        "\t\t\t\tcomponents.PlainText(\"First name\"),",
+        "\t\t\t\tcomponents.PlainText(\"Last name\"),",
+        "\t\t\t\tcomponents.PlainText(\"Email\"),",
+        "\t\t\t},",
+        "\t\t\tactiveSearchTableDataComponents(),",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ ActiveSearchExample(id string, headers []templ.Component, rows []templ.Component) {",
+        "\t\u003cdiv class=\"py-8\"\u003e",
+        "\t\t@components.ActiveSearchInput(\"active-search-example-input\", \"/active-search\", fmt.Sprintf(\"#%s \u003e tbody\", id))",
+        "\t\t@components.Table(",
+        "\t\t\theaders,",
+        "\t\t\tactiveSearchTableDataComponents(),",
+        "\t\t\ttempl.Attributes{\"id\": \"active-search-example-table\"},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "func activeSearchTableDataComponents() []templ.Component {",
+        "\tcoms := make([]templ.Component, len(ActiveSearchTableData))",
+        "\tfor i := range ActiveSearchTableData {",
+        "\t\tcoms[i] = ActiveSearchTableRow(",
+        "\t\t\tActiveSearchTableData[i].FirstName,",
+        "\t\t\tActiveSearchTableData[i].LastName,",
+        "\t\t\tActiveSearchTableData[i].Email)",
+        "\t}",
+        "\treturn coms",
+        "}",
+        "",
+        "var ActiveSearchTableData = []struct {",
+        "\tFirstName string",
+        "\tLastName  string",
+        "\tEmail     string",
+        "}{",
+        "\t{FirstName: \"John\", LastName: \"Smith\", Email: \"john.smith@email.com\"},",
+        "\t{FirstName: \"Emily\", LastName: \"Johnson\", Email: \"emily.johnson@email.com\"},",
+        "\t{FirstName: \"Michael\", LastName: \"Brown\", Email: \"michael.brown@email.com\"},",
+        "\t{FirstName: \"Jessica\", LastName: \"Williams\", Email: \"jessica.williams@email.com\"},",
+        "\t{FirstName: \"David\", LastName: \"Jones\", Email: \"david.jones@email.com\"},",
+        "\t{FirstName: \"Sarah\", LastName: \"Miller\", Email: \"sarah.miller@email.com\"},",
+        "\t{FirstName: \"Christopher\", LastName: \"Davis\", Email: \"chris.davis@email.com\"},",
+        "\t{FirstName: \"Amanda\", LastName: \"Wilson\", Email: \"amanda.wilson@email.com\"},",
+        "\t{FirstName: \"James\", LastName: \"Taylor\", Email: \"james.taylor@email.com\"},",
+        "\t{FirstName: \"Laura\", LastName: \"Moore\", Email: \"laura.moore@email.com\"},",
+        "}",
+        "",
+        "templ ActiveSearchTableRows(rows []templ.Component) {",
+        "\tfor _, r := range rows {",
+        "\t\t@r",
+        "\t}",
+        "}",
+        "",
+        "templ ActiveSearchTableRow(firstName, lastName, email string) {",
+        "\t\u003ctr\u003e",
+        "\t\t\u003ctd\u003e{ firstName }\u003c/td\u003e",
+        "\t\t\u003ctd\u003e{ lastName }\u003c/td\u003e",
+        "\t\t\u003ctd\u003e{ email }\u003c/td\u003e",
+        "\t\u003c/tr\u003e",
+        "}"
+      ]
+    }
+  ],
+  "alert": [
+    {
+      "name": "AlertInfoExample",
+      "code": [
+        "templ AlertInfoExample() {",
+        "\t\u003cdiv class=\"max-w-md mx-auto pt-4\"\u003e",
+        "\t\t@components.AlertInfo(\"Your profile has been successfully updated. Please review your changes.\")",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "AlertSuccessExample",
+      "code": [
+        "templ AlertSuccessExample() {",
+        "\t\u003cdiv class=\"max-w-md mx-auto pt-4\"\u003e",
+        "\t\t@components.AlertSuccess(\"Your payment was processed successfully! Thank you for your purchase.\") {",
+        "\t\t\t\u003cbutton class=\"btn btn-sm\"\u003eOK\u003c/button\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "AlertWarningExample",
+      "code": [
+        "templ AlertWarningExample() {",
+        "\t\u003cdiv class=\"max-w-md mx-auto pt-4\"\u003e",
+        "\t\t@components.AlertWarning(\"Your password will expire in 7 days. Please update it to avoid any disruptions.\")",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "AlertErrorExample",
+      "code": [
+        "templ AlertErrorExample() {",
+        "\t\u003cdiv class=\"max-w-md mx-auto pt-4\"\u003e",
+        "\t\t@components.AlertError(\"Failed to connect to the server. Please try again later or contact support if the issue persists.\") {",
+        "\t\t\t\u003cbutton class=\"btn btn-sm\"\u003eOK\u003c/button\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "avatar": [
+    {
+      "name": "AvatarExample1",
+      "code": [
+        "templ AvatarExample1() {",
+        "\t\u003cdiv class=\"flex justify-center items-center space-x-4 pt-4\"\u003e",
+        "\t\t@components.AvatarXXL(\"/images/avatar.jpg\")",
+        "\t\t@components.AvatarXL(\"/images/avatar.jpg\")",
+        "\t\t@components.AvatarLG(\"/images/avatar.jpg\")",
+        "\t\t@components.AvatarSM(\"/images/avatar.jpg\")",
+        "\t\t@components.AvatarXS(\"/images/avatar.jpg\")",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "banner": [
+    {
+      "name": "BannerExample",
+      "code": [
+        "templ BannerExample() {",
+        "    @components.Banner(model.Banner{",
+        "        Title:                 basicBannerTitle(),",
+        "        Description:           \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente iure non, quia perspiciatis sed temporibus quos nihil, voluptatibus tempore placeat ipsa est facilis, nobis illum in magni illo neque libero.\",",
+        "        CallToAction:          model.Button{Label: \"Get started\"},",
+        "        SecondaryCallToAction: model.Button{Label: \"Learn more\"},",
+        "    })",
+        "}",
+        "",
+        "templ basicBannerTitle() {",
+        "\t\u003ch1 class=\"text-3xl font-extrabold sm:text-5xl\"\u003e",
+        "\t\tLorem ipsum dolor.",
+        "\t\t\u003cstrong class=\"font-extrabold text-primary sm:block\"\u003eSit amet consectetur. \u003c/strong\u003e",
+        "\t\u003c/h1\u003e",
+        "}"
+      ]
+    }
+  ],
+  "breadcrumbs": [
+    {
+      "name": "BreadcrumbsExample",
+      "code": [
+        "templ BreadcrumbsExample() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Breadcrumbs(",
+        "\t\t\t[]model.Button{",
+        "\t\t\t\t{Label: \"Laptops\", Attrs: templ.Attributes{\"href\": \"/laptops\", \"class\": \"link\"}},",
+        "\t\t\t\t{Label: \"Macbooks\", Attrs: templ.Attributes{\"href\": \"/laptops/macbooks\", \"class\": \"link\"}},",
+        "\t\t\t\t{Label: \"Macbook Pro 14\"},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "card": [
+    {
+      "name": "BasicCard",
+      "code": [
+        "templ BasicCard() {",
+        "\t\u003cdiv class=\"flex justify-center items-center py-4\"\u003e",
+        "\t\t@components.Card(model.Card{Title: \"This is a card\", Content: \"And this is the card's content.\"})",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "BasicCardWithImage",
+      "code": [
+        "templ BasicCardWithImage() {",
+        "\t\u003cdiv class=\"flex justify-center items-center py-4\"\u003e",
+        "\t\t@components.Card(",
+        "\t\t\tmodel.Card{",
+        "\t\t\t\tTitle:   \"Card with image\",",
+        "\t\t\t\tContent: \"Card with image content\",",
+        "\t\t\t\tSource:  \"/images/avatar.jpg\",",
+        "\t\t\t\tAlt:     \"avatar image\",",
+        "\t\t\t},",
+        "\t\t) {",
+        "\t\t\t\u003cbutton class=\"btn btn-sm btn-primary\"\u003eContact\u003c/button\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "carousel": [
+    {
+      "name": "CarouselExample",
+      "code": [
+        "templ CarouselExample() {",
+        "\t\u003cdiv class=\"max-h-80 pt-4 max-w-screen-md\"\u003e",
+        "\t\t@components.Carousel(",
+        "\t\t\t[]model.Image{",
+        "\t\t\t\t{Source: \"/images/avatar.jpg\", Alt: \"avatar image\"},",
+        "\t\t\t\t{Source: \"/images/avatar.jpg\", Alt: \"avatar image\"},",
+        "\t\t\t\t{Source: \"/images/avatar.jpg\", Alt: \"avatar image\"},",
+        "\t\t\t\t{Source: \"/images/avatar.jpg\", Alt: \"avatar image\"},",
+        "\t\t\t\t{Source: \"/images/avatar.jpg\", Alt: \"avatar image\"},",
+        "\t\t\t\t{Source: \"/images/avatar.jpg\", Alt: \"avatar image\"},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "checkbox": [
+    {
+      "name": "DefaultCheckbox",
+      "code": [
+        "templ DefaultCheckbox() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Checkbox(",
+        "\t\t\tmodel.Checkbox{",
+        "\t\t\t\tLabel:   \"Remember me\",",
+        "\t\t\t\tName:    \"remember_me\",",
+        "\t\t\t\tChecked: false,",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "PrimaryCheckbox",
+      "code": [
+        "templ PrimaryCheckbox() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Checkbox(",
+        "\t\t\tmodel.Checkbox{",
+        "\t\t\t\tLabel:   \"Remember me\",",
+        "\t\t\t\tName:    \"remember_me\",",
+        "\t\t\t\tChecked: true,",
+        "\t\t\t\tClass:   \"checkbox-primary\",",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "collapse": [
+    {
+      "name": "CollapseExample",
+      "code": [
+        "templ CollapseExample() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Collapse(\"Click me to show/hide content\") {",
+        "\t\t\t\u003cp\u003eCollapse content\u003c/p\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "countdown": [
+    {
+      "name": "CountdownExample",
+      "code": [
+        "templ CountdownExample() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Countdown(time.Now().UTC().Add(time.Hour*48 - 40*time.Second))",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "diff": [
+    {
+      "name": "ImageDiff",
+      "code": [
+        "templ ImageDiff() {",
+        "\t\u003cdiv class=\"flex mx-auto pt-4 min-h-[240px] sm:min-h-[300px] lg:min-h-[480px]\"\u003e",
+        "\t\t@components.Diff(",
+        "\t\t\t16,",
+        "\t\t\t19,",
+        "\t\t\tmodel.Image{Source: \"/images/diff1.png\", Alt: \"diff image 1\"},",
+        "\t\t\tmodel.Image{Source: \"/images/diff2.png\", Alt: \"diff image 2\"},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "drawer": [
+    {
+      "name": "BasicDrawer",
+      "code": [
+        "templ BasicDrawer() {",
+        "\t\u003cdiv class=\"w-full h-[400px] flex flex-wrap items-center justify-center overflow-x-hidden\"\u003e",
+        "\t\t@DrawerPreview(DrawerExampleToggle(), DrawerExampleMenu())",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ DrawerPreview(toggle templ.Component, sidebar templ.Component) {",
+        "\t\u003cdiv class=\"drawer h-[400px]\"\u003e",
+        "\t\t\u003cinput id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"/\u003e",
+        "\t\t\u003cdiv class=\"flex flex-col items-center justify-center drawer-content\"\u003e",
+        "\t\t\t{ children... }",
+        "\t\t\t\u003clabel for=\"my-drawer\" class=\"btn btn-primary drawer-button\"\u003e",
+        "\t\t\t\t@toggle",
+        "\t\t\t\u003c/label\u003e",
+        "\t\t\u003c/div\u003e",
+        "\t\t\u003cdiv class=\"drawer-side h-full absolute\"\u003e",
+        "\t\t\t\u003clabel for=\"my-drawer\" aria-label=\"close sidebar\" class=\"drawer-overlay\"\u003e\u003c/label\u003e",
+        "\t\t\t\u003cul class=\"menu bg-base-200 text-base-content min-h-full w-60 md:w-80 p-4\"\u003e",
+        "\t\t\t\t@sidebar",
+        "\t\t\t\u003c/ul\u003e",
+        "\t\t\u003c/div\u003e",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ DrawerExampleToggle() {",
+        "\t\u003cspan\u003eClick me\u003c/span\u003e",
+        "}",
+        "",
+        "templ DrawerExampleMenu() {",
+        "\t@components.MenuItem(\"Section 1\", templ.Attributes{\"class\": \"menu-title\"})",
+        "\t@components.MenuItem(\"Section 2\", templ.Attributes{\"class\": \"menu-title\"}) {",
+        "\t\t@components.MenuItem(\"2.1\", nil) {",
+        "\t\t\t@components.MenuItem(\"2.1.1\", nil)",
+        "\t\t\t@components.MenuItem(\"2.1.2\", nil)",
+        "\t\t}",
+        "\t\t@components.MenuItem(\"2.2\", nil) {",
+        "\t\t\t@components.MenuItem(\"2.2.1\", nil)",
+        "\t\t}",
+        "\t\t@components.MenuItem(\"2.3\", nil)",
+        "\t}",
+        "\t@components.MenuItem(\"Section 3\", templ.Attributes{\"class\": \"menu-title\"}) {",
+        "\t\t@components.MenuItem(\"3.1\", nil)",
+        "\t}",
+        "}"
+      ]
+    }
+  ],
+  "dropdown": [
+    {
+      "name": "BasicDropdown",
+      "code": [
+        "templ BasicDropdown() {",
+        "\t\u003cdiv class=\"h-48\"\u003e",
+        "\t\t@components.Dropdown(\"Dropdown label\", []model.DropdownItem{",
+        "\t\t\t{Label: \"Item 1\"},",
+        "\t\t\t{Label: \"Item 2\"},",
+        "\t\t\t{Label: \"Item 3\"},",
+        "\t\t})",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "name": "FeaturesExample",
+      "code": [
+        "templ FeaturesExample() {",
+        "\t@components.Features(",
+        "\t\t\"Discover our exclusive features\",",
+        "\t\t[]model.Feature{",
+        "\t\t\t{",
+        "\t\t\t\tIcon:        CustomizationIcon(),",
+        "\t\t\t\tTitle:       \"Customization\",",
+        "\t\t\t\tDescription: \"Tailor our product to suit your needs.\",",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tIcon:        SecurityIcon(),",
+        "\t\t\t\tTitle:       \"Security\",",
+        "\t\t\t\tDescription: \"Your data is protected by the latest security measures.\",",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tIcon:        SupportIcon(),",
+        "\t\t\t\tTitle:       \"Support\",",
+        "\t\t\t\tDescription: \"24/7 customer support for all your inquiries.\",",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tIcon:        PerformanceIcon(),",
+        "\t\t\t\tTitle:       \"Performance\",",
+        "\t\t\t\tDescription: \"Experience blazing-fast performance with our product.\",",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tIcon:        GlobalReachIcon(),",
+        "\t\t\t\tTitle:       \"Global reach\",",
+        "\t\t\t\tDescription: \"Tailor our product to suit your needs. Expand your reach with our global network.\",",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tIcon:        CommunicationIcon(),",
+        "\t\t\t\tTitle:       \"Communication\",",
+        "\t\t\t\tDescription: \"Seamless communication for your team.\",",
+        "\t\t\t},",
+        "\t\t},",
+        "\t)",
+        "}",
+        "",
+        "templ CustomizationIcon() {",
+        "\t\u003csvg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"w-8 mb-6 inline-block\" viewBox=\"0 0 32 32\"\u003e",
+        "\t\t\u003cpath d=\"M28.068 12h-.128a.934.934 0 0 1-.864-.6.924.924 0 0 1 .2-1.01l.091-.091a2.938 2.938 0 0 0 0-4.147l-1.511-1.51a2.935 2.935 0 0 0-4.146 0l-.091.091A.956.956 0 0 1 20 4.061v-.129A2.935 2.935 0 0 0 17.068 1h-2.136A2.935 2.935 0 0 0 12 3.932v.129a.956.956 0 0 1-1.614.668l-.086-.091a2.935 2.935 0 0 0-4.146 0l-1.516 1.51a2.938 2.938 0 0 0 0 4.147l.091.091a.935.935 0 0 1 .185 1.035.924.924 0 0 1-.854.579h-.128A2.935 2.935 0 0 0 1 14.932v2.136A2.935 2.935 0 0 0 3.932 20h.128a.934.934 0 0 1 .864.6.924.924 0 0 1-.2 1.01l-.091.091a2.938 2.938 0 0 0 0 4.147l1.51 1.509a2.934 2.934 0 0 0 4.147 0l.091-.091a.936.936 0 0 1 1.035-.185.922.922 0 0 1 .579.853v.129A2.935 2.935 0 0 0 14.932 31h2.136A2.935 2.935 0 0 0 20 28.068v-.129a.956.956 0 0 1 1.614-.668l.091.091a2.935 2.935 0 0 0 4.146 0l1.511-1.509a2.938 2.938 0 0 0 0-4.147l-.091-.091a.935.935 0 0 1-.185-1.035.924.924 0 0 1 .854-.58h.128A2.935 2.935 0 0 0 31 17.068v-2.136A2.935 2.935 0 0 0 28.068 12ZM29 17.068a.933.933 0 0 1-.932.932h-.128a2.956 2.956 0 0 0-2.083 5.028l.09.091a.934.934 0 0 1 0 1.319l-1.511 1.509a.932.932 0 0 1-1.318 0l-.09-.091A2.957 2.957 0 0 0 18 27.939v.129a.933.933 0 0 1-.932.932h-2.136a.933.933 0 0 1-.932-.932v-.129a2.951 2.951 0 0 0-5.028-2.082l-.091.091a.934.934 0 0 1-1.318 0l-1.51-1.509a.934.934 0 0 1 0-1.319l.091-.091A2.956 2.956 0 0 0 4.06 18h-.128A.933.933 0 0 1 3 17.068v-2.136A.933.933 0 0 1 3.932 14h.128a2.956 2.956 0 0 0 2.083-5.028l-.09-.091a.933.933 0 0 1 0-1.318l1.51-1.511a.932.932 0 0 1 1.318 0l.09.091A2.957 2.957 0 0 0 14 4.061v-.129A.933.933 0 0 1 14.932 3h2.136a.933.933 0 0 1 .932.932v.129a2.956 2.956 0 0 0 5.028 2.082l.091-.091a.932.932 0 0 1 1.318 0l1.51 1.511a.933.933 0 0 1 0 1.318l-.091.091A2.956 2.956 0 0 0 27.94 14h.128a.933.933 0 0 1 .932.932Z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M16 9a7 7 0 1 0 7 7 7.008 7.008 0 0 0-7-7Zm0 12a5 5 0 1 1 5-5 5.006 5.006 0 0 1-5 5Z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ SecurityIcon() {",
+        "\t\u003csvg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"w-8 mb-6 inline-block\" viewBox=\"0 0 682.667 682.667\"\u003e",
+        "\t\t\u003cdefs\u003e",
+        "\t\t\t\u003cclipPath id=\"a\" clipPathUnits=\"userSpaceOnUse\"\u003e",
+        "\t\t\t\t\u003cpath d=\"M0 512h512V0H0Z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003c/clipPath\u003e",
+        "\t\t\u003c/defs\u003e",
+        "\t\t\u003cg fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-miterlimit=\"10\" stroke-width=\"40\" clip-path=\"url(#a)\" transform=\"matrix(1.33 0 0 -1.33 0 682.667)\"\u003e",
+        "\t\t\t\u003cpath d=\"M256 492 60 410.623v-98.925C60 183.674 137.469 68.38 256 20c118.53 48.38 196 163.674 196 291.698v98.925z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003cpath d=\"M178 271.894 233.894 216 334 316.105\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003c/g\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ SupportIcon() {",
+        "\t\u003csvg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"w-8 mb-6 inline-block\" viewBox=\"0 0 512.001 512.001\"\u003e",
+        "\t\t\u003cpath d=\"M271.029 0c-33.091 0-61 27.909-61 61s27.909 61 61 61 60-27.909 60-61-26.909-61-60-61zm66.592 122c-16.485 18.279-40.096 30-66.592 30-26.496 0-51.107-11.721-67.592-30-14.392 15.959-23.408 36.866-23.408 60v15c0 8.291 6.709 15 15 15h151c8.291 0 15-6.709 15-15v-15c0-23.134-9.016-44.041-23.408-60zM144.946 460.404 68.505 307.149c-7.381-14.799-25.345-20.834-40.162-13.493l-19.979 9.897c-7.439 3.689-10.466 12.73-6.753 20.156l90 180c3.701 7.423 12.704 10.377 20.083 6.738l19.722-9.771c14.875-7.368 20.938-25.417 13.53-40.272zM499.73 247.7c-12.301-9-29.401-7.2-39.6 3.9l-82 100.8c-5.7 6-16.5 9.6-22.2 9.6h-69.901c-8.401 0-15-6.599-15-15s6.599-15 15-15h60c16.5 0 30-13.5 30-30s-13.5-30-30-30h-78.6c-7.476 0-11.204-4.741-17.1-9.901-23.209-20.885-57.949-30.947-93.119-22.795-19.528 4.526-32.697 12.415-46.053 22.993l-.445-.361-21.696 19.094L174.28 452h171.749c28.2 0 55.201-13.5 72.001-36l87.999-126c9.9-13.201 7.2-32.399-6.299-42.3z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ PerformanceIcon() {",
+        "\t\u003csvg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"w-8 mb-6 inline-block\" viewBox=\"0 0 24 24\"\u003e",
+        "\t\t\u003cg fill-rule=\"evenodd\" clip-rule=\"evenodd\"\u003e",
+        "\t\t\t\u003cpath d=\"M17.03 8.97a.75.75 0 0 1 0 1.06l-4.2 4.2a.75.75 0 0 1-1.154-.114l-1.093-1.639L8.03 15.03a.75.75 0 0 1-1.06-1.06l3.2-3.2a.75.75 0 0 1 1.154.114l1.093 1.639L15.97 8.97a.75.75 0 0 1 1.06 0z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003cpath d=\"M13.75 9.5a.75.75 0 0 1 .75-.75h2a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-1.25H14.5a.75.75 0 0 1-.75-.75z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003cpath d=\"M3.095 3.095C4.429 1.76 6.426 1.25 9 1.25h6c2.574 0 4.57.51 5.905 1.845C22.24 4.429 22.75 6.426 22.75 9v6c0 2.574-.51 4.57-1.845 5.905C19.571 22.24 17.574 22.75 15 22.75H9c-2.574 0-4.57-.51-5.905-1.845C1.76 19.571 1.25 17.574 1.25 15V9c0-2.574.51-4.57 1.845-5.905zm1.06 1.06C3.24 5.071 2.75 6.574 2.75 9v6c0 2.426.49 3.93 1.405 4.845.916.915 2.419 1.405 4.845 1.405h6c2.426 0 3.93-.49 4.845-1.405.915-.916 1.405-2.419 1.405-4.845V9c0-2.426-.49-3.93-1.405-4.845C18.929 3.24 17.426 2.75 15 2.75H9c-2.426 0-3.93.49-4.845 1.405z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003c/g\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ GlobalReachIcon() {",
+        "\t\u003csvg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"w-8 mb-6 inline-block\" viewBox=\"0 0 504.69 504.69\"\u003e",
+        "\t\t\u003cpath d=\"M252.343 262.673c-49.32 0-89.447-40.127-89.447-89.447s40.127-89.447 89.447-89.447 89.447 40.127 89.447 89.447-40.121 89.447-89.447 89.447zm0-158.235c-37.926 0-68.787 30.861-68.787 68.787s30.861 68.787 68.787 68.787 68.787-30.861 68.787-68.787-30.855-68.787-68.787-68.787z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M391.787 405.309c-5.645 0-10.253-4.54-10.325-10.201-.883-70.306-58.819-127.503-129.15-127.503-49.264 0-93.543 27.405-115.561 71.52-8.724 17.473-13.269 36.31-13.517 55.988-.072 5.702-4.757 10.273-10.459 10.201s-10.273-4.757-10.201-10.459c.289-22.814 5.568-44.667 15.691-64.955 25.541-51.164 76.907-82.95 134.047-82.95 81.581 0 148.788 66.349 149.81 147.905.072 5.702-4.494 10.392-10.201 10.459-.046-.005-.087-.005-.134-.005z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M252.343 463.751c-116.569 0-211.408-94.834-211.408-211.408 0-116.569 94.839-211.408 211.408-211.408 116.574 0 211.408 94.839 211.408 211.408 0 116.574-94.834 211.408-211.408 211.408zm0-402.156c-105.18 0-190.748 85.568-190.748 190.748s85.568 190.748 190.748 190.748 190.748-85.568 190.748-190.748S357.523 61.595 252.343 61.595zM71.827 90.07 14.356 32.599c-4.034-4.034-4.034-10.573 0-14.607 4.029-4.034 10.573-4.034 14.607 0l57.466 57.471c4.034 4.034 3.951 10.49 0 14.607-3.792 3.951-11.039 3.698-14.602 0z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M14.717 92.254a10.332 10.332 0 0 1-10.299-9.653L.023 15.751a10.317 10.317 0 0 1 2.929-7.908 10.2 10.2 0 0 1 7.851-3.089L77.56 7.796c5.697.258 10.108 5.093 9.85 10.79s-5.041 10.154-10.79 9.85l-55.224-2.521 3.641 55.327c.377 5.692-3.936 10.614-9.628 10.986a7.745 7.745 0 0 1-.692.026zm403.541-2.184c-4.256-3.796-4.034-10.573 0-14.607l58.116-58.116c4.034-4.034 10.573-4.034 14.607 0s4.034 10.573 0 14.607L432.864 90.07c-4.085 3.951-9.338 4.7-14.606 0z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M489.974 92.254a9.85 9.85 0 0 1-.687-.021c-5.697-.372-10.01-5.294-9.633-10.986l3.641-55.327-55.224 2.515c-5.511.238-10.526-4.147-10.79-9.85-.258-5.702 4.153-10.531 9.85-10.79l66.757-3.042c2.934-.134 5.79.992 7.851 3.089s3.12 4.974 2.929 7.908l-4.401 66.85c-.361 5.465-4.896 9.654-10.293 9.654zM11.711 489.339c-3.791-4.266-4.034-10.573 0-14.607l60.115-60.11c4.029-4.034 10.578-4.034 14.607 0 4.034 4.034 4.034 10.573 0 14.607l-60.115 60.11c-3.827 3.884-11.156 3.884-14.607 0z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M10.327 499.947a10.33 10.33 0 0 1-7.376-3.104 10.312 10.312 0 0 1-2.929-7.902l4.401-66.85c.372-5.697 5.191-10.036 10.986-9.633 5.692.377 10.005 5.294 9.628 10.986l-3.641 55.332 55.224-2.515c5.645-.191 10.531 4.153 10.79 9.85.258 5.697-4.153 10.526-9.85 10.79l-66.763 3.037c-.155.004-.31.009-.47.009zm465.639-13.01-57.708-57.708c-4.034-4.034-4.034-10.573 0-14.607s10.573-4.034 14.607 0l57.708 57.708c4.034 4.034 3.962 10.5 0 14.607-3.817 3.951-10.062 3.951-14.607 0z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003cpath d=\"M494.359 499.947c-.155 0-.315-.005-.47-.01l-66.757-3.042c-5.702-.263-10.108-5.088-9.85-10.79.263-5.702 5.113-9.984 10.79-9.85l55.219 2.515-3.641-55.332c-.372-5.692 3.941-10.609 9.633-10.986 5.625-.398 10.609 3.946 10.986 9.633l4.401 66.85a10.33 10.33 0 0 1-2.929 7.902 10.323 10.323 0 0 1-7.382 3.11z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ CommunicationIcon() {",
+        "\t\u003csvg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"w-8 mb-6 inline-block\" viewBox=\"0 0 682.667 682.667\"\u003e",
+        "\t\t\u003cdefs\u003e",
+        "\t\t\t\u003cclipPath id=\"a\" clipPathUnits=\"userSpaceOnUse\"\u003e",
+        "\t\t\t\t\u003cpath d=\"M0 512h512V0H0Z\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003c/clipPath\u003e",
+        "\t\t\u003c/defs\u003e",
+        "\t\t\u003cg fill=\"none\" stroke=\"currentColor\" stroke-miterlimit=\"10\" stroke-width=\"30\" clip-path=\"url(#a)\" transform=\"matrix(1.33 0 0 -1.33 0 682.667)\"\u003e",
+        "\t\t\t\u003cpath d=\"M226 15v60c0 16.568-13.432 30-30 30H76c-16.568 0-30-13.432-30-30V15Zm-45 165c0-24.853-20.147-45-45-45s-45 20.147-45 45 20.147 45 45 45 45-20.147 45-45ZM466 15v60c0 16.568-13.432 30-30 30H316c-16.568 0-30-13.432-30-30V15Zm-45 165c0-24.853-20.147-45-45-45s-45 20.147-45 45 20.147 45 45 45 45-20.147 45-45Zm-75 167v-50.294L286 347h-60.002L166 296.706V347h-15c-41.421 0-75 33.579-75 75s33.579 75 75 75h210c41.421 0 75-33.579 75-75s-33.579-75-75-75Zm-105 75h30m-90 0h30m90 0h30\" data-original=\"#000000\"\u003e\u003c/path\u003e",
+        "\t\t\u003c/g\u003e",
+        "\t\u003c/svg\u003e",
+        "}"
+      ]
+    }
+  ],
+  "file_input": [
+    {
+      "name": "BasicFileInput",
+      "code": [
+        "templ BasicFileInput() {",
+        "\t@components.FileInput(model.Input{",
+        "\t\tLabel: \"File upload\",",
+        "\t\tName:  \"file\",",
+        "\t})",
+        "}"
+      ]
+    }
+  ],
+  "footer": [
+    {
+      "name": "BasicFooterWithLinks",
+      "code": [
+        "templ BasicFooterWithLinks() {",
+        "\t\u003cdiv class=\"pt-4\"\u003e",
+        "\t\t@components.Footer(",
+        "\t\t\tmodel.CompanyInfo{",
+        "\t\t\t\tIcon:        FooterCompanyInfoIconExample(),",
+        "\t\t\t\tName:        \"ACME Industries Ltd.\",",
+        "\t\t\t\tDescription: \"Providing reliable tech since 1992\",",
+        "\t\t\t},",
+        "\t\t\t[]model.Anchor{",
+        "\t\t\t\t{Icon: XIcon()},",
+        "\t\t\t\t{Icon: YoutubeIcon()},",
+        "\t\t\t\t{Icon: FacebookIcon()},",
+        "\t\t\t},",
+        "\t\t) {",
+        "\t\t\t@components.FooterNav(",
+        "\t\t\t\t\"Services\",",
+        "\t\t\t\t[]model.Anchor{",
+        "\t\t\t\t\t{Label: \"Branding\"},",
+        "\t\t\t\t\t{Label: \"Design\"},",
+        "\t\t\t\t\t{Label: \"Marketing\"},",
+        "\t\t\t\t\t{Label: \"Advertisement\"},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t\t@components.FooterNav(",
+        "\t\t\t\t\"Company\",",
+        "\t\t\t\t[]model.Anchor{",
+        "\t\t\t\t\t{Label: \"About us\"},",
+        "\t\t\t\t\t{Label: \"Contact\"},",
+        "\t\t\t\t\t{Label: \"Jobs\"},",
+        "\t\t\t\t\t{Label: \"Press kit\"},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t\t@components.FooterNav(",
+        "\t\t\t\t\"Legal\",",
+        "\t\t\t\t[]model.Anchor{",
+        "\t\t\t\t\t{Label: \"Terms of use\"},",
+        "\t\t\t\t\t{Label: \"Privacy policy\"},",
+        "\t\t\t\t\t{Label: \"Cookie policy\"},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ FooterCompanyInfoIconExample() {",
+        "\t\u003csvg",
+        "\t\twidth=\"24\"",
+        "\t\theight=\"24\"",
+        "\t\tviewBox=\"0 0 24 24\"",
+        "\t\txmlns=\"http://www.w3.org/2000/svg\"",
+        "\t\tfill-rule=\"evenodd\"",
+        "\t\tclip-rule=\"evenodd\"",
+        "\t\tclass=\"fill-current\"",
+        "\t\u003e",
+        "\t\t\u003cpath",
+        "\t\t\td=\"M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z\"",
+        "\t\t\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}"
+      ]
+    }
+  ],
+  "form": [
+    {
+      "name": "SignUpFormExample",
+      "code": [
+        "templ SignUpFormExample() {",
+        "\t\u003cdiv class=\"w-full max-w-xs mx-auto pt-12 pb-4\"\u003e",
+        "\t\t\u003ch2 class=\"text-xl text-center mb-8\"\u003eSign Up\u003c/h2\u003e",
+        "\t\t@OAuthButtons()",
+        "\t\t\u003cdiv class=\"divider !my-6\"\u003eOR\u003c/div\u003e",
+        "\t\t@SignUpForm(",
+        "\t\t\t\"\", \"\",",
+        "\t\t\t\"\", \"\",",
+        "\t\t\t\"\", \"\",",
+        "\t\t\t\"\", \"\",",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "// Sign up form with inline validation",
+        "templ SignUpForm(",
+        "\tfirstName, firstNameError,",
+        "\tlastName, lastNameError,",
+        "\temail, emailError,",
+        "\tpassword, passwordError string,",
+        ") {",
+        "\t\u003cdiv class=\"w-full max-w-xs mx-auto\"\u003e",
+        "\t\t@components.Form(",
+        "\t\t\ttempl.Attributes{",
+        "\t\t\t\t\"hx-swap\": \"outerHTML\",",
+        "\t\t\t\t\"class\":   \"space-y-1\",",
+        "\t\t\t},",
+        "\t\t) {",
+        "\t\t\t@components.Input(",
+        "\t\t\t\tmodel.Input{",
+        "\t\t\t\t\tLabel: \"First name\",",
+        "\t\t\t\t\tName:  \"first_name\",",
+        "\t\t\t\t\tValue: firstName,",
+        "\t\t\t\t\tErr:   firstNameError,",
+        "\t\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\t\"type\":    \"text\",",
+        "\t\t\t\t\t\t\"hx-post\": \"/validate/string/first_name?v=notempty\",",
+        "\t\t\t\t\t},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t\t@components.Input(",
+        "\t\t\t\tmodel.Input{",
+        "\t\t\t\t\tLabel: \"Last name\",",
+        "\t\t\t\t\tName:  \"last_name\",",
+        "\t\t\t\t\tValue: lastName,",
+        "\t\t\t\t\tErr:   lastNameError,",
+        "\t\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\t\"type\":    \"text\",",
+        "\t\t\t\t\t\t\"hx-post\": \"/validate/string/last_name?v=notempty\",",
+        "\t\t\t\t\t},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t\t@components.Input(",
+        "\t\t\t\tmodel.Input{",
+        "\t\t\t\t\tLabel: \"Email\",",
+        "\t\t\t\t\tName:  \"email\",",
+        "\t\t\t\t\tValue: email,",
+        "\t\t\t\t\tErr:   emailError,",
+        "\t\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\t\"type\":    \"text\",",
+        "\t\t\t\t\t\t\"hx-post\": \"/validate/string/email?v=email\",",
+        "\t\t\t\t\t},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t\t@components.Input(",
+        "\t\t\t\tmodel.Input{",
+        "\t\t\t\t\tLabel: \"Password\",",
+        "\t\t\t\t\tName:  \"password\",",
+        "\t\t\t\t\tValue: password,",
+        "\t\t\t\t\tErr:   passwordError,",
+        "\t\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\t\"type\":    \"password\",",
+        "\t\t\t\t\t\t\"hx-post\": \"/validate/string/password?v=hasupper\u0026v=haslower\u0026v=hasdigit\",",
+        "\t\t\t\t\t},",
+        "\t\t\t\t},",
+        "\t\t\t)",
+        "\t\t\t\u003cbutton type=\"submit\" class=\"w-full btn btn-primary mt-4\"\u003e",
+        "\t\t\t\tSign up",
+        "\t\t\t\u003c/button\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ OAuthButtons() {",
+        "\t\u003cdiv class=\"w-full max-w-xs flex flex-col space-y-4 items-center justify-center\"\u003e",
+        "\t\t@GoogleOAuthLink(\"\")",
+        "\t\t@GithubOAuthLink(\"\")",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ GoogleOAuthLink(href string) {",
+        "\t\u003ca",
+        "\t\thref={ templ.SafeURL(href) }",
+        "\t\tclass=\"w-full max-w-sm py-3 flex justify-center gap-2 bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-black text-slate-950 dark:text-slate-50 rounded-box shadow-md transition-colors duration-300\"",
+        "\t\u003e",
+        "\t\t\u003csvg class=\"w-6 h-6\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 32\" fill=\"none\"\u003e",
+        "\t\t\t\u003cpath d=\"M30.0014 16.3109C30.0014 15.1598 29.9061 14.3198 29.6998 13.4487H16.2871V18.6442H24.1601C24.0014 19.9354 23.1442 21.8798 21.2394 23.1864L21.2127 23.3604L25.4536 26.58L25.7474 26.6087C28.4458 24.1665 30.0014 20.5731 30.0014 16.3109Z\" fill=\"#4285F4\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003cpath d=\"M16.2863 29.9998C20.1434 29.9998 23.3814 28.7553 25.7466 26.6086L21.2386 23.1863C20.0323 24.0108 18.4132 24.5863 16.2863 24.5863C12.5086 24.5863 9.30225 22.1441 8.15929 18.7686L7.99176 18.7825L3.58208 22.127L3.52441 22.2841C5.87359 26.8574 10.699 29.9998 16.2863 29.9998Z\" fill=\"#34A853\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003cpath d=\"M8.15964 18.769C7.85806 17.8979 7.68352 16.9645 7.68352 16.0001C7.68352 15.0356 7.85806 14.1023 8.14377 13.2312L8.13578 13.0456L3.67083 9.64746L3.52475 9.71556C2.55654 11.6134 2.00098 13.7445 2.00098 16.0001C2.00098 18.2556 2.55654 20.3867 3.52475 22.2845L8.15964 18.769Z\" fill=\"#FBBC05\"\u003e\u003c/path\u003e",
+        "\t\t\t\u003cpath d=\"M16.2864 7.4133C18.9689 7.4133 20.7784 8.54885 21.8102 9.4978L25.8419 5.64C23.3658 3.38445 20.1435 2 16.2864 2C10.699 2 5.8736 5.1422 3.52441 9.71549L8.14345 13.2311C9.30229 9.85555 12.5086 7.4133 16.2864 7.4133Z\" fill=\"#EB4335\"\u003e\u003c/path\u003e",
+        "\t\t\u003c/svg\u003e",
+        "\t\t\u003cspan\u003eSign in with Google\u003c/span\u003e",
+        "\t\u003c/a\u003e",
+        "}",
+        "",
+        "templ GithubOAuthLink(href string) {",
+        "\t\u003ca",
+        "\t\thref={ templ.SafeURL(href) }",
+        "\t\tclass=\"py-3 px-4 max-w-md flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition-colors duration-300 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-box\"",
+        "\t\u003e",
+        "\t\t\u003csvg class=\"w-6 h-6 mr-2\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" class=\"mr-2\" viewBox=\"0 0 1792 1792\"\u003e",
+        "\t\t\t\u003cpath",
+        "\t\t\t\td=\"M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z\"",
+        "\t\t\t\u003e\u003c/path\u003e",
+        "\t\t\u003c/svg\u003e",
+        "\t\t\u003cspan\u003eSign in with GitHub\u003c/span\u003e",
+        "\t\u003c/a\u003e",
+        "}"
+      ]
+    }
+  ],
+  "hero": [
+    {
+      "name": "BasicHero",
+      "code": [
+        "templ BasicHero() {",
+        "\t\u003cdiv class=\"pt-4\"\u003e",
+        "\t\t@components.Hero(\"/images/avatar.jpg\", false) {",
+        "\t\t\t\u003cdiv class=\"prose\"\u003e",
+        "\t\t\t\t\u003ch1\u003eLorem ipsum!\u003c/h1\u003e",
+        "\t\t\t\t\u003cp\u003e",
+        "\t\t\t\t\tLorem ipsum dolor sit, amet consectetur adipisicing elit.",
+        "\t\t\t\t\tEx quibusdam dicta necessitatibus! Deleniti temporibus iure",
+        "\t\t\t\t\tporro cupiditate dolorum modi voluptate perferendis velit",
+        "\t\t\t\t\ttempora repudiandae expedita, impedit omnis vitae. Laborum,",
+        "\t\t\t\t\tdignissimos?",
+        "\t\t\t\t\u003c/p\u003e",
+        "\t\t\t\t\u003cbutton class=\"btn btn-primary\"\u003eGet Started\u003c/button\u003e",
+        "\t\t\t\u003c/div\u003e",
+        "\t\t}",
+        "\t\t@components.Hero(\"/images/avatar.jpg\", true) {",
+        "\t\t\t\u003cdiv class=\"prose\"\u003e",
+        "\t\t\t\t\u003ch1\u003eLorem ipsum!\u003c/h1\u003e",
+        "\t\t\t\t\u003cp\u003e",
+        "\t\t\t\t\tLorem ipsum dolor sit, amet consectetur adipisicing elit.",
+        "\t\t\t\t\tEx quibusdam dicta necessitatibus! Deleniti temporibus iure",
+        "\t\t\t\t\tporro cupiditate dolorum modi voluptate perferendis velit",
+        "\t\t\t\t\ttempora repudiandae expedita, impedit omnis vitae. Laborum,",
+        "\t\t\t\t\tdignissimos?",
+        "\t\t\t\t\u003c/p\u003e",
+        "\t\t\t\t\u003cbutton class=\"btn btn-primary\"\u003eGet Started\u003c/button\u003e",
+        "\t\t\t\u003c/div\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "infinite_scroll": [
+    {
+      "name": "InfiniteScrollTableExample",
+      "code": [
+        "templ InfiniteScrollTableExample() {",
+        "\t@components.Table(",
+        "\t\t[]templ.Component{components.PlainText(\"Name\"), components.PlainText(\"Email\")},",
+        "\t\tinitialRows(),",
+        "\t\tnil,",
+        "\t)",
+        "\t\u003cdiv class=\"flex justify-center\"\u003e\u003cspan id=\"spinner\" class=\"htmx-indicator loading loading-spinner\"\u003e\u003c/span\u003e\u003c/div\u003e",
+        "}",
+        "",
+        "func initialRows() []templ.Component {",
+        "    data := make([]templ.Component, 10)",
+        "\tfor i := 0; i \u003c 10; i++ {",
+        "\t\tdata[i] = components.InfiniteScrollRow(\"John Doe\", fmt.Sprintf(\"john.doe%d@email.com\", i), 0, i == 9)",
+        "\t}",
+        "",
+        "    return data",
+        "}"
+      ]
+    }
+  ],
+  "input": [
+    {
+      "name": "BasicTextInput",
+      "code": [
+        "templ BasicTextInput() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Input(",
+        "\t\t\tmodel.Input{",
+        "\t\t\t\tLabel: \"Name\",",
+        "\t\t\t\tName:  \"name\",",
+        "\t\t\t\tAttrs: templ.Attributes{\"type\": \"text\", \"placeholder\": \"Your name...\"},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "PasswordInput",
+      "code": [
+        "templ PasswordInput() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Input(",
+        "\t\t\tmodel.Input{",
+        "\t\t\t\tLabel: \"Password\",",
+        "\t\t\t\tName:  \"password\",",
+        "\t\t\t\tAttrs: templ.Attributes{\"type\": \"password\", \"placeholder\": \"Password...\"},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "EmailInput",
+      "code": [
+        "templ EmailInput() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Input(",
+        "\t\t\tmodel.Input{",
+        "\t\t\t\tLabel: \"Email\",",
+        "\t\t\t\tName:  \"email\",",
+        "\t\t\t\tValue: \"not@a.valid@email.com\",",
+        "\t\t\t\tErr:   \"Please provide a valid email\",",
+        "\t\t\t\tAttrs: templ.Attributes{\"type\": \"text\", \"placeholder\": \"Email...\"},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "lazy_load": [
+    {
+      "name": "LazyLoadExample",
+      "code": [
+        "templ LazyLoadExample() {",
+        "\t@components.LazyLoad(\"/lazy-load\")",
+        "}",
+        "",
+        "templ LazyLoadResult() {",
+        "\t\u003cdiv class=\"bg-warning text-warning-content rounded-box w-28 h-28 flex justify-center items-center text-center\"\u003e",
+        "\t\tLAZY",
+        "\t\t\u003cbr/\u003e",
+        "\t\tLOAD",
+        "\t\t\u003cbr/\u003e",
+        "\t\tCOMPLETE",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "menu": [
+    {
+      "name": "MenuExample",
+      "code": [
+        "templ MenuExample() {",
+        "\t\u003cdiv class=\"mx-auto max-w-xs pt-4\"\u003e",
+        "\t\t@components.Menu() {",
+        "\t\t\t@components.MenuItem(\"Section 1\", templ.Attributes{\"class\": \"menu-title\"})",
+        "\t\t\t@components.MenuItem(\"Section 2\", templ.Attributes{\"class\": \"menu-title\"}) {",
+        "\t\t\t\t@components.MenuItem(\"2.1\", nil) {",
+        "\t\t\t\t\t@components.MenuItem(\"2.1.1\", nil)",
+        "\t\t\t\t\t@components.MenuItem(\"2.1.2\", nil)",
+        "\t\t\t\t}",
+        "\t\t\t\t@components.MenuItem(\"2.2\", nil) {",
+        "\t\t\t\t\t@components.MenuItem(\"2.2.1\", nil)",
+        "\t\t\t\t}",
+        "\t\t\t\t@components.MenuItem(\"2.3\", nil)",
+        "\t\t\t}",
+        "\t\t\t@components.MenuItem(\"Section 3\", templ.Attributes{\"class\": \"menu-title\"}) {",
+        "\t\t\t\t@components.MenuItem(\"3.1\", nil)",
+        "\t\t\t}",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "modal": [
+    {
+      "name": "BasicModal",
+      "code": [
+        "templ BasicModal() {",
+        "\t\u003cdiv class=\"flex justify-center items-center py-8\"\u003e",
+        "\t\t@components.Modal(\"my_modal\", \"Click me\") {",
+        "\t\t\t\u003ch3 class=\"text-3xl\"\u003eModal title\u003c/h3\u003e",
+        "\t\t\t\u003cp\u003eModal content goes here\u003c/p\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "MultipleModals",
+      "code": [
+        "templ MultipleModals() {",
+        "\t\u003cdiv class=\"flex justify-center items-center py-8\"\u003e",
+        "\t\t\u003cdiv class=\"grid grid-cols-3 gap-4\"\u003e",
+        "\t\t\tfor i := range 3 {",
+        "\t\t\t\t@components.Modal(fmt.Sprintf(\"my_modal_%d\", i), \"Click me\") {",
+        "\t\t\t\t\t\u003ch3 class=\"text-3xl\"\u003eModal title { fmt.Sprintf(\"%d\", i) }\u003c/h3\u003e",
+        "\t\t\t\t\t\u003cp\u003eModal content { fmt.Sprintf(\"%d\", i) }\u003c/p\u003e",
+        "\t\t\t\t}",
+        "\t\t\t}",
+        "\t\t\u003c/div\u003e",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "ModalWithAction",
+      "code": [
+        "templ ModalWithAction() {",
+        "\t\u003cdiv class=\"flex justify-center items-center py-8\"\u003e",
+        "\t\t@components.Modal(\"my_modal_actions\", \"Click me\") {",
+        "\t\t\t\u003ch3 class=\"text-3xl\"\u003eModal title\u003c/h3\u003e",
+        "\t\t\t\u003cp\u003eModal content goes here\u003c/p\u003e",
+        "\t\t\t\u003cdiv class=\"modal-action\"\u003e",
+        "\t\t\t\t\u003cbutton class=\"btn\" onclick=\"my_modal_actions.close()\"\u003eClose\u003c/button\u003e",
+        "\t\t\t\u003c/div\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "pagination": [
+    {
+      "name": "BasicPaginationExample",
+      "code": [
+        "templ BasicPaginationExample() {",
+        "\t@BasicPagination(",
+        "\t\t\"example-pagination\",",
+        "\t\tmodel.PaginationItem{",
+        "\t\t\tURL:      \"/pagination-pages\",",
+        "\t\t\tPage:     1,",
+        "\t\t\tLow:      1,",
+        "\t\t\tHigh:     7,",
+        "\t\t\tMaxPages: 20,",
+        "\t\t},",
+        "\t\t[][]string{",
+        "\t\t\t{\"Key0\", \"Value0\"},",
+        "\t\t\t{\"Key1\", \"Value1\"},",
+        "\t\t\t{\"Key2\", \"Value2\"},",
+        "\t\t\t{\"Key3\", \"Value3\"},",
+        "\t\t\t{\"Key4\", \"Value4\"},",
+        "\t\t\t{\"Key5\", \"Value5\"},",
+        "\t\t\t{\"Key6\", \"Value6\"},",
+        "\t\t\t{\"Key7\", \"Value7\"},",
+        "\t\t\t{\"Key8\", \"Value8\"},",
+        "\t\t\t{\"Key9\", \"Value9\"},",
+        "\t\t},",
+        "\t)",
+        "}",
+        "",
+        "templ BasicPagination(id string, p model.PaginationItem, data [][]string) {",
+        "\t@components.Pagination(\"example-pagination\", p) {",
+        "\t\t\u003cdiv class=\"overflow-x-auto\"\u003e",
+        "\t\t\t\u003ctable class=\"table\"\u003e",
+        "\t\t\t\t\u003cthead\u003e",
+        "\t\t\t\t\t\u003ctr\u003e",
+        "\t\t\t\t\t\t\u003cth\u003eKey\u003c/th\u003e",
+        "\t\t\t\t\t\t\u003cth\u003eValue\u003c/th\u003e",
+        "\t\t\t\t\t\u003c/tr\u003e",
+        "\t\t\t\t\u003c/thead\u003e",
+        "\t\t\t\t\u003ctbody\u003e",
+        "\t\t\t\t\tfor _, d := range data {",
+        "\t\t\t\t\t\t\u003ctr\u003e",
+        "\t\t\t\t\t\t\t\u003ctd\u003e{ d[0] }\u003c/td\u003e",
+        "\t\t\t\t\t\t\t\u003ctd\u003e{ d[1] }\u003c/td\u003e",
+        "\t\t\t\t\t\t\u003c/tr\u003e",
+        "\t\t\t\t\t}",
+        "\t\t\t\t\u003c/tbody\u003e",
+        "\t\t\t\u003c/table\u003e",
+        "\t\t\u003c/div\u003e",
+        "\t}",
+        "}"
+      ]
+    }
+  ],
+  "pricing": [
+    {
+      "name": "PricingExample",
+      "code": [
+        "templ PricingExample() {",
+        "\t@components.Pricing(true, PriceDataExample(true))",
+        "}",
+        "",
+        "var ProductPrices = map[string]map[bool]int{",
+        "\t\"Starter\": {",
+        "\t\ttrue:  10,",
+        "\t\tfalse: 12,",
+        "\t},",
+        "\t\"Professional\": {",
+        "\t\ttrue:  20,",
+        "\t\tfalse: 24,",
+        "\t},",
+        "}",
+        "",
+        "func PriceDataExample(yearly bool) []model.Price {",
+        "\treturn []model.Price{",
+        "\t\t{",
+        "\t\t\tTitle:            \"Free\",",
+        "\t\t\tDescription:      \"My free plan\",",
+        "\t\t\tPrice:            \"$ 0\",",
+        "\t\t\tPer:              \"/ month\",",
+        "\t\t\tIncludedFeatures: []string{\"Feature 1\", \"Feature 2\", \"Feature 3\"},",
+        "\t\t\tExcludedFeatures: []string{\"Feature 4\", \"Feature 5\"},",
+        "\t\t\tCallToAction: model.Button{",
+        "\t\t\t\tLabel: \"Start now\",",
+        "\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\"class\": \"btn btn-outline btn-sm\",",
+        "\t\t\t\t},",
+        "\t\t\t},",
+        "\t\t},",
+        "\t\t{",
+        "\t\t\tTitle:            \"Starter\",",
+        "\t\t\tDescription:      \"My starter plan\",",
+        "\t\t\tPrice:            fmt.Sprintf(\"$ %d\", ProductPrices[\"Starter\"][yearly]),",
+        "\t\t\tPer:              \"/ month\",",
+        "\t\t\tIncludedFeatures: []string{\"Feature 1\", \"Feature 2\", \"Feature 3\", \"Feature 4\"},",
+        "\t\t\tExcludedFeatures: []string{\"Feature 4\"},",
+        "\t\t\tCallToAction: model.Button{",
+        "\t\t\t\tLabel: \"Start free trial\",",
+        "\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\"class\": \"btn btn-primary btn-sm\",",
+        "\t\t\t\t},",
+        "\t\t\t},",
+        "\t\t},",
+        "\t\t{",
+        "\t\t\tTitle:            \"Professional\",",
+        "\t\t\tDescription:      \"My professional plan\",",
+        "\t\t\tPrice:            fmt.Sprintf(\"$ %d\", ProductPrices[\"Professional\"][yearly]),",
+        "\t\t\tPer:              \"/ month\",",
+        "\t\t\tIncludedFeatures: []string{\"Feature 1\", \"Feature 2\", \"Feature 3\", \"Feature 4\", \"Feature 5\"},",
+        "\t\t\tCallToAction: model.Button{",
+        "\t\t\t\tLabel: \"Start free trial\",",
+        "\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\"class\": \"btn btn-primary btn-sm\",",
+        "\t\t\t\t},",
+        "\t\t\t},",
+        "\t\t},",
+        "\t}",
+        "}"
+      ]
+    }
+  ],
+  "radio_group": [
+    {
+      "name": "DefaultRadioGroup",
+      "code": [
+        "templ DefaultRadioGroup() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.RadioGroup(",
+        "\t\t\t\"my-radio-group1\",",
+        "\t\t\t\"\",",
+        "\t\t\tmap[string]string{",
+        "\t\t\t\t\"Apples\":  \"apples\",",
+        "\t\t\t\t\"Oranges\": \"oranges\",",
+        "\t\t\t})",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "PrimaryRadioGroup",
+      "code": [
+        "templ PrimaryRadioGroup() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.RadioGroup(",
+        "\t\t\t\"my-radio-group2\",",
+        "\t\t\t\"radio-primary\",",
+        "\t\t\tmap[string]string{",
+        "\t\t\t\t\"Apples\":  \"apples\",",
+        "\t\t\t\t\"Oranges\": \"oranges\",",
+        "\t\t\t})",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "range": [
+    {
+      "name": "BasicRange",
+      "code": [
+        "templ BasicRange() {",
+        "\t\u003cdiv class=\"max-w-sm mx-auto pt-4\"\u003e",
+        "\t\t@components.Range(",
+        "\t\t\tmodel.Range{",
+        "\t\t\t\tName:  \"my-range\",",
+        "\t\t\t\tValue: 25,",
+        "\t\t\t\tMin:   0,",
+        "\t\t\t\tMax:   100,",
+        "\t\t\t\tStep:  5,",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "name": "RatingFromOneToFive",
+      "code": [
+        "templ RatingFromOneToFive() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Rating(",
+        "\t\t\tmodel.Rating{",
+        "\t\t\t\tName: \"my-rating\",",
+        "\t\t\t\tMin:  1,",
+        "\t\t\t\tMax:  5,",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "RatingFromZeroToFive",
+      "code": [
+        "templ RatingFromZeroToFive() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Rating(",
+        "\t\t\tmodel.Rating{",
+        "\t\t\t\tName: \"my-rating2\",",
+        "\t\t\t\tMin:  0,",
+        "\t\t\t\tMax:  5,",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "select": [
+    {
+      "name": "BasicSelect",
+      "code": [
+        "templ BasicSelect() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Select(",
+        "\t\t\tmodel.Select{",
+        "\t\t\t\tLabel: \"Make a choice\",",
+        "\t\t\t\tName:  \"my-select\",",
+        "\t\t\t\tOptions: []model.SelectOption{",
+        "\t\t\t\t\t{Label: \"Which one?\", Disabled: true},",
+        "\t\t\t\t\t{Label: \"Apples\", Value: \"apples\"},",
+        "\t\t\t\t\t{Label: \"Oranges\", Value: \"oranges\"},",
+        "\t\t\t\t},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "CascadingSelect",
+      "code": [
+        "templ CascadingSelect() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto py-8\"\u003e",
+        "\t\t@components.Select(",
+        "\t\t\tmodel.Select{",
+        "\t\t\t\tLabel: \"Make\",",
+        "\t\t\t\tName:  \"make\",",
+        "\t\t\t\tOptions: []model.SelectOption{",
+        "\t\t\t\t\t{Label: \"Audi\", Value: \"audi\"},",
+        "\t\t\t\t\t{Label: \"BMW\", Value: \"bmw\"},",
+        "\t\t\t\t\t{Label: \"Toyota\", Value: \"toyota\"},",
+        "\t\t\t\t},",
+        "\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\"hx-get\":    \"/models\",",
+        "\t\t\t\t\t\"hx-target\": \"#models\",",
+        "\t\t\t\t},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\t@components.Select(",
+        "\t\t\tmodel.Select{",
+        "\t\t\t\tLabel: \"Model\",",
+        "\t\t\t\tName:  \"model\",",
+        "\t\t\t\tOptions: []model.SelectOption{",
+        "\t\t\t\t\t{Label: \"A1\", Value: \"a1\"},",
+        "\t\t\t\t\t{Label: \"A4\", Value: \"a4\"},",
+        "\t\t\t\t\t{Label: \"A6\", Value: \"a6\"},",
+        "\t\t\t\t},",
+        "\t\t\t\tAttrs: templ.Attributes{",
+        "\t\t\t\t\t\"id\": \"models\",",
+        "\t\t\t\t},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "skeleton": [
+    {
+      "name": "SkeletonExample",
+      "code": [
+        "templ SkeletonExample() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Skeleton()",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "socials": [
+    {
+      "name": "SocialLinks",
+      "code": [
+        "templ SocialLinks() {",
+        "\t\u003cdiv class=\"mx-auto\"\u003e",
+        "\t\t\u003cdiv class=\"flex space-x-4\"\u003e",
+        "\t\t\t@components.SocialsLink(model.Anchor{Icon: XIcon()})",
+        "\t\t\t@components.SocialsLink(model.Anchor{Icon: YoutubeIcon()})",
+        "\t\t\t@components.SocialsLink(model.Anchor{Icon: FacebookIcon()})",
+        "\t\t\t@components.SocialsLink(model.Anchor{Icon: GithubIcon()})",
+        "\t\t\t@components.SocialsLink(model.Anchor{Icon: LinkedInIcon()})",
+        "\t\t\u003c/div\u003e",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ XIcon() {",
+        "\t\u003csvg",
+        "\t\txmlns=\"http://www.w3.org/2000/svg\"",
+        "\t\tx=\"0px\"",
+        "\t\ty=\"0px\"",
+        "\t\tviewBox=\"0 0 50 50\"",
+        "\t\tclass=\"h-6 w-6 fill-base-content/80 hover:fill-base-content\"",
+        "\t\u003e",
+        "\t\t\u003cpath d=\"M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z\"\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ YoutubeIcon() {",
+        "\t\u003csvg",
+        "\t\txmlns=\"http://www.w3.org/2000/svg\"",
+        "\t\tviewBox=\"0 0 24 24\"",
+        "\t\tclass=\"h-6 w-6 fill-base-content/80 hover:fill-base-content\"",
+        "\t\u003e",
+        "\t\t\u003cpath",
+        "\t\t\td=\"M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z\"",
+        "\t\t\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ FacebookIcon() {",
+        "\t\u003csvg",
+        "\t\txmlns=\"http://www.w3.org/2000/svg\"",
+        "\t\tviewBox=\"0 0 24 24\"",
+        "\t\tclass=\"h-6 w-6 fill-base-content/80 hover:fill-base-content\"",
+        "\t\u003e",
+        "\t\t\u003cpath",
+        "\t\t\td=\"M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z\"",
+        "\t\t\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ GithubIcon() {",
+        "\t\u003csvg",
+        "\t\tclass=\"h-6 w-6\"",
+        "\t\tviewBox=\"0 0 20 20\"",
+        "\t\tversion=\"1.1\"",
+        "\t\txmlns=\"http://www.w3.org/2000/svg\"",
+        "\t\txmlns:xlink=\"http://www.w3.org/1999/xlink\"",
+        "\t\u003e",
+        "\t\t\u003cg stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\"\u003e",
+        "\t\t\t\u003cg class=\"fill-base-content/80 hover:fill-base-content\" id=\"Dribbble-Light-Preview\" transform=\"translate(-140.000000, -7559.000000)\"\u003e",
+        "\t\t\t\t\u003cg id=\"icons\" transform=\"translate(56.000000, 160.000000)\"\u003e",
+        "\t\t\t\t\t\u003cpath d=\"M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399\"\u003e\u003c/path\u003e",
+        "\t\t\t\t\u003c/g\u003e",
+        "\t\t\t\u003c/g\u003e",
+        "\t\t\u003c/g\u003e",
+        "\t\u003c/svg\u003e",
+        "}",
+        "",
+        "templ LinkedInIcon() {",
+        "\t\u003csvg",
+        "\t\tclass=\"h-6 w-6 fill-base-content/80 hover:fill-base-content\"",
+        "\t\tviewBox=\"0 0 32 32\"",
+        "\t\tversion=\"1.1\"",
+        "\t\txmlns=\"http://www.w3.org/2000/svg\"",
+        "\t\u003e",
+        "\t\t\u003cpath d=\"M28.778 1.004h-25.56c-0.008-0-0.017-0-0.027-0-1.199 0-2.172 0.964-2.186 2.159v25.672c0.014 1.196 0.987 2.161 2.186 2.161 0.010 0 0.019-0 0.029-0h25.555c0.008 0 0.018 0 0.028 0 1.2 0 2.175-0.963 2.194-2.159l0-0.002v-25.67c-0.019-1.197-0.994-2.161-2.195-2.161-0.010 0-0.019 0-0.029 0h0.001zM9.9 26.562h-4.454v-14.311h4.454zM7.674 10.293c-1.425 0-2.579-1.155-2.579-2.579s1.155-2.579 2.579-2.579c1.424 0 2.579 1.154 2.579 2.578v0c0 0.001 0 0.002 0 0.004 0 1.423-1.154 2.577-2.577 2.577-0.001 0-0.002 0-0.003 0h0zM26.556 26.562h-4.441v-6.959c0-1.66-0.034-3.795-2.314-3.795-2.316 0-2.669 1.806-2.669 3.673v7.082h-4.441v-14.311h4.266v1.951h0.058c0.828-1.395 2.326-2.315 4.039-2.315 0.061 0 0.121 0.001 0.181 0.003l-0.009-0c4.5 0 5.332 2.962 5.332 6.817v7.855z\"\u003e\u003c/path\u003e",
+        "\t\u003c/svg\u003e",
+        "}"
+      ]
+    }
+  ],
+  "stats": [
+    {
+      "name": "BasicStats",
+      "code": [
+        "templ BasicStats() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Stats() {",
+        "\t\t\t@components.Stat(model.Stat{Title: \"Downloads\", Value: \"31k\", Description: \"Jan 1st - Feb 1st\"})",
+        "\t\t\t@components.Stat(model.Stat{Title: \"New Users\", Value: \"4,200\", Description: \"↗︎ 400 (22%)\"})",
+        "\t\t\t@components.Stat(model.Stat{Title: \"New Registers\", Value: \"1,200\", Description: \"↘︎ 90 (14%)\"})",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "status": [
+    {
+      "name": "StatusNotFound",
+      "code": [
+        "templ StatusNotFound() {",
+        "\t@components.Status(model.Status{",
+        "\t\tCode:        404,",
+        "\t\tTitle:       \"Not Found\",",
+        "\t\tDescription: \"Looks like there's nothing here...\",",
+        "\t\tReturnButton: model.Button{",
+        "\t\t\tLabel: \"Go back\",",
+        "\t\t},",
+        "\t})",
+        "}"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "BasicSteps",
+      "code": [
+        "templ BasicSteps() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Steps() {",
+        "\t\t\t@components.Step(\"Register\", true, nil)",
+        "\t\t\t@components.Step(\"Choose plan\", true, nil)",
+        "\t\t\t@components.Step(\"Purchase\", false, nil)",
+        "\t\t\t@components.Step(\"Receive product\", false, nil)",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "swap": [
+    {
+      "name": "BasicSwap",
+      "code": [
+        "templ BasicSwap() {",
+        "\t\u003cdiv class=\"flex justify-center items-center h-20\"\u003e",
+        "\t\t@components.Swap(",
+        "\t\t\tSwapExampleOn(),",
+        "\t\t\tSwapExampleOff(),",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        "",
+        "templ SwapExampleOn() {",
+        "\t\u003cspan class=\"font-bold text-success\"\u003eON\u003c/span\u003e",
+        "}",
+        "",
+        "templ SwapExampleOff() {",
+        "\t\u003cspan class=\"font-bold text-neutral\"\u003eOFF\u003c/span\u003e",
+        "}"
+      ]
+    }
+  ],
+  "table": [
+    {
+      "name": "BasicTable",
+      "code": [
+        "templ BasicTable() {",
+        "\t@components.Table(",
+        "\t\t[]templ.Component{",
+        "\t\t\tcomponents.Checkbox(",
+        "\t\t\t\tmodel.Checkbox{",
+        "\t\t\t\t\tName: \"all\",",
+        "\t\t\t\t},",
+        "\t\t\t),",
+        "\t\t\tcomponents.PlainText(\"Name\"),",
+        "\t\t\tcomponents.PlainText(\"Email\"),",
+        "\t\t},",
+        "\t\t[]templ.Component{",
+        "\t\t\tTableExampleRow(\"John Doe\", \"john.doe@example.com\"),",
+        "\t\t\tTableExampleRow(\"Jane Doe\", \"Jane.doe@example.com\"),",
+        "\t\t\tTableExampleRow(\"Jim Smith\", \"jim.smith@example.com\"),",
+        "\t\t\tTableExampleRow(\"Julie Smith\", \"julie.smith@example.com\"),",
+        "\t\t},",
+        "\t\tnil,",
+        "\t)",
+        "}",
+        "",
+        "templ TableExampleRow(name, email string) {",
+        "\t\u003ctr\u003e",
+        "\t\t\u003ctd\u003e",
+        "\t\t\t@components.Checkbox(model.Checkbox{Name: email})",
+        "\t\t\u003c/td\u003e",
+        "\t\t\u003ctd\u003e",
+        "\t\t\t@components.PlainText(name)",
+        "\t\t\u003c/td\u003e",
+        "\t\t\u003ctd\u003e",
+        "\t\t\t@components.PlainText(email)",
+        "\t\t\u003c/td\u003e",
+        "\t\u003c/tr\u003e",
+        "}"
+      ]
+    }
+  ],
+  "tabs": [
+    {
+      "name": "BasicTabs",
+      "code": [
+        "templ BasicTabs() {",
+        "\t@components.Tabs(",
+        "\t\t\"basic-tabs\",",
+        "\t\t[]model.Tab{",
+        "\t\t\t{",
+        "\t\t\t\tLabel:   \"Home\",",
+        "\t\t\t\tContent: homeTabContent(),",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tLabel:   \"Info\",",
+        "\t\t\t\tContent: infoTabContent(),",
+        "\t\t\t},",
+        "\t\t\t{",
+        "\t\t\t\tLabel:   \"Stats\",",
+        "\t\t\t\tContent: statsTabContent(),",
+        "\t\t\t},",
+        "\t\t},",
+        "\t)",
+        "}",
+        "",
+        "templ homeTabContent() {",
+        "\t\u003cp\u003eThis is the home tab\u003c/p\u003e",
+        "}",
+        "",
+        "templ infoTabContent() {",
+        "\t\u003cp\u003eThis is the info tab\u003c/p\u003e",
+        "}",
+        "",
+        "templ statsTabContent() {",
+        "\t\u003cp\u003eThis is the stats tab\u003c/p\u003e",
+        "}"
+      ]
+    }
+  ],
+  "testimonial": [
+    {
+      "name": "TestimonialGridExample",
+      "code": [
+        "templ TestimonialGridExample() {",
+        "    @components.TestimonialGrid(",
+        "        \"Read what our customers think\",",
+        "        []model.Testimonial{",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 5, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 4, Content: \"maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 3, Content: \"Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 5, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 5, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. \"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 1, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 2, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 5, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 4, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum.\"},",
+        "            {Avatar: components.AvatarLG(\"/images/avatar.jpg\"), Name: \"Jane Doe\", Rating: 4, Content: \"Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas.\"},",
+        "        },",
+        "    )",
+        "}"
+      ]
+    }
+  ],
+  "textarea": [
+    {
+      "name": "BasicTextarea",
+      "code": [
+        "templ BasicTextarea() {",
+        "\t\u003cdiv class=\"pt-4\"\u003e",
+        "\t\t@components.Textarea(",
+        "\t\t\tmodel.Textarea{",
+        "\t\t\t\tLabel: \"Description\",",
+        "\t\t\t\tName:  \"description\",",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "BasicTextareaWithError",
+      "code": [
+        "templ BasicTextareaWithError() {",
+        "\t\u003cdiv class=\"pt-4\"\u003e",
+        "\t\t@components.Textarea(",
+        "\t\t\tmodel.Textarea{",
+        "\t\t\t\tLabel: \"Description\",",
+        "\t\t\t\tName:  \"description\",",
+        "\t\t\t\tErr:   \"Description cannot be empty\",",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "name": "BasicTimeline",
+      "code": [
+        "templ BasicTimeline() {",
+        "\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e",
+        "\t\t@components.Timeline(",
+        "\t\t\t[]model.TimelineItem{",
+        "\t\t\t\t{Start: \"1984\", Middle: components.TimelineCheckbox(true), End: \"First Macintosh computer\"},",
+        "\t\t\t\t{Start: \"1998\", Middle: components.TimelineCheckbox(true), End: \"iMac\"},",
+        "\t\t\t\t{Start: \"2001\", Middle: components.TimelineCheckbox(false), End: \"iPod\"},",
+        "\t\t\t\t{Start: \"2007\", Middle: components.TimelineCheckbox(false), End: \"iPhone\"},",
+        "\t\t\t\t{Start: \"2015\", Middle: components.TimelineCheckbox(false), End: \"Apple Watch\"},",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "toast": [
+    {
+      "name": "InfoToast",
+      "code": [
+        "templ InfoToast() {",
+        "\t\u003cdiv class=\"relative min-h-60\"\u003e",
+        "\t\t@components.Toast(",
+        "\t\t\tmodel.Toast{",
+        "\t\t\t\tName:         \"info-toast\",",
+        "\t\t\t\tToastClasses: \"absolute toast-end toast-top\",",
+        "\t\t\t\tAlertClasses: \"alert-info\",",
+        "\t\t\t},",
+        "\t\t) {",
+        "\t\t\t\u003cspan\u003eInfo toast\u003c/span\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "WarningToast",
+      "code": [
+        "templ WarningToast() {",
+        "\t\u003cdiv class=\"relative min-h-60\"\u003e",
+        "\t\t@components.Toast(",
+        "\t\t\tmodel.Toast{",
+        "\t\t\t\tName:         \"warning-toast\",",
+        "\t\t\t\tToastClasses: \"absolute toast-end toast-bottom\",",
+        "\t\t\t\tAlertClasses: \"alert-warning\",",
+        "\t\t\t},",
+        "\t\t) {",
+        "\t\t\t\u003cspan\u003eWarning toast\u003c/span\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "ErrorToast",
+      "code": [
+        "templ ErrorToast() {",
+        "\t\u003cdiv class=\"relative min-h-60\"\u003e",
+        "\t\t@components.Toast(",
+        "\t\t\tmodel.Toast{",
+        "\t\t\t\tName:         \"error-toast\",",
+        "\t\t\t\tToastClasses: \"absolute toast-center toast-top\",",
+        "\t\t\t\tAlertClasses: \"alert-error\",",
+        "\t\t\t},",
+        "\t\t) {",
+        "\t\t\t\u003cspan\u003eError toast\u003c/span\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "InfoToastConfirm",
+      "code": [
+        "templ InfoToastConfirm() {",
+        "\t\u003cdiv class=\"relative min-h-60\"\u003e",
+        "\t\t@components.Toast(model.Toast{",
+        "\t\t\tName:         \"error-toast\",",
+        "\t\t\tToastClasses: \"absolute toast-end toast-top\",",
+        "\t\t\tAlertClasses: \"alert-info\",",
+        "\t\t},",
+        "\t\t) {",
+        "\t\t\t\u003cspan\u003eInfo toast\u003c/span\u003e",
+        "\t\t\t\u003cbutton onclick=\"remover(event)\" class=\"btn btn-info\"\u003eOK\u003c/button\u003e",
+        "\t\t\t\u003cscript\u003e",
+        "            function remover(evt) {",
+        "                evt.target.closest(\"div[name=toast-error]\").remove()",
+        "            }",
+        "        \u003c/script\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "toggle": [
+    {
+      "name": "DefaultToggle",
+      "code": [
+        "templ DefaultToggle() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Toggle(",
+        "\t\t\tmodel.Toggle{",
+        "\t\t\t\tBefore: \"Check me out\",",
+        "\t\t\t\tName:   \"checkbox1\",",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "PrimaryToggle",
+      "code": [
+        "templ PrimaryToggle() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Toggle(",
+        "\t\t\tmodel.Toggle{",
+        "\t\t\t\tBefore:  \"Check me out\",",
+        "\t\t\t\tName:    \"checkbox2\",",
+        "\t\t\t\tChecked: true,",
+        "\t\t\t\tClass:   \"checkbox-primary\",",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}",
+        ""
+      ]
+    },
+    {
+      "name": "PrimaryToggleWithHighlight",
+      "code": [
+        "templ PrimaryToggleWithHighlight() {",
+        "\t\u003cdiv class=\"max-w-xs mx-auto pt-4\"\u003e",
+        "\t\t@components.Toggle(",
+        "\t\t\tmodel.Toggle{",
+        "\t\t\t\tBefore:    \"Paid monthly\",",
+        "\t\t\t\tAfter:     \"Paid annually\",",
+        "\t\t\t\tName:      \"checkbox3\",",
+        "\t\t\t\tHighlight: true,",
+        "\t\t\t\tClass:     \"checkbox-primary\",",
+        "\t\t\t},",
+        "\t\t)",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ],
+  "tooltip": [
+    {
+      "name": "BasicTooltip",
+      "code": [
+        "templ BasicTooltip() {",
+        "\t\u003cdiv class=\"min-h-60 flex justify-center items-center\"\u003e",
+        "\t\t@components.Tooltip(\"Hello\") {",
+        "\t\t\t\u003cbutton class=\"btn\"\u003eHover me\u003c/button\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    }
+  ]
+}

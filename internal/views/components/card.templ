@@ -1,0 +1,21 @@
+// data_display
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Card(card model.Card) {
+	<div class="card bg-base-100 w-96 shadow-xl">
+		if card.Source != "" {
+			<figure>
+				<img src={ card.Source } alt={ card.Alt }/>
+			</figure>
+		}
+		<div class="card-body">
+			<h2 class="card-title">{ card.Title }</h2>
+			<p>{ card.Content }</p>
+			<div class="card-actions justify-end">
+				{ children... }
+			</div>
+		</div>
+	</div>
+}

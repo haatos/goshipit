@@ -1,0 +1,82 @@
+// feedback
+package components
+
+import "github.com/haatos/goshipit/internal/model"
+
+templ Toast(toast model.Toast) {
+	<div name={ toast.Name } class={ "toast", toast.ToastClasses }>
+		<div class={ "alert", toast.AlertClasses }>
+			{ children... }
+		</div>
+	</div>
+}
+
+templ ToastErrorConfirm(errs ...string) {
+	@Toast(
+		model.Toast{
+			Name:         "toast-error",
+			ToastClasses: "toast-top toast-center",
+			AlertClasses: "alert-error",
+		},
+	) {
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-6 w-6 shrink-0 stroke-current"
+			fill="none"
+			viewBox="0 0 24 24"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+		</svg>
+		<div class="w-full max-w-xs text-sm text-start">
+			<ul class="list-disc pl-2">
+				for _, e := range errs {
+					<li>{ e }</li>
+				}
+			</ul>
+		</div>
+		<button onclick="remover(event)" class="btn btn-error">OK</button>
+		<script>
+            function remover(evt) {
+                evt.target.closest("div[name=toast-error]").remove()
+            }
+        </script>
+	}
+}
+
+templ HXToastInfoFade(errs ...string) {
+	@Toast(
+		model.Toast{
+			Name:         "toast-info",
+			ToastClasses: "toast-bottom toast-end",
+			AlertClasses: "alert-info",
+		},
+	) {
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-6 w-6 shrink-0 stroke-current"
+			fill="none"
+			viewBox="0 0 24 24"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+		</svg>
+		<div class="w-full max-w-xs text-sm text-start">
+			<ul
+				class={ templ.KV("list-disc", len(errs) > 1) }
+			>
+				for _, e := range errs {
+					<li>{ e }</li>
+				}
+			</ul>
+		</div>
+		<script>
+			document.addEventListener("htmx:afterSettle", (evt) => {
+				let els = document.querySelectorAll("div[name=toast-info]")
+				let el = els[els.length-1]
+
+				setTimeout(() => {
+					el.remove()
+				}, 5000)
+			})
+        </script>
+	}
+}

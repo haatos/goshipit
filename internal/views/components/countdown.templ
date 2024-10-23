@@ -1,0 +1,94 @@
+// data_display
+package components
+
+import (
+	"fmt"
+	"time"
+)
+
+templ Countdown(expires time.Time) {
+	<div
+		class="flex items-center space-x-1"
+		x-cloak
+		x-data={ fmt.Sprintf("countdownTimer(new Date(\"%s\"))", expires.Format("2006-01-02T15:04:05Z")) }
+		x-init="initCountdownTimer();"
+		hx-get="/"
+		hx-trigger="countdownExpired from:body"
+	>
+		@countDownItem("time().days", "days")
+		@countDownItem("time().hours", "hours")
+		@countDownItem("time().minutes", "min")
+		@countDownItem("time().seconds", "sec")
+	</div>
+	<script>
+		function countdownTimer(expiry) {
+			return {
+				expiry: expiry,
+				remaining:null,
+				initCountdownTimer() {
+					this.setCountdownTimerRemaining()
+					this.intervalId = setInterval(() => {
+						this.setCountdownTimerRemaining();
+					}, 1000);
+				},
+				setCountdownTimerRemaining() {
+					const diff = this.expiry - new Date().getTime();
+					this.remaining =  parseInt(diff / 1000);
+					let now = this.time()
+					if (now.days === "00" && now.hours === "00" && now.minutes === "00" && now.seconds === "00") {
+						clearInterval(this.intervalId)
+						let body = document.querySelector("body")
+						body.dispatchEvent(new Event("countdownExpired"))
+					}
+				},
+				countdownTimerDays() {
+					return {
+						value:this.remaining / 86400,
+						remaining:this.remaining % 86400
+					};
+				},
+				countdownTimerHours() {
+					return {
+						value:this.countdownTimerDays().remaining / 3600,
+						remaining:this.countdownTimerDays().remaining % 3600
+					};
+				},
+				countdownTimerMinutes() {
+					return {
+					value:this.countdownTimerHours().remaining / 60,
+					remaining:this.countdownTimerHours().remaining % 60
+				};
+				},
+				countdownTimerSeconds() {
+					return {
+					value:this.countdownTimerMinutes().remaining,
+				};
+				},
+				format(value) {
+					return ("0" + parseInt(value)).slice(-2)
+				},
+				time() {
+					return {
+						days:this.format(this.countdownTimerDays().value),
+						hours:this.format(this.countdownTimerHours().value),
+						minutes:this.format(this.countdownTimerMinutes().value),
+						seconds:this.format(this.countdownTimerSeconds().value),
+					}
+				},
+			}
+		}
+	</script>
+	<script src="/js/alpine.js" defer></script>
+}
+
+templ countDownItem(xText, label string) {
+	<div
+		class={
+			"flex flex-col justify-center items-center",
+			"w-16 h-20 rounded-box bg-base-content text-base-300",
+		}
+	>
+		<p class="text-5xl font-mono" x-text={ xText }></p>
+		<p>{ label }</p>
+	</div>
+}

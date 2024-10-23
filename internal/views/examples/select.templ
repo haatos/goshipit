@@ -1,0 +1,58 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicSelect() {
+	<div class="max-w-xs mx-auto pt-4">
+		@components.Select(
+			model.Select{
+				Label: "Make a choice",
+				Name:  "my-select",
+				Options: []model.SelectOption{
+					{Label: "Which one?", Disabled: true},
+					{Label: "Apples", Value: "apples"},
+					{Label: "Oranges", Value: "oranges"},
+				},
+			},
+		)
+	</div>
+}
+
+// example
+templ CascadingSelect() {
+	<div class="max-w-xs mx-auto py-8">
+		@components.Select(
+			model.Select{
+				Label: "Make",
+				Name:  "make",
+				Options: []model.SelectOption{
+					{Label: "Audi", Value: "audi"},
+					{Label: "BMW", Value: "bmw"},
+					{Label: "Toyota", Value: "toyota"},
+				},
+				Attrs: templ.Attributes{
+					"hx-get":    "/models",
+					"hx-target": "#models",
+				},
+			},
+		)
+		@components.Select(
+			model.Select{
+				Label: "Model",
+				Name:  "model",
+				Options: []model.SelectOption{
+					{Label: "A1", Value: "a1"},
+					{Label: "A4", Value: "a4"},
+					{Label: "A6", Value: "a6"},
+				},
+				Attrs: templ.Attributes{
+					"id": "models",
+				},
+			},
+		)
+	</div>
+}

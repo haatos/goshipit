@@ -1,0 +1,21 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/model"
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BannerExample() {
+    @components.Banner(model.Banner{
+        Title:                 basicBannerTitle(),
+        Description:           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente iure non, quia perspiciatis sed temporibus quos nihil, voluptatibus tempore placeat ipsa est facilis, nobis illum in magni illo neque libero.",
+        CallToAction:          model.Button{Label: "Get started"},
+        SecondaryCallToAction: model.Button{Label: "Learn more"},
+    })
+}
+
+templ basicBannerTitle() {
+	<h1 class="text-3xl font-extrabold sm:text-5xl">
+		Lorem ipsum dolor.
+		<strong class="font-extrabold text-primary sm:block">Sit amet consectetur. </strong>
+	</h1>
+}

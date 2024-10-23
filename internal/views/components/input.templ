@@ -1,0 +1,67 @@
+// data_input
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+)
+
+templ Input(input model.Input) {
+	<div
+		id={ fmt.Sprintf("%s-div", input.Name) }
+		hx-target={ fmt.Sprintf("#%s-error", input.Name) }
+		hx-swap="innerHTML"
+		class="w-full"
+	>
+		<label
+			class={ "form-control w-full", templ.KV("pb-1", input.Label != "") }
+		>
+			if input.Label != "" {
+				<div class="py-1 pr-2">
+					<span class="label-text leading-4">{ input.Label }</span>
+				</div>
+			}
+			<div
+				class={ "relative input input-bordered !px-0 bg-transparent w-full flex items-center flex-grow",
+					templ.KV("!pl-3", input.Icon != nil),
+					templ.KV("input-error", input.Err != "") }
+			>
+				if input.Icon != nil {
+					<div class="w-5 h-5">
+						@input.Icon
+					</div>
+				}
+				<input
+					{ input.Attrs... }
+					name={ input.Name }
+					class={
+						"w-full focus:!outline-none !appearance-none px-2",
+						templ.KV("input-error", input.Err != ""),
+						templ.KV(input.Classes, input.Classes != ""),
+					}
+					value={ input.Value }
+				/>
+				<script>
+					document.addEventListener("htmx:afterRequest", (evt) => {
+						let name = evt.detail.elt.getAttribute("name")
+						let div = document.getElementById(name + "-div")
+						if (div === null) {
+							return
+						}
+						let inp = div.querySelector("input[name=" + name + "]")
+						if (200 <= evt.detail.xhr.status && evt.detail.xhr.status < 300) {
+							if (inp.classList.contains("input-error")) {
+								inp.classList.toggle("input-error")
+							}
+						} else {
+							if (!inp.classList.contains("input-error")) {
+								inp.classList.toggle("input-error")
+							}
+						}
+					})
+				</script>
+			</div>
+			<span id={ fmt.Sprintf("%s-error", input.Name) } class="text-error h-3 text-xs">{ input.Err }</span>
+		</label>
+	</div>
+}

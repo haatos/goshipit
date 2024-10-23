@@ -1,0 +1,23 @@
+package examples
+
+import "fmt"
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ InfiniteScrollTableExample() {
+	@components.Table(
+		[]templ.Component{components.PlainText("Name"), components.PlainText("Email")},
+		initialRows(),
+		nil,
+	)
+	<div class="flex justify-center"><span id="spinner" class="htmx-indicator loading loading-spinner"></span></div>
+}
+
+func initialRows() []templ.Component {
+    data := make([]templ.Component, 10)
+	for i := 0; i < 10; i++ {
+		data[i] = components.InfiniteScrollRow("John Doe", fmt.Sprintf("john.doe%d@email.com", i), 0, i == 9)
+	}
+
+    return data
+}

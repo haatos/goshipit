@@ -1,0 +1,22 @@
+// layout
+package components
+
+templ Hero(image string, reverse bool) {
+	<div class="hero bg-base-200 min-h-screen">
+		<div
+			class={
+				"hero-content",
+				"flex-col",
+				templ.KV("xl:flex-row", !reverse),
+				templ.KV("xl:flex-row-reverse", reverse),
+			}
+		>
+			if image != "" {
+				<img src={ image } class="max-w-sm rounded-lg shadow-2xl"/>
+			}
+			<div>
+				{ children... }
+			</div>
+		</div>
+	</div>
+}

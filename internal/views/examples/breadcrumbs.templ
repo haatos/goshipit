@@ -1,0 +1,17 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/model"
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BreadcrumbsExample() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Breadcrumbs(
+			[]model.Button{
+				{Label: "Laptops", Attrs: templ.Attributes{"href": "/laptops", "class": "link"}},
+				{Label: "Macbooks", Attrs: templ.Attributes{"href": "/laptops/macbooks", "class": "link"}},
+				{Label: "Macbook Pro 14"},
+			},
+		)
+	</div>
+}

@@ -1,0 +1,32 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ RatingFromOneToFive() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Rating(
+			model.Rating{
+				Name: "my-rating",
+				Min:  1,
+				Max:  5,
+			},
+		)
+	</div>
+}
+
+// example
+templ RatingFromZeroToFive() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Rating(
+			model.Rating{
+				Name: "my-rating2",
+				Min:  0,
+				Max:  5,
+			},
+		)
+	</div>
+}
