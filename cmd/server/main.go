@@ -54,6 +54,8 @@ func main() {
 	e.GET("/pricing", handler.GetPricingExample)
 	e.GET("/models", handler.GetCascadingSelectExample)
 	e.GET("/pagination-pages", handler.GetPaginationExamplePage)
+	e.POST("/combobox/:name/:value", handler.PostCombobox)
+	e.POST("/combobox-submit/:name", handler.PostComboboxSubmit)
 	// handlers for component examples
 
 	internal.GracefulShutdown(e, internal.Settings.Port)

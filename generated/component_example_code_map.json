@@ -346,6 +346,61 @@
       ]
     }
   ],
+  "combobox": [
+    {
+      "name": "BasicCombobox",
+      "code": [
+        "templ BasicCombobox() {",
+        "\t\u003cdiv class=\"h-96\"\u003e",
+        "\t\t\u003cform hx-post=\"/combobox-submit/example_combo\" class=\"space-x-4\"\u003e",
+        "\t\t\t@components.Combobox(model.Combobox{",
+        "\t\t\t\tName:  \"example_combo\",",
+        "\t\t\t\tLabel: \"Example\",",
+        "\t\t\t\tURL:   \"/combobox/%s/%s\",",
+        "\t\t\t\tOptions: []string{",
+        "\t\t\t\t\t\"Thing 1\", \"Thing 2\", \"Thing 3\", \"Thing 4\", \"Thing 5\", \"Thing 6\", \"Thing 7\",",
+        "\t\t\t\t},",
+        "\t\t\t})",
+        "\t\t\t\u003cbutton type=\"submit\" class=\"btn btn-sm btn-primary\"\u003eSubmit\u003c/button\u003e",
+        "\t\t\t\u003cscript\u003e",
+        "\t\t\t\t// update the form to only include half of the input values",
+        "\t\t\t\t// corresponding to the combobox's name since it will contain enabled checkbox values as well",
+        "\t\t\t\t((form) =\u003e {",
+        "\t\t\t\t\tform.addEventListener(\"htmx:configRequest\", (evt) =\u003e {",
+        "\t\t\t\t\t\tlet values = evt.detail.parameters[\"example_combo\"]",
+        "\t\t\t\t\t\tif (values !== undefined) {",
+        "\t\t\t\t\t\t\tevt.detail.parameters[\"example_combo\"] = values.slice(0, Math.floor(values.length / 2))",
+        "\t\t\t\t\t\t}",
+        "\t\t\t\t\t})",
+        "\t\t\t\t})(document.currentScript.parentElement)",
+        "\t\t\t\u003c/script\u003e",
+        "\t\t\u003c/form\u003e",
+        "\t\u003c/div\u003e",
+        "}"
+      ],
+      "handler": [
+        "func PostCombobox(c echo.Context) error {",
+        "\tname := c.Param(\"name\")",
+        "\tvalue := c.Param(\"value\")",
+        "",
+        "\treturn render(c, http.StatusOK, components.ComboBadge(name, value))",
+        "}",
+        "",
+        "func PostComboboxSubmit(c echo.Context) error {",
+        "\turlValues, err := c.FormParams()",
+        "\tif err != nil {",
+        "\t\treturn renderErrorConfirm(c, http.StatusUnprocessableEntity, []string{\"unable to process combobox input\"})",
+        "\t}",
+        "",
+        "\tname := c.Param(\"name\")",
+        "\tcomboboxPostData := urlValues[name]",
+        "",
+        "\treturn renderSuccessFade(c, http.StatusOK, comboboxPostData)",
+        "}",
+        ""
+      ]
+    }
+  ],
   "countdown": [
     {
       "name": "CountdownExample",

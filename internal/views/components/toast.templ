@@ -43,28 +43,25 @@ templ ToastErrorConfirm(errs ...string) {
 	}
 }
 
-templ HXToastInfoFade(errs ...string) {
+templ HXToastInfoFade(messages ...string) {
 	@Toast(
 		model.Toast{
 			Name:         "toast-info",
-			ToastClasses: "toast-bottom toast-end",
-			AlertClasses: "alert-info",
+			ToastClasses: "toast-bottom toast-end w-full max-w-xs",
+			AlertClasses: "alert-info w-full max-w-xs space-x-4",
 		},
 	) {
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="h-6 w-6 shrink-0 stroke-current"
-			fill="none"
-			viewBox="0 0 24 24"
-		>
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+		<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path class="stroke-info-content" d="M12 17V11" stroke-width="1.5" stroke-linecap="round"></path>
+			<circle class="fill-info-content" cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)"></circle>
+			<path class="stroke-info-content" d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke-width="1.5" stroke-linecap="round"></path>
 		</svg>
 		<div class="w-full max-w-xs text-sm text-start">
 			<ul
-				class={ templ.KV("list-disc", len(errs) > 1) }
+				class={ templ.KV("list-disc", len(messages) > 1) }
 			>
-				for _, e := range errs {
-					<li>{ e }</li>
+				for _, m := range messages {
+					<li>{ m }</li>
 				}
 			</ul>
 		</div>
@@ -73,9 +70,11 @@ templ HXToastInfoFade(errs ...string) {
 				let els = document.querySelectorAll("div[name=toast-info]")
 				let el = els[els.length-1]
 
-				setTimeout(() => {
-					el.remove()
-				}, 5000)
+				if (el !== undefined) {
+					setTimeout(() => {
+						el.remove()
+					}, 5000)
+				}
 			})
         </script>
 	}

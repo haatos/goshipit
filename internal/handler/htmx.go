@@ -2,8 +2,8 @@ package handler
 
 import "github.com/labstack/echo/v4"
 
-func hxRedirect(c echo.Context, path string) {
-	c.Response().Writer.Header().Set("HX-Redirect", path)
+func hxRetarget(c echo.Context, target string) {
+	c.Response().Writer.Header().Set("HX-Retarget", target)
 }
 
 func hxReswap(c echo.Context, swap string) {

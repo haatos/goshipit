@@ -1,0 +1,35 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ BasicCombobox() {
+	<div class="h-96">
+		<form hx-post="/combobox-submit/example_combo" class="space-x-4">
+			@components.Combobox(model.Combobox{
+				Name:  "example_combo",
+				Label: "Example",
+				URL:   "/combobox/%s/%s",
+				Options: []string{
+					"Thing 1", "Thing 2", "Thing 3", "Thing 4", "Thing 5", "Thing 6", "Thing 7",
+				},
+			})
+			<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+			<script>
+				// update the form to only include half of the input values
+				// corresponding to the combobox's name since it will contain enabled checkbox values as well
+				((form) => {
+					form.addEventListener("htmx:configRequest", (evt) => {
+						let values = evt.detail.parameters["example_combo"]
+						if (values !== undefined) {
+							evt.detail.parameters["example_combo"] = values.slice(0, Math.floor(values.length / 2))
+						}
+					})
+				})(document.currentScript.parentElement)
+			</script>
+		</form>
+	</div>
+}

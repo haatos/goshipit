@@ -39,6 +39,14 @@ type Checkbox struct {
 	Attrs   templ.Attributes
 }
 
+type Combobox struct {
+	Label    string
+	Name     string
+	URL      string
+	Options  []string
+	Selected []string
+}
+
 type CompanyInfo struct {
 	Icon        templ.Component
 	Name        string

@@ -21,9 +21,15 @@ func render(c echo.Context, status int, com templ.Component) error {
 }
 
 func renderErrorConfirm(c echo.Context, status int, errs []string) error {
-	hxRedirect(c, "body")
+	hxRetarget(c, "body")
 	hxReswap(c, "beforeend")
 	return render(c, status, components.ToastErrorConfirm(errs...))
+}
+
+func renderSuccessFade(c echo.Context, status int, errs []string) error {
+	hxRetarget(c, "body")
+	hxReswap(c, "beforeend")
+	return render(c, status, components.HXToastInfoFade(errs...))
 }
 
 func getHTMLFromComponent(com templ.Component) string {

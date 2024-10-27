@@ -21,6 +21,7 @@ var ExampleComponents = map[string]templ.Component{
 	"DefaultCheckbox":            examples.DefaultCheckbox(),
 	"PrimaryCheckbox":            examples.PrimaryCheckbox(),
 	"CollapseExample":            examples.CollapseExample(),
+	"BasicCombobox":              examples.BasicCombobox(),
 	"CountdownExample":           examples.CountdownExample(),
 	"ImageDiff":                  examples.ImageDiff(),
 	"BasicDrawer":                examples.BasicDrawer(),

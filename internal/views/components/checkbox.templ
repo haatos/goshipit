@@ -4,22 +4,18 @@ package components
 import "github.com/haatos/goshipit/internal/model"
 
 templ Checkbox(checkbox model.Checkbox) {
-	<div class="form-control">
-		<label class="label cursor-pointer space-x-2">
-			if checkbox.Label != "" {
-				<span class="label-text">
-					{ checkbox.Label }
-				</span>
+	<label class="label cursor-pointer space-x-2">
+		<span class="label-text">
+			{ checkbox.Label }
+		</span>
+		<input
+			{ checkbox.Attrs... }
+			type="checkbox"
+			name={ checkbox.Name }
+			if checkbox.Checked {
+				checked="checked"
 			}
-			<input
-				{ checkbox.Attrs... }
-				type="checkbox"
-				name={ checkbox.Name }
-				if checkbox.Checked {
-					checked="checked"
-				}
-				class={ "checkbox", checkbox.Class }
-			/>
-		</label>
-	</div>
+			class={ "checkbox", checkbox.Class }
+		/>
+	</label>
 }

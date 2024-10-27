@@ -26,6 +26,7 @@ func GetComponentAnchors(c echo.Context) error {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
+
 	return render(c, http.StatusOK, pages.ComponentAnchors(keys, internal.ComponentCodeMap))
 }
 
@@ -274,3 +275,25 @@ func getPaginationLowAndHigh(page, maxPages, pagePerSide int) (int, int) {
 }
 
 // BasicPaginationExample
+
+// BasicCombobox
+func PostCombobox(c echo.Context) error {
+	name := c.Param("name")
+	value := c.Param("value")
+
+	return render(c, http.StatusOK, components.ComboBadge(name, value))
+}
+
+func PostComboboxSubmit(c echo.Context) error {
+	urlValues, err := c.FormParams()
+	if err != nil {
+		return newErrorToast(http.StatusUnprocessableEntity, "unable to parse form data")
+	}
+
+	name := c.Param("name")
+	comboboxPostData := urlValues[name]
+
+	return renderSuccessFade(c, http.StatusOK, comboboxPostData)
+}
+
+// BasicCombobox

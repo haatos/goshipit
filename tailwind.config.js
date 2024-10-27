@@ -12,8 +12,8 @@ const disabledCss = {
 }
 
 module.exports = {
-  content: ["internal/views/**/*.templ"],
-  theme: {
+	content: ["internal/views/**/*.templ"],
+	theme: {
 		extend: {
 			/* disable code block CSS */
 			typography: {
@@ -25,13 +25,13 @@ module.exports = {
 			},
 		},
 	},
-  /* @tailwind/typography plugin should be befire daisyui */
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
-  daisyui: {
-    themes: [
-      {
-        light: {
-          "primary": "#06b6d4",
+	/* @tailwind/typography plugin should be befire daisyui */
+	plugins: [require("@tailwindcss/typography"), require("daisyui")],
+	daisyui: {
+		themes: [
+			{
+				light: {
+					"primary": "#06b6d4",
 					"secondary": "#9FB798",
 					"accent": "#d946ef",
 					"neutral": "#4B4744",
@@ -42,9 +42,9 @@ module.exports = {
 					"success": "35FF69",
 					"--rounded-box": "0.15rem",
 					"--rounded-btn": "0.15rem"
-        },
-        dark: {
-          "primary": "#22d3ee",
+				},
+				dark: {
+					"primary": "#22d3ee",
 					"secondary": "#9FB798",
 					"accent": "#d946ef",
 					"neutral": "#7B9EA8",
@@ -55,8 +55,8 @@ module.exports = {
 					"success": "35FF69",
 					"--rounded-box": "0.15rem",
 					"--rounded-btn": "0.15rem"
-        }
-      },
-    ],
-  },
+				}
+			},
+		],
+	},
 };

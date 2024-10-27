@@ -1,0 +1,117 @@
+// data_input
+package components
+
+import (
+	"fmt"
+	"github.com/haatos/goshipit/internal/model"
+	"net/url"
+)
+
+templ Combobox(cb model.Combobox) {
+	<details class="dropdown w-full max-w-md min-h-8">
+		<summary class="cursor-pointer flex space-x-2 w-full rounded-box border border-base-content py-1 px-2">
+			<span class="text-sm text-nowrap">{ cb.Label }</span>
+			<div class="w-full flex items-center space-x-1">
+				<div id={ fmt.Sprintf("%s_selections", cb.Name) } class="w-full grid-flow-col-dense">
+					for _, s := range cb.Selected {
+						@ComboBadge(cb.Name, s)
+					}
+				</div>
+			</div>
+		</summary>
+		<ul class="menu dropdown-content bg-base-200 rounded-box z-50 p-2 shadow">
+			for _, opt := range cb.Options {
+				<li>
+					<label class="label cursor-pointer space-x-2">
+						<span class="label-text">
+							{ opt }
+						</span>
+						<input
+							hx-post={ fmt.Sprintf(cb.URL, cb.Name, url.PathEscape(opt)) }
+							hx-target={ fmt.Sprintf("#%s_selections", cb.Name) }
+							hx-swap="beforeend"
+							type="checkbox"
+							name={ cb.Name }
+							class={ "checkbox" }
+						/>
+					</label>
+				</li>
+			}
+		</ul>
+		<script data-checkbox-name={ cb.Name } type="text/javascript">
+			var name = document.currentScript.getAttribute("data-checkbox-name");
+			((name) => {
+				document.addEventListener("htmx:configRequest", (evt) => {
+					if (evt.target.getAttribute("name") === name && !evt.target.checked) {
+						// prevent htmx request when checkbox is unchecked
+						evt.preventDefault()
+
+						// remove from selected elements
+						let label = evt.target.closest("label")
+						if (label !== null && label !== undefined) {
+							let span = label.querySelector("span.label-text")
+							let value = span.innerText
+							let input = document.querySelector(`input[value="${value}"]`)
+							if (input.getAttribute("name") === name) {
+								input.closest("div").remove()
+							}
+						}
+					}
+				})
+			})(name);
+		</script>
+	</details>
+}
+
+templ ComboBadge(name, value string) {
+	<div class="ml-2 badge badge-neutral p-1 text-nowrap select-none">
+		<input type="hidden" name={ name } value={ value }/>
+		<span>{ value }</span>
+		<button onclick="uncheckAndRemoveBadge(event)" class="ml-1 btn btn-xs btn-circle btn-ghost">
+			@crossIcon()
+		</button>
+		<script>
+			function uncheckAndRemoveBadge(evt) {
+				var div = evt.target.parentElement
+				while (div.nodeName !== "DIV") {
+					div = div.parentElement
+				}
+				let input = div.querySelector("input[type=hidden]")
+				let name = input.getAttribute("name")
+				let labelText = input.value
+
+				let details = div.closest("details")
+				let ul = details.querySelector("ul")
+				let checkboxes = ul.querySelectorAll(`input[name="${name}"]`)
+				checkboxes.forEach((cb) => {
+					if (cb.checked) {
+						let label = cb.parentElement
+						label.querySelectorAll("span.label-text").forEach((el) => {
+							if (el.innerHTML === labelText) {
+								cb.checked = false
+							}
+						})
+					}
+				})
+				div.remove()
+			}
+		</script>
+	</div>
+}
+
+templ crossIcon() {
+	<svg
+		class="h-3 w-3"
+		viewBox="0 0 25 25"
+		version="1.1"
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	>
+		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+			<g class="fill-base-content" id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-469.000000, -1041.000000)">
+				<path d="M487.148,1053.48 L492.813,1047.82 C494.376,1046.26 494.376,1043.72 492.813,1042.16 C491.248,1040.59 488.712,1040.59 487.148,1042.16 L481.484,1047.82 L475.82,1042.16 C474.257,1040.59 471.721,1040.59 470.156,1042.16 C468.593,1043.72 468.593,1046.26 470.156,1047.82 L475.82,1053.48 L470.156,1059.15 C468.593,1060.71 468.593,1063.25 470.156,1064.81 C471.721,1066.38 474.257,1066.38 475.82,1064.81 L481.484,1059.15 L487.148,1064.81 C488.712,1066.38 491.248,1066.38 492.813,1064.81 C494.376,1063.25 494.376,1060.71 492.813,1059.15 L487.148,1053.48" sketch:type="MSShapeGroup"></path>
+			</g>
+		</g>
+	</svg>
+}
