@@ -9,3 +9,7 @@ func hxRetarget(c echo.Context, target string) {
 func hxReswap(c echo.Context, swap string) {
 	c.Response().Writer.Header().Set("HX-Reswap", swap)
 }
+
+func isHXRequest(c echo.Context) bool {
+	return c.Request().Header.Get("hx-request") != ""
+}

@@ -45,20 +45,30 @@ func GetComponentPage(c echo.Context) error {
 	coms := make([]templ.Component, 0, len(exampleCodes))
 	for i, exampleCode := range exampleCodes {
 		tabs := []model.Tab{
-			{Label: "Preview", Content: templ.Raw(getHTMLFromComponent(generated.ExampleComponents[exampleCode.Name]))},
-			{Label: "Templ", Content: templ.Raw(markdown.GetHTMLFromMarkdown([]byte(exampleCode.CodeMarkdown)))},
+			{
+				Label:   "Preview",
+				Content: templ.Raw(getHTMLFromComponent(generated.ExampleComponents[exampleCode.Name])),
+			},
+			{
+				Label:   "Templ",
+				Content: templ.Raw(markdown.GetHTMLFromMarkdown([]byte(exampleCode.CodeMarkdown))),
+			},
 		}
 		if exampleCode.HandlerMarkdown != "" {
-			tabs = append(tabs, model.Tab{Label: "Handler", Content: templ.Raw(markdown.GetHTMLFromMarkdown([]byte(exampleCode.HandlerMarkdown)))})
+			tabs = append(
+				tabs,
+				model.Tab{
+					Label:   "Handler",
+					Content: templ.Raw(markdown.GetHTMLFromMarkdown([]byte(exampleCode.HandlerMarkdown))),
+				})
 		}
 		coms = append(coms, components.Tabs(fmt.Sprintf("%s-%d-tab", exampleCode.Name, i), tabs))
 	}
 
-	if c.Request().Header.Get("hx-request") == "" {
-		return render(c, http.StatusOK, pages.ComponentPage(componentCode.Label, componentCode.CodeMarkdown, coms))
-	} else {
+	if isHXRequest(c) {
 		return render(c, http.StatusOK, pages.ComponentMain(componentCode.Label, componentCode.CodeMarkdown, coms))
 	}
+	return render(c, http.StatusOK, pages.ComponentPage(componentCode.Label, componentCode.CodeMarkdown, coms))
 }
 
 func GetComponentSearch(c echo.Context) error {
@@ -72,7 +82,9 @@ func GetComponentSearch(c echo.Context) error {
 	results := []pages.ComponentSearchItem{}
 	for category := range internal.ComponentCodeMap {
 		for i := range internal.ComponentCodeMap[category] {
-			if strings.Contains(strings.ToLower(internal.SnakeCaseToCapitalized(internal.ComponentCodeMap[category][i].Name)), search) {
+			if strings.Contains(
+				strings.ToLower(internal.SnakeCaseToCapitalized(internal.ComponentCodeMap[category][i].Name)), search,
+			) {
 				results = append(results, pages.ComponentSearchItem{
 					Category: category,
 					Name:     internal.ComponentCodeMap[category][i].Name,
