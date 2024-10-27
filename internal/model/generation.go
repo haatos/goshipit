@@ -10,12 +10,6 @@ type ComponentCode struct {
 	HandlerMarkdown string `json:"-"`
 }
 
-type ComponentExample struct {
-	HTML    string
-	Code    string
-	Handler string
-}
-
 type ComponentCodeMap map[string][]ComponentCode
 
 type ComponentExampleCodeMap map[string][]ComponentCode

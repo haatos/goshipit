@@ -1,0 +1,12 @@
+// data_display
+package components
+
+templ Join(components []templ.Component) {
+	<div class="join">
+		for _, c := range components {
+			<div class="join-item">
+				@c
+			</div>
+		}
+	</div>
+}

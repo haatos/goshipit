@@ -395,6 +395,20 @@
       ]
     },
     {
+      "name": "join",
+      "code": [
+        "templ Join(components []templ.Component) {",
+        "\t\u003cdiv class=\"join\"\u003e",
+        "\t\tfor _, c := range components {",
+        "\t\t\t\u003cdiv class=\"join-item\"\u003e",
+        "\t\t\t\t@c",
+        "\t\t\t\u003c/div\u003e",
+        "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    },
+    {
       "name": "lazy_load",
       "code": [
         "templ LazyLoad(url string) {",
@@ -472,6 +486,16 @@
         "\t\tif footer != nil {",
         "\t\t\t@footer",
         "\t\t}",
+        "\t\u003c/div\u003e",
+        "}"
+      ]
+    },
+    {
+      "name": "stack",
+      "code": [
+        "templ Stack() {",
+        "\t\u003cdiv class=\"stack\"\u003e",
+        "\t\t{ children... }",
         "\t\u003c/div\u003e",
         "}"
       ]

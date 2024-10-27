@@ -1,0 +1,36 @@
+package examples
+
+import (
+	"github.com/haatos/goshipit/internal/model"
+	"github.com/haatos/goshipit/internal/views/components"
+)
+
+// example
+templ JoinButtons() {
+	@components.Join(
+		[]templ.Component{
+			joinItem("first"),
+			joinItem("second"),
+			joinItem("third"),
+		},
+	)
+}
+
+templ joinItem(label string) {
+	<button class="btn btn-primary">{ label }</button>
+}
+
+// example
+templ JoinInputs() {
+	@components.Join(
+		[]templ.Component{
+			joinInput("first"),
+			joinInput("second"),
+			joinInput("third"),
+		},
+	)
+}
+
+templ joinInput(label string) {
+	@components.Input(model.Input{Label: label})
+}

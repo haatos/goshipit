@@ -299,11 +299,6 @@ templ ComponentSearchListItems(cs []ComponentSearchItem) {
 	}
 }
 
-type ComponentAnchor struct {
-	Slug string
-	Name string
-}
-
 templ ComponentAnchors(keys []string, m model.ComponentCodeMap) {
 	<ul class="menu">
 		for _, k := range keys {
@@ -327,64 +322,4 @@ templ ComponentAnchors(keys []string, m model.ComponentCodeMap) {
 			</li>
 		}
 	</ul>
-}
-
-templ MyFooter(anchors []model.Anchor, legal []model.Anchor) {
-	<footer class="footer p-10 text-base-content border-t border-base-content/25 mt-24">
-		<aside>
-			<p>&copy; 2024 Haatos Ltd</p>
-		</aside>
-		if len(anchors) > 0 {
-			<nav>
-				<h6 class="footer-title">Links</h6>
-				for _, a := range anchors {
-					<a
-						name="hx-anchor"
-						{ a.Attrs... }
-						if a.Href != "" {
-							href={ templ.SafeURL(a.Href) }
-						}
-						class="link link-hover"
-					>
-						{ a.Label }
-					</a>
-				}
-			</nav>
-		}
-		if len(legal) > 0 {
-			<nav>
-				<h6 class="footer-title">Legal</h6>
-				for _, a := range legal {
-					<a
-						name="hx-anchor"
-						{ a.Attrs... }
-						if a.Href != "" {
-							href={ templ.SafeURL(a.Href) }
-						}
-						class="link link-hover"
-					>{ a.Label }</a>
-				}
-			</nav>
-		}
-	</footer>
-}
-
-templ JoinExample1() {
-	<div class="w-full flex justify-center mx-auto pt-4">
-		<div class="join">
-			<button class="btn btn-primary join-item">1</button>
-			<button class="btn btn-primary join-item">2</button>
-			<button class="btn btn-primary join-item">3</button>
-		</div>
-	</div>
-}
-
-templ StackExample1() {
-	<div class="w-full flex justify-center mx-auto pt-4">
-		<div class="stack">
-			<div class="rounded-box w-32 h-32 bg-red-500"></div>
-			<div class="rounded-box w-32 h-32 bg-green-500"></div>
-			<div class="rounded-box w-32 h-32 bg-blue-500"></div>
-		</div>
-	</div>
 }
