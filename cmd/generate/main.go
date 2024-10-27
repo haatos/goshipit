@@ -15,6 +15,18 @@ import (
 	"github.com/haatos/goshipit/internal/model"
 )
 
+const (
+	componentCodeMapJSONPath        = "generated/component_code_map.json"
+	componentExampleCodeMapJSONPath = "generated/component_example_code_map.json"
+	componentModelsPath             = "internal/model/components.go"
+	componentsDir                   = "internal/views/components/"
+	componentsHandlerPath           = "internal/handler/components.go"
+	examplesDir                     = "internal/views/examples/"
+	generatedDir                    = "generated"
+	generatedComponentsPath         = "generated/components.go"
+	generatedTypesPath              = "generated/types.md"
+)
+
 func main() {
 	generateComponentCodeMap()
 	generateComponentExampleCodeMap()
@@ -23,9 +35,8 @@ func main() {
 }
 
 func generateComponentCodeMap() {
-	path := "internal/views/components/"
 	m := model.ComponentCodeMap{}
-	if err := filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
+	if err := filepath.Walk(componentsDir, func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() && strings.HasSuffix(path, ".templ") {
 			if err := getComponentCode(path, info, m); err != nil {
 				return err
@@ -36,10 +47,10 @@ func generateComponentCodeMap() {
 		log.Fatal(err)
 	}
 
-	if err := os.RemoveAll("generated"); err != nil {
+	if err := os.RemoveAll(generatedDir); err != nil {
 		log.Fatal(err)
 	}
-	if err := os.Mkdir("generated", 0755); err != nil {
+	if err := os.Mkdir(generatedDir, 0755); err != nil {
 		log.Fatal(err)
 	}
 
@@ -48,7 +59,7 @@ func generateComponentCodeMap() {
 		log.Fatal(err)
 	}
 
-	fg, err := os.Create("generated/component_code_map.json")
+	fg, err := os.Create(componentCodeMapJSONPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -86,14 +97,15 @@ func getComponentCode(path string, info fs.FileInfo, fmap model.ComponentCodeMap
 	if _, ok := fmap[category]; !ok {
 		fmap[category] = []model.ComponentCode{}
 	}
-	fmap[category] = append(fmap[category], model.ComponentCode{Name: componentName, Code: function})
+	fmap[category] = append(
+		fmap[category],
+		model.ComponentCode{Name: componentName, Code: function})
 	return nil
 }
 
 func generateComponentExampleCodeMap() {
-	path := "internal/views/examples/"
 	m := model.ComponentExampleCodeMap{}
-	if err := filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
+	if err := filepath.Walk(examplesDir, func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() && strings.HasSuffix(path, ".templ") {
 			f, err := os.Open(path)
 			if err != nil {
@@ -111,7 +123,9 @@ func generateComponentExampleCodeMap() {
 				line := scanner.Text()
 				if strings.HasPrefix(line, "// example") {
 					if inExample {
-						m[componentName] = append(m[componentName], model.ComponentCode{Name: functionName, Code: functionLines})
+						m[componentName] = append(
+							m[componentName],
+							model.ComponentCode{Name: functionName, Code: functionLines})
 						functionName = ""
 						functionLines = []string{}
 					}
@@ -130,7 +144,9 @@ func generateComponentExampleCodeMap() {
 			}
 
 			f.Close()
-			m[componentName] = append(m[componentName], model.ComponentCode{Name: functionName, Code: functionLines})
+			m[componentName] = append(
+				m[componentName],
+				model.ComponentCode{Name: functionName, Code: functionLines})
 		}
 		return nil
 	}); err != nil {
@@ -139,7 +155,7 @@ func generateComponentExampleCodeMap() {
 
 	for comName := range m {
 		for i := range m[comName] {
-			f, err := os.Open("internal/handler/components.go")
+			f, err := os.Open(componentsHandlerPath)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -174,7 +190,7 @@ func generateComponentExampleCodeMap() {
 		log.Fatal(err)
 	}
 
-	fg, err := os.Create("generated/component_example_code_map.json")
+	fg, err := os.Create(componentExampleCodeMapJSONPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -184,9 +200,8 @@ func generateComponentExampleCodeMap() {
 }
 
 func generateComponentMap() {
-	path := "internal/views/examples/"
 	functionNames := []string{}
-	if err := filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
+	if err := filepath.Walk(examplesDir, func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() && strings.HasSuffix(path, ".templ") {
 			f, err := os.Open(path)
 			if err != nil {
@@ -239,7 +254,7 @@ func writeGeneratedFunctions(functionNames []string) {
 	}
 
 	// write the file
-	fg, err := os.Create("generated/components.go")
+	fg, err := os.Create(generatedComponentsPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -248,14 +263,14 @@ func writeGeneratedFunctions(functionNames []string) {
 }
 
 func generateTypesMarkdown() {
-	b, err := os.ReadFile("internal/model/components.go")
+	b, err := os.ReadFile(componentModelsPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 	b = append([]byte("```go\n"), b...)
 	b = append(b, '`', '`', '`', '\n')
 
-	f, err := os.Create("generated/types.md")
+	f, err := os.Create(generatedTypesPath)
 	if err != nil {
 		log.Fatal(err)
 	}
