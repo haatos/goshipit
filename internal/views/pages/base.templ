@@ -219,22 +219,22 @@ templ SideNavLayout(head templ.Component) {
 				})
 			</script>
 			<script>
-			    function activeMenuLink() {
-                   document.querySelectorAll(".menu a").forEach(link => link.classList.remove("active"));
-                   const activeLink = document.querySelector(`.menu a[hx-get="${window.location.pathname}"]`);
-                   if (activeLink) {
-                       activeLink.classList.add("active");
-                   }
-                }
+				function activeMenuLink() {
+				   document.querySelectorAll(".menu a").forEach(link => link.classList.remove("active"));
+				   const activeLink = document.querySelector(`.menu a[hx-get="${window.location.pathname}"]`);
+				   if (activeLink) {
+					   activeLink.classList.add("active");
+				   }
+				}
 
-                document.addEventListener("DOMContentLoaded", () => {
-                    document.addEventListener("htmx:afterSwap", function(event) {
-                        activeMenuLink()
-                    })
+				document.addEventListener("DOMContentLoaded", () => {
+					document.addEventListener("htmx:afterSwap", function(event) {
+						activeMenuLink()
+					})
 
-                    activeMenuLink()
-                })
-            </script>
+					activeMenuLink()
+				})
+			</script>
 		</body>
 	</html>
 }
