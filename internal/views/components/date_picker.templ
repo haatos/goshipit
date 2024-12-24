@@ -1,0 +1,159 @@
+// data_input
+package components 
+
+import "fmt"
+import "time"
+import "github.com/haatos/goshipit/internal/model"
+
+templ DatePicker(dp model.DatePicker) {
+	{{ days := dp.Days() }}
+	<div
+		name="datepicker-div"
+		class="flex flex-col space-y-1 w-[300px] h-[405px]"
+	>
+		<div class="flex space-x-1">
+			<button
+				hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", dp.Year, dp.Month-1) }
+				hx-target="div[name=datepicker-div]"
+				hx-swap="outerHTML"
+				class="btn btn-square btn-sm"
+			>
+				<svg class="h-3 w-3" viewBox="-5.5 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+						<g class="fill-base-content" id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-423.000000, -1196.000000)">
+							<path d="M428.115,1209 L437.371,1200.6 C438.202,1199.77 438.202,1198.43 437.371,1197.6 C436.541,1196.76 435.194,1196.76 434.363,1197.6 L423.596,1207.36 C423.146,1207.81 422.948,1208.41 422.985,1209 C422.948,1209.59 423.146,1210.19 423.596,1210.64 L434.363,1220.4 C435.194,1221.24 436.541,1221.24 437.371,1220.4 C438.202,1219.57 438.202,1218.23 437.371,1217.4 L428.115,1209" id="chevron-left" sketch:type="MSShapeGroup"></path>
+						</g>
+					</g>
+				</svg>
+			</button>
+			<details class="dropdown w-full max-w-[300px]">
+				<summary class="btn btn-sm w-full">{ fmt.Sprintf("%d", dp.Year) }</summary>
+				<div
+					class="menu dropdown-content grid grid-cols-3 gap-1 w-full max-w-[300px] p-1 bg-base-300 rounded-b-box"
+					hx-get={ fmt.Sprintf("/datepicker/yearpicker?year=%d", dp.Year) }
+					hx-trigger="datePickerDropdownClosed from:body"
+				>
+					@DatePickerYearPicker(dp)
+				</div>
+				<script>
+                    ((details)=>{
+                        details.querySelector("summary").addEventListener("click", (evt) => {
+                            if (details.hasAttribute("open")) {
+                                    let event = new Event("datePickerDropdownClosed");
+                                    document.querySelector("body").dispatchEvent(event);
+                                }
+                        })
+                    })(document.currentScript.parentElement)
+                </script>
+			</details>
+			<button
+				hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", dp.Year, dp.Month+1) }
+				hx-target="div[name=datepicker-div]"
+				hx-swap="outerHTML"
+				class="btn btn-square btn-sm"
+			>
+				<svg class="h-3 w-3" viewBox="-5.5 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+						<g class="fill-base-content" id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-474.000000, -1196.000000)">
+							<path d="M488.404,1207.36 L477.637,1197.6 C476.806,1196.76 475.459,1196.76 474.629,1197.6 C473.798,1198.43 473.798,1199.77 474.629,1200.6 L483.885,1209 L474.629,1217.4 C473.798,1218.23 473.798,1219.57 474.629,1220.4 C475.459,1221.24 476.806,1221.24 477.637,1220.4 L488.404,1210.64 C488.854,1210.19 489.052,1209.59 489.015,1209 C489.052,1208.41 488.854,1207.81 488.404,1207.36" id="chevron-right" sketch:type="MSShapeGroup"></path>
+						</g>
+					</g>
+				</svg>
+			</button>
+		</div>
+		<div class="grid grid-cols-7 gap-1 text-sm text-base-content/75">
+			if dp.StartOfWeek == time.Sunday {
+				<span class="text-center">Su</span>
+			}
+			<span class="text-center">Mo</span>
+			<span class="text-center">Tu</span>
+			<span class="text-center">We</span>
+			<span class="text-center">Th</span>
+			<span class="text-center">Fr</span>
+			<span class="text-center">Sa</span>
+			if dp.StartOfWeek == time.Monday {
+				<span class="text-center">Su</span>
+			}
+		</div>
+		<div
+			class="grid grid-cols-7 gap-1"
+		>
+			@DatePickerInput(dp.Selected)
+			for _, d := range days {
+				<button
+					name="datepicker-day-btn"
+					class={
+						"btn btn-ghost btn-square bg-base-100 border shadow-md shadow-base-300 h-10 w-10 p-3",
+						templ.KV("text-primary", d.Month() == time.Now().Month() && time.Now().Day() == d.Day()),
+						templ.KV("btn-neutral", d.Month() != time.Month(dp.Month)),
+						templ.KV("border-primary bg-base-300", !dp.Selected.IsZero() && d.Day() == dp.Selected.Day()),
+					}
+					hx-post={ "/datepicker/select?date=" + d.Format("2006-01-02") }
+					hx-target="#datepicker-input"
+					hx-swap="outerHTML"
+					if d.Month() != time.Month(dp.Month) {
+						disabled
+					}
+				>
+					if d.Day() == 1 {
+						{ d.Format("Jan ") }
+					}
+					{ d.Format("2") }
+				</button>
+			}
+			<script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.addEventListener("click", (evt) => {
+                    if (evt.target.getAttribute("name") == "datepicker-day-btn") {
+                        document.querySelectorAll("button[name=datepicker-day-btn]").forEach((el) => {
+                            el.classList.remove("border-primary", "bg-base-300")
+                        })
+                        evt.target.classList.add("border-primary", "bg-base-300")
+                    }
+                })
+            })
+            </script>
+		</div>
+	</div>
+}
+
+templ DatePickerInput(d time.Time) {
+	<input id="datepicker-input" type="hidden" name="date" value={ d.Format("2006-01-02") }/>
+}
+
+templ DatePickerYearPicker(dp model.DatePicker) {
+	{{ utcNow := time.Now().UTC() }}
+	for i := range 12 {
+		<button
+			class="btn btn-sm border"
+			hx-get={ fmt.Sprintf("/datepicker/monthpicker?year=%d", dp.Year-(12-i)) }
+			hx-target="closest div"
+		>
+			{ fmt.Sprintf("%d", dp.Year-(12-i)) }
+		</button>
+	}
+	<button
+		class="btn btn-sm border col-span-3"
+		hx-get={ fmt.Sprintf("/datepicker/monthpicker?year=%d", utcNow.Year()) }
+		hx-target="closest div"
+	>
+		{ fmt.Sprintf("%d", utcNow.Year()) }
+	</button>
+}
+
+templ DatePickerMonthPicker(dp model.DatePicker) {
+	{{ months := dp.Months() }}
+	for _, m := range months {
+		<button
+			class={
+				"btn btn-sm border",
+				templ.KV("border-primary", m.Month() == time.Month(dp.Month)),
+			}
+			hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", dp.Year, m.Month()) }
+			hx-target="div[name=datepicker-div]"
+			hx-swap="outerHTML"
+		>
+			{ m.Format("Jan") }
+		</button>
+	}
+}

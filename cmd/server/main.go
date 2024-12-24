@@ -56,6 +56,10 @@ func main() {
 	e.POST("/combobox/:name/:value", handler.PostCombobox)
 	e.POST("/combobox-submit/:name", handler.PostComboboxSubmit)
 	e.DELETE("/modal-confirm", handler.DeleteModalExample)
+	e.POST("/datepicker/select", handler.PostDatePickerSelectDay)
+	e.GET("/datepicker", handler.GetDatePicker)
+	e.GET("/datepicker/monthpicker", handler.GetDatePickerMonthPicker)
+	e.GET("/datepicker/yearpicker", handler.GetDatePickerYearPicker)
 	// handlers for component examples
 
 	internal.GracefulShutdown(e, internal.Settings.Port)

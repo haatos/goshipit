@@ -27,6 +27,7 @@ var ExampleComponents = map[string]templ.Component{
 	"CollapseExample":            examples.CollapseExample(),
 	"BasicCombobox":              examples.BasicCombobox(),
 	"CountdownExample":           examples.CountdownExample(),
+	"BasicDatePicker":            examples.BasicDatePicker(),
 	"ImageDiff":                  examples.ImageDiff(),
 	"BasicDrawer":                examples.BasicDrawer(),
 	"BasicDropdown":              examples.BasicDropdown(),

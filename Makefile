@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := dev
+
 GOOS := "linux"
 GOARCH := "amd64"
 

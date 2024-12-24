@@ -2,6 +2,8 @@
 package model
 
 import (
+	"time"
+
 	"github.com/a-h/templ"
 )
 
@@ -90,6 +92,40 @@ type CompanyInfo struct {
 	Name        string
 	Description string
 	Copyright   string
+}
+
+type DatePicker struct {
+	Year        int
+	Month       int
+	Selected    time.Time
+	StartOfWeek time.Weekday
+}
+
+func (dp DatePicker) Days() []time.Time {
+	days := make([]time.Time, 0, 31)
+	now := time.Now().UTC()
+	start := time.Date(dp.Year, time.Month(dp.Month), 1, 0, 0, 0, 0, now.Location())
+	end := start.AddDate(0, 1, -1)
+	end = end.AddDate(0, 0, 7-int(end.Weekday())-1+int(dp.StartOfWeek))
+	if start.Weekday() == time.Sunday {
+		start = start.AddDate(0, 0, -6)
+	} else {
+		start = start.AddDate(0, 0, -1*int(start.Weekday())+int(dp.StartOfWeek))
+	}
+	for !start.After(end) {
+		days = append(days, start)
+		start = start.AddDate(0, 0, 1)
+	}
+	return days
+}
+
+func (dp DatePicker) Months() []time.Time {
+	months := make([]time.Time, 12)
+	for i := 1; i <= 12; i++ {
+		dt := time.Date(dp.Year, time.Month(i), 1, 0, 0, 0, 0, time.Now().Location())
+		months[i-1] = dt
+	}
+	return months
 }
 
 type Dropdown struct {
