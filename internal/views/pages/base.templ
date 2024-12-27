@@ -236,18 +236,20 @@ templ SideNavLayout(head templ.Component) {
 				})
 			</script>
 			<script>
-				document.addEventListener('htmx:afterSettle', function() {
-				// Check if styles are already applied
-				const bodyStyles = window.getComputedStyle(document.body);
-				if (bodyStyles.display === 'block') {
-					// Styles are already applied, no need to reload
-					return;
-				}
-				// Force a reload of the stylesheet only if styles are missing
-				const stylesheet = document.querySelector('link[rel="stylesheet"]');
-				if (stylesheet) {
-					stylesheet.href = stylesheet.href + '?reload=' + Date.now();
-				}
+				document.addEventListener('visibilitychange', function() {
+					if (document.visibilityState === 'visible') {
+						// Check if styles are missing
+						const bodyStyles = window.getComputedStyle(document.body);
+						if (!bodyStyles || bodyStyles.display === 'none' || bodyStyles.display === '') {
+							// Styles are missing, reload the stylesheet
+							const stylesheet = document.querySelector('link[rel="stylesheet"]');
+							if (stylesheet) {
+								const href = stylesheet.getAttribute('href').split('?')[0];
+								// Force reload by adding a unique query parameter
+								stylesheet.setAttribute('href', `${href}?reload=${Date.now()}`);
+							}
+						}
+					}
 				});
 			</script>
 		</body>
