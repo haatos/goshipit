@@ -236,19 +236,30 @@ templ SideNavLayout(head templ.Component) {
 				})
 			</script>
 			<script>
+				function reloadStylesheetsIfNeeded() {
+					// Check if styles are missing
+					const bodyStyles = window.getComputedStyle(document.body);
+					if (!bodyStyles || bodyStyles.display === 'none' || bodyStyles.display === '') {
+					// Styles are missing, reload all stylesheets
+					const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+					stylesheets.forEach((stylesheet) => {
+						const href = stylesheet.getAttribute('href').split('?')[0];
+						stylesheet.setAttribute('href', `${href}?reload=${Date.now()}`);
+					});
+					}
+				}
+
+				// Handle page show event
+				window.addEventListener('pageshow', function(event) {
+					if (event.persisted) {
+					reloadStylesheetsIfNeeded();
+					}
+				});
+
+				// Handle visibility change event
 				document.addEventListener('visibilitychange', function() {
 					if (document.visibilityState === 'visible') {
-						// Check if styles are missing
-						const bodyStyles = window.getComputedStyle(document.body);
-						if (!bodyStyles || bodyStyles.display === 'none' || bodyStyles.display === '') {
-							// Styles are missing, reload the stylesheet
-							const stylesheet = document.querySelector('link[rel="stylesheet"]');
-							if (stylesheet) {
-								const href = stylesheet.getAttribute('href').split('?')[0];
-								// Force reload by adding a unique query parameter
-								stylesheet.setAttribute('href', `${href}?reload=${Date.now()}`);
-							}
-						}
+					reloadStylesheetsIfNeeded();
 					}
 				});
 			</script>
