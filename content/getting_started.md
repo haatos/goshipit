@@ -131,7 +131,7 @@ templ AccordionExample() {
 					@AccordionRow(AccordionRowProps{Label: "Accordion row 1", Type: "checkbox"}) {
 						<p>This is the first content</p>
 					}
-					@AccordionRow(AccordionRowProps{Label: "Accordion row 2", Type: "checkbox") {
+					@AccordionRow(AccordionRowProps{Label: "Accordion row 2", Type: "checkbox"}) {
 						<p>This is the second content</p>
 					}
 				</div>
