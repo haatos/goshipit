@@ -77,13 +77,13 @@ func main() {
 }
 
 func render(c echo.Context, component templ.Component) error {
-    buf := templ.GetBuffer()
-    defer templ.ReleaseBuffer(buf)
+	buf := templ.GetBuffer()
+	defer templ.ReleaseBuffer(buf)
 
-    if err := component.Render(c.Request().Context(), buf); err != nil {
-        return err
-    }
-    return c.HTML(http.StatusOK, buf.String())
+	if err := component.Render(c.Request().Context(), buf); err != nil {
+		    return err
+	}
+	return c.HTML(http.StatusOK, buf.String())
 }
 
 ```
