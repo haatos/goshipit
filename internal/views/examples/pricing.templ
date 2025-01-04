@@ -28,7 +28,7 @@ func PriceDataExample(yearly bool) components.PricingProps {
 			Per:              "/ month",
 			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3"},
 			ExcludedFeatures: []string{"Feature 4", "Feature 5"},
-			CallToAction: components.ButtonProps{
+			CallToAction: components.PriceButtonProps{
 				Label: "Start now",
 				Attrs: templ.Attributes{
 					"class": "btn btn-outline btn-sm",
@@ -42,7 +42,7 @@ func PriceDataExample(yearly bool) components.PricingProps {
 			Per:              "/ month",
 			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3", "Feature 4"},
 			ExcludedFeatures: []string{"Feature 4"},
-			CallToAction: components.ButtonProps{
+			CallToAction: components.PriceButtonProps{
 				Label: "Start free trial",
 				Attrs: templ.Attributes{
 					"class": "btn btn-primary btn-sm",
@@ -55,7 +55,7 @@ func PriceDataExample(yearly bool) components.PricingProps {
 			Price:            fmt.Sprintf("$ %d", ProductPrices["Professional"][yearly]),
 			Per:              "/ month",
 			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"},
-			CallToAction: components.ButtonProps{
+			CallToAction: components.PriceButtonProps{
 				Label: "Start free trial",
 				Attrs: templ.Attributes{
 					"class": "btn btn-primary btn-sm",

@@ -4,10 +4,11 @@ package components
 import "fmt"
 
 type StatusProps struct {
-	Code         int
-	Title        string
-	Description  string
-	ReturnButton ButtonProps
+	Code              int
+	Title             string
+	Description       string
+	ReturnButtonLabel string
+	ReturnButtonAttrs templ.Attributes
 }
 
 templ Status(props StatusProps) {
@@ -23,10 +24,10 @@ templ Status(props StatusProps) {
 				{ props.Description }
 			</p>
 			<a
-				{ props.ReturnButton.Attrs... }
+				{ props.ReturnButtonAttrs... }
 				class="mt-4 btn btn-primary"
 			>
-				{ props.ReturnButton.Label }
+				{ props.ReturnButtonLabel }
 			</a>
 		</div>
 	</section>

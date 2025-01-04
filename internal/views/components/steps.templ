@@ -2,16 +2,16 @@
 // https://daisyui.com/components/steps
 package components
 
-templ Steps() {
-	<ul class="steps">
-		{ children... }
-	</ul>
-}
-
 type StepProps struct {
 	Label string
 	Done  bool
 	Attrs templ.Attributes
+}
+
+templ Steps() {
+	<ul class="steps">
+		{ children... }
+	</ul>
 }
 
 templ Step(props StepProps) {

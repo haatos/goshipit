@@ -5,11 +5,39 @@ import "github.com/haatos/goshipit/internal/views/components"
 // example
 templ StatusNotFound() {
 	@components.Status(components.StatusProps{
-		Code:        404,
-		Title:       "Not Found",
-		Description: "Looks like there's nothing here...",
-		ReturnButton: components.ButtonProps{
-			Label: "Go back",
-		},
+		Code:              404,
+		Title:             "Not Found",
+		Description:       "Looks like there's nothing here...",
+		ReturnButtonLabel: "Go back",
+	})
+}
+
+// example
+templ StatusForbidden() {
+	@components.Status(components.StatusProps{
+		Code:              403,
+		Title:             "Forbidden",
+		Description:       "Invalid permissions to view this page.",
+		ReturnButtonLabel: "Go back",
+	})
+}
+
+// example
+templ StatusUnauthorized() {
+	@components.Status(components.StatusProps{
+		Code:              401,
+		Title:             "Unauthorized",
+		Description:       "This page is only available to authenticated users.",
+		ReturnButtonLabel: "Go back",
+	})
+}
+
+// example
+templ StatusInternalServerError() {
+	@components.Status(components.StatusProps{
+		Code:              500,
+		Title:             "Internal Server Error",
+		Description:       "Something went terribly wrong...",
+		ReturnButtonLabel: "Go back",
 	})
 }

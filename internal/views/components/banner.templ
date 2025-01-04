@@ -2,10 +2,8 @@
 package components
 
 type BannerProps struct {
-	Title                 templ.Component
-	Description           string
-	CallToAction          ButtonProps
-	SecondaryCallToAction ButtonProps
+	Title       templ.Component
+	Description string
 }
 
 templ Banner(props BannerProps) {
@@ -17,18 +15,8 @@ templ Banner(props BannerProps) {
 					{ props.Description }
 				</p>
 				<div class="mt-8 flex flex-wrap justify-center gap-4">
-					<a
-						class="btn btn-primary"
-						{ props.CallToAction.Attrs... }
-					>
-						{ props.CallToAction.Label }
-					</a>
-					<a
-						class="btn btn-neutral"
-						{ props.SecondaryCallToAction.Attrs... }
-					>
-						{ props.SecondaryCallToAction.Label }
-					</a>
+					// call to action
+					{ children... }
 				</div>
 			</div>
 		</div>

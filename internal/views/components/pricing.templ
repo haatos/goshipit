@@ -10,8 +10,13 @@ type PriceProps struct {
 	Per              string
 	IncludedFeatures []string
 	ExcludedFeatures []string
-	CallToAction     ButtonProps
+	CallToAction     PriceButtonProps
 	Footer           templ.Component
+}
+
+type PriceButtonProps struct {
+	Label string
+	Attrs templ.Attributes
 }
 
 templ Pricing(checked bool, props PricingProps) {

@@ -11,17 +11,15 @@ templ InternalServerError() {
 		@SideNavLayout(nil) {
 			@components.Status(
 				components.StatusProps{
-					Code:        401,
-					Title:       "Unauthorized",
-					Description: fmt.Sprintf("Something went terribly wrong! Please contact us at %s if the problem persists.", internal.Settings.ContactEmail),
-					ReturnButton: components.ButtonProps{
-						Label: "Go back home",
-						Attrs: templ.Attributes{
-							"hx-get":      "/",
-							"hx-target":   "main",
-							"hx-swap":     "innerHTML",
-							"hx-push-url": "true",
-						},
+					Code:              500,
+					Title:             "Internal Server Error",
+					Description:       fmt.Sprintf("Something went terribly wrong! Please contact us at %s if the problem persists.", internal.Settings.ContactEmail),
+					ReturnButtonLabel: "Go back home",
+					ReturnButtonAttrs: templ.Attributes{
+						"hx-get":      "/",
+						"hx-target":   "main",
+						"hx-swap":     "innerHTML",
+						"hx-push-url": "true",
 					},
 				},
 			)

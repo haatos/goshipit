@@ -9,9 +9,14 @@ templ BannerExample() {
 		Description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
 Sapiente iure non, quia perspiciatis sed temporibus quos nihil, voluptatibus tempore 
 placeat ipsa est facilis, nobis illum in magni illo neque libero.`,
-		SecondaryCallToAction: components.ButtonProps{Label: "Learn more"},
-		CallToAction:          components.ButtonProps{Label: "Get started"},
-	})
+	}) {
+		<a class="btn btn-primary">
+			Get started
+		</a>
+		<a class="btn btn-neutral">
+			Learn more
+		</a>
+	}
 }
 
 templ basicBannerTitle() {

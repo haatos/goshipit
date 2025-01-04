@@ -2,18 +2,29 @@
 // https://daisyui.com/components/hero
 package components
 
-templ Hero(image string, reverse bool) {
-	<div class="hero bg-base-200 min-h-screen">
+type HeroProps struct {
+	Source  string
+	Alt     string
+	Reverse bool
+	Class   string
+}
+
+templ Hero(props HeroProps) {
+	<div class={ "hero", props.Class }>
 		<div
 			class={
 				"hero-content",
 				"flex-col",
-				templ.KV("xl:flex-row", !reverse),
-				templ.KV("xl:flex-row-reverse", reverse),
+				templ.KV("xl:flex-row", !props.Reverse),
+				templ.KV("xl:flex-row-reverse", props.Reverse),
 			}
 		>
-			if image != "" {
-				<img src={ image } class="max-w-sm rounded-lg shadow-2xl"/>
+			if props.Source != "" {
+				<img
+					src={ props.Source }
+					alt={ props.Alt }
+					class="max-w-sm rounded-box shadow-2xl"
+				/>
 			}
 			<div>
 				{ children... }

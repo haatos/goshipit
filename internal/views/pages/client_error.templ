@@ -5,17 +5,15 @@ import "github.com/haatos/goshipit/internal/views/components"
 templ NotFound() {
 	@SideNavLayout(nil) {
 		@components.Status(components.StatusProps{
-			Code:        404,
-			Title:       "Not Found",
-			Description: "There seems to be nothing here.",
-			ReturnButton: components.ButtonProps{
-				Label: "Go back home",
-				Attrs: templ.Attributes{
-					"hx-get":      "/",
-					"hx-target":   "main",
-					"hx-swap":     "innerHTML",
-					"hx-push-url": "true",
-				},
+			Code:              404,
+			Title:             "Not Found",
+			Description:       "There seems to be nothing here.",
+			ReturnButtonLabel: "Go back home",
+			ReturnButtonAttrs: templ.Attributes{
+				"hx-get":      "/",
+				"hx-target":   "main",
+				"hx-swap":     "innerHTML",
+				"hx-push-url": "true",
 			},
 		})
 	}
@@ -24,17 +22,15 @@ templ NotFound() {
 templ Forbidden(message string) {
 	@SideNavLayout(nil) {
 		@components.Status(components.StatusProps{
-			Code:        403,
-			Title:       "Forbidden",
-			Description: "Invalid permissions to acces this page.",
-			ReturnButton: components.ButtonProps{
-				Label: "Go back home",
-				Attrs: templ.Attributes{
-					"hx-get":      "/",
-					"hx-target":   "main",
-					"hx-swap":     "innerHTML",
-					"hx-push-url": "true",
-				},
+			Code:              403,
+			Title:             "Forbidden",
+			Description:       "Invalid permissions to acces this page.",
+			ReturnButtonLabel: "Go back home",
+			ReturnButtonAttrs: templ.Attributes{
+				"hx-get":      "/",
+				"hx-target":   "main",
+				"hx-swap":     "innerHTML",
+				"hx-push-url": "true",
 			},
 		})
 	}
@@ -44,17 +40,15 @@ templ Unauthorized() {
 	@SideNavLayout(nil) {
 		@components.Status(
 			components.StatusProps{
-				Code:        401,
-				Title:       "Unauthorized",
-				Description: "This page is for authenticated users only.",
-				ReturnButton: components.ButtonProps{
-					Label: "Go back home",
-					Attrs: templ.Attributes{
-						"hx-get":      "/",
-						"hx-target":   "main",
-						"hx-swap":     "innerHTML",
-						"hx-push-url": "true",
-					},
+				Code:              401,
+				Title:             "Unauthorized",
+				Description:       "This page is for authenticated users only.",
+				ReturnButtonLabel: "Go back home",
+				ReturnButtonAttrs: templ.Attributes{
+					"hx-get":      "/",
+					"hx-target":   "main",
+					"hx-swap":     "innerHTML",
+					"hx-push-url": "true",
 				},
 			},
 		)

@@ -5,7 +5,11 @@ import "github.com/haatos/goshipit/internal/views/components"
 // example
 templ BasicHero() {
 	<div class="pt-4">
-		@components.Hero("/static/images/avatar.jpg", false) {
+		@components.Hero(components.HeroProps{
+			Source: "/static/images/avatar.jpg",
+			Alt:    "hero avatar",
+			Class:  "bg-base-200 min-h-[600px]",
+		}) {
 			<div class="prose">
 				<h1>Lorem ipsum!</h1>
 				<p>
@@ -18,7 +22,12 @@ templ BasicHero() {
 				<button class="btn btn-primary">Get Started</button>
 			</div>
 		}
-		@components.Hero("/static/images/avatar.jpg", true) {
+		@components.Hero(components.HeroProps{
+			Source:  "/static/images/avatar.jpg",
+			Alt:     "hero avatar",
+			Class:   "bg-base-200 min-h-[600px]",
+			Reverse: true,
+		}) {
 			<div class="prose">
 				<h1>Lorem ipsum!</h1>
 				<p>
