@@ -2,63 +2,76 @@
 // https://daisyui.com/components/input
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ Input(input model.Input) {
+type InputProps struct {
+	ID              string
+	Type            string // defaults to "text"
+	Label           string
+	Name            string
+	Value           string
+	Placeholder     string
+	Err             string
+	Attrs           templ.Attributes
+	Class           string
+	Icon            templ.Component
+	Disabled        bool
+	DisabledMessage string
+	Required        bool
+}
+
+templ Input(props InputProps) {
 	<div
-		id={ fmt.Sprintf("%s-div", input.Name) }
-		hx-target={ fmt.Sprintf("#%s-error", input.Name) }
+		id={ fmt.Sprintf("%s-div", props.Name) }
+		hx-target={ fmt.Sprintf("#%s-error", props.Name) }
 		hx-swap="innerHTML"
 		class="w-full"
 	>
 		<label class={ "form-control w-full", }>
-			if input.Label != "" {
+			if props.Label != "" {
 				<div class="py-1 pr-2">
-					<span class="label-text leading-4">{ input.Label }</span>
+					<span class="label-text leading-4">{ props.Label }</span>
 				</div>
 			}
 			<div
 				class={
 					"relative input !px-0 bg-transparent w-full flex items-center flex-grow",
-					templ.KV("!pl-3", input.Icon != nil),
-					templ.KV("input-error", input.Err != ""),
-					templ.KV("pb-1", input.Label != ""),
-					templ.KV("tooltip tooltip-top", input.DisabledMessage != ""),
-					input.Class,
+					templ.KV("!pl-3", props.Icon != nil),
+					templ.KV("input-error", props.Err != ""),
+					templ.KV("pb-1", props.Label != ""),
+					templ.KV("tooltip tooltip-top", props.DisabledMessage != ""),
+					props.Class,
 				}
-				if input.Disabled && input.DisabledMessage != "" {
-					data-tip={ input.DisabledMessage }
+				if props.Disabled && props.DisabledMessage != "" {
+					data-tip={ props.DisabledMessage }
 				}
 			>
-				if input.Icon != nil {
+				if props.Icon != nil {
 					<div class="w-5 h-5">
-						@input.Icon
+						@props.Icon
 					</div>
 				}
 				<input
-					{ input.Attrs... }
-					if input.ID != "" {
-						id={ input.ID }
+					{ props.Attrs... }
+					if props.ID != "" {
+						id={ props.ID }
 					}
-					name={ input.Name }
-					if input.Type != "" {
-						type={ input.Type }
+					name={ props.Name }
+					if props.Type != "" {
+						type={ props.Type }
 					} else {
 						type="text"
 					}
-					placeholder={ input.Placeholder }
+					placeholder={ props.Placeholder }
 					class={
 						"w-full focus:!outline-none !appearance-none px-2",
-						templ.KV("input-error", input.Err != ""),
+						templ.KV("input-error", props.Err != ""),
 					}
-					value={ input.Value }
-					if input.Disabled {
+					value={ props.Value }
+					if props.Disabled {
 						disabled
 					}
-					if input.Required {
+					if props.Required {
 						required
 					}
 				/>
@@ -83,10 +96,10 @@ templ Input(input model.Input) {
 				</script>
 			</div>
 			<span
-				id={ fmt.Sprintf("%s-error", input.Name) }
+				id={ fmt.Sprintf("%s-error", props.Name) }
 				class="text-error h-4 text-xs pt-1"
 			>
-				{ input.Err }
+				{ props.Err }
 			</span>
 		</label>
 	</div>

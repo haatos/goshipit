@@ -1,15 +1,12 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ RatingFromOneToFive() {
 	<div class="flex justify-center items-center pt-4">
 		@components.Rating(
-			model.Rating{
+			components.RatingProps{
 				Name: "my-rating",
 				Min:  1,
 				Max:  5,
@@ -22,7 +19,7 @@ templ RatingFromOneToFive() {
 templ RatingFromZeroToFive() {
 	<div class="flex justify-center items-center pt-4">
 		@components.Rating(
-			model.Rating{
+			components.RatingProps{
 				Name: "my-rating2",
 				Min:  0,
 				Max:  5,

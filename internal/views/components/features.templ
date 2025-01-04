@@ -1,25 +1,40 @@
 // data_display
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type FeaturesProps struct {
+	Title    string
+	Features []FeatureProps
+}
 
-templ Features(title string, features []model.Feature) {
+type FeatureProps struct {
+	Icon        templ.Component
+	Title       string
+	Description string
+	URL         string
+}
+
+templ Features(props FeaturesProps) {
 	<div class="py-12 px-4">
 		<div class="max-w-screen-xl mx-auto text-base-content/80">
-			if title != "" {
-				<h2 class="sm:text-4xl text-2xl font-bold text-center mb-16">{ title }</h2>
+			if props.Title != "" {
+				<h2 class="sm:text-4xl text-2xl font-bold text-center mb-16">{ props.Title }</h2>
 			}
 			<div class="grid lg:grid-cols-3 md:grid-cols-2 gap-12 max-md:max-w-lg mx-auto">
-				for i := range features {
-					@Feature(features[i])
+				for _, feature := range props.Features {
+					@Feature(feature)
 				}
 			</div>
 		</div>
 	</div>
 }
 
-templ Feature(feature model.Feature) {
-	<div class="flex flex-col justify-between items-center rounded-box group p-8 text-center hover:bg-base-300 hover:text-base-content hover:shadow-xl transition-all duration-300">
+templ Feature(feature FeatureProps) {
+	<div
+		class={
+			"flex flex-col justify-between items-center rounded-box group p-8 text-center",
+			"hover:bg-base-300 hover:text-base-content hover:shadow-xl transition-all duration-300",
+		}
+	>
 		@feature.Icon
 		if feature.Title != "" {
 			<h3 class="text-xl font-semibold mb-3">{ feature.Title }</h3>

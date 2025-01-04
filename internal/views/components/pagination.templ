@@ -2,32 +2,37 @@
 // https://daisyui.com/components/pagination
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ Pagination(id string, p model.PaginationItem) {
+type PaginationProps struct {
+	URL      string
+	Page     int
+	Low      int
+	High     int
+	MaxPages int
+}
+
+templ Pagination(id string, props PaginationProps) {
 	<div id={ id }>
 		<!-- paginated content goes here -->
 		{ children... }
 		<!-- -->
 		<div class="join">
-			@PaginationButton(id, p.URL, 1, p.Page == 1) {
+			@PaginationButton(id, props.URL, 1, props.Page == 1) {
 				@AnglesLeft()
 			}
-			@PaginationButton(id, p.URL, p.Page-1, p.Page == 1) {
+			@PaginationButton(id, props.URL, props.Page-1, props.Page == 1) {
 				@ChevronLeft()
 			}
-			for i := p.Low; i <= p.High; i++ {
-				@PaginationButton(id, p.URL, i+1, p.Page == i+1) {
+			for i := props.Low; i <= props.High; i++ {
+				@PaginationButton(id, props.URL, i+1, props.Page == i+1) {
 					{ fmt.Sprintf("%d", i+1) }
 				}
 			}
-			@PaginationButton(id, p.URL, p.Page+1, p.Page == p.MaxPages) {
+			@PaginationButton(id, props.URL, props.Page+1, props.Page == props.MaxPages) {
 				@ChevronRight()
 			}
-			@PaginationButton(id, p.URL, p.MaxPages, p.Page == p.MaxPages) {
+			@PaginationButton(id, props.URL, props.MaxPages, props.Page == props.MaxPages) {
 				@AnglesRight()
 			}
 		</div>

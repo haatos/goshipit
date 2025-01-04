@@ -2,7 +2,11 @@
 // https://daisyui.com/components/stat
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type StatProps struct {
+	Title       string
+	Value       string
+	Description string
+}
 
 templ Stats() {
 	<div class="stats stats-horizontal shadow">
@@ -10,12 +14,12 @@ templ Stats() {
 	</div>
 }
 
-templ Stat(stat model.Stat) {
+templ Stat(props StatProps) {
 	<div class="stat">
-		<div class="stat-title">{ stat.Title }</div>
-		<div class="stat-value">{ stat.Value }</div>
-		if stat.Description != "" {
-			<div class="stat-desc">{ stat.Description }</div>
+		<div class="stat-title">{ props.Title }</div>
+		<div class="stat-value">{ props.Value }</div>
+		if props.Description != "" {
+			<div class="stat-desc">{ props.Description }</div>
 		}
 		<div class="stat-actions">
 			{ children... }

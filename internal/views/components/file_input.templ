@@ -2,40 +2,53 @@
 // https://daisyui.com/components/file-input
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ FileInput(input model.Input) {
+type FileInputProps struct {
+	ID              string
+	Type            string // defaults to "text"
+	Label           string
+	Name            string
+	Value           string
+	Placeholder     string
+	Err             string
+	Attrs           templ.Attributes
+	Class           string
+	Icon            templ.Component
+	Disabled        bool
+	DisabledMessage string
+	Required        bool
+}
+
+templ FileInput(props FileInputProps) {
 	<div
-		hx-target={ fmt.Sprintf("#%s-error", input.Name) }
+		hx-target={ fmt.Sprintf("#%s-error", props.Name) }
 		hx-swap="outerHTML"
 		class="w-full"
 	>
 		<label class="form-control w-full pb-2">
-			if input.Label != "" {
+			if props.Label != "" {
 				<div class="label pr-2">
-					<span class="label-text">{ input.Label }</span>
+					<span class="label-text">{ props.Label }</span>
 				</div>
 			}
 			<div
-				id={ input.Name + "-container" }
+				id={ props.Name + "-container" }
 				class={
 					"relative !px-0 bg-transparent w-full flex items-center flex-grow",
-					templ.KV("!pl-3", input.Icon != nil),
+					templ.KV("!pl-3", props.Icon != nil),
 				}
 			>
 				<input
-					{ input.Attrs... }
+					{ props.Attrs... }
 					type="file"
-					name={ input.Name }
+					name={ props.Name }
 					class={
 						"w-full file-input",
-						templ.KV("input-error", input.Err != ""),
-						input.Class,
+						templ.KV("input-error", props.Err != ""),
+						props.Class,
 					}
-					value={ input.Value }
+					value={ props.Value }
 				/>
 				<script>
 					document.addEventListener("htmx:afterRequest", (evt) => {

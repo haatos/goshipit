@@ -1,17 +1,14 @@
 package pages
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 templ NotFound() {
 	@SideNavLayout(nil) {
-		@components.Status(model.Status{
+		@components.Status(components.StatusProps{
 			Code:        404,
 			Title:       "Not Found",
 			Description: "There seems to be nothing here.",
-			ReturnButton: model.Button{
+			ReturnButton: components.ButtonProps{
 				Label: "Go back home",
 				Attrs: templ.Attributes{
 					"hx-get":      "/",
@@ -26,11 +23,11 @@ templ NotFound() {
 
 templ Forbidden(message string) {
 	@SideNavLayout(nil) {
-		@components.Status(model.Status{
+		@components.Status(components.StatusProps{
 			Code:        403,
 			Title:       "Forbidden",
 			Description: "Invalid permissions to acces this page.",
-			ReturnButton: model.Button{
+			ReturnButton: components.ButtonProps{
 				Label: "Go back home",
 				Attrs: templ.Attributes{
 					"hx-get":      "/",
@@ -46,11 +43,11 @@ templ Forbidden(message string) {
 templ Unauthorized() {
 	@SideNavLayout(nil) {
 		@components.Status(
-			model.Status{
+			components.StatusProps{
 				Code:        401,
 				Title:       "Unauthorized",
 				Description: "This page is for authenticated users only.",
-				ReturnButton: model.Button{
+				ReturnButton: components.ButtonProps{
 					Label: "Go back home",
 					Attrs: templ.Attributes{
 						"hx-get":      "/",

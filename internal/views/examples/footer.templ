@@ -13,7 +13,7 @@ templ BasicFooterWithLinks() {
 			Name:        "ACME Industries Ltd.",
 			Description: "Providing reliable tech since 1992",
 		},
-		[]model.Anchor{
+		[]components.AnchorProps{
 			{LeftIcon: XIcon()},
 			{LeftIcon: YoutubeIcon()},
 			{LeftIcon: FacebookIcon()},
@@ -21,7 +21,7 @@ templ BasicFooterWithLinks() {
 	) {
 		@components.FooterNav(
 			"Services",
-			[]model.Anchor{
+			[]components.AnchorProps{
 				{Label: "Branding"},
 				{Label: "Design"},
 				{Label: "Marketing"},
@@ -30,7 +30,7 @@ templ BasicFooterWithLinks() {
 		)
 		@components.FooterNav(
 			"Company",
-			[]model.Anchor{
+			[]components.AnchorProps{
 				{Label: "About us"},
 				{Label: "Contact"},
 				{Label: "Jobs"},
@@ -39,7 +39,7 @@ templ BasicFooterWithLinks() {
 		)
 		@components.FooterNav(
 			"Legal",
-			[]model.Anchor{
+			[]components.AnchorProps{
 				{Label: "Terms of use"},
 				{Label: "Privacy policy"},
 				{Label: "Cookie policy"},

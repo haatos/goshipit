@@ -2,14 +2,20 @@
 // https://daisyui.com/components/avatar
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type AvatarProps struct {
+	AvatarClass      string
+	ContainerClass   string
+	Source           string
+	Placeholder      string
+	PlaceholderClass string
+}
 
-templ Avatar(a model.Avatar) {
-	<div class={ "avatar", a.AvatarClass }>
-		<div class={ a.ContainerClass }>
-			<img src={ a.Source }/>
-			if a.Placeholder != "" {
-				<span class={ a.PlaceholderClass }>{ a.Placeholder }</span>
+templ Avatar(props AvatarProps) {
+	<div class={ "avatar", props.AvatarClass }>
+		<div class={ props.ContainerClass }>
+			<img src={ props.Source }/>
+			if props.Placeholder != "" {
+				<span class={ props.PlaceholderClass }>{ props.Placeholder }</span>
 			}
 		</div>
 	</div>

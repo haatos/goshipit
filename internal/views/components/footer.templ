@@ -4,7 +4,7 @@ package components
 
 import "github.com/haatos/goshipit/internal/model"
 
-templ Footer(companyInfo model.CompanyInfo, socialLinks []model.Anchor) {
+templ Footer(companyInfo model.CompanyInfo, anchors []AnchorProps) {
 	<footer class="footer bg-base-200 text-base-content p-10 mt-24">
 		{ children... }
 	</footer>
@@ -26,7 +26,7 @@ templ Footer(companyInfo model.CompanyInfo, socialLinks []model.Anchor) {
 		</aside>
 		<nav class="md:place-self-center md:justify-self-end">
 			<div class="grid grid-flow-col gap-4">
-				for _, anchor := range socialLinks {
+				for _, anchor := range anchors {
 					@Anchor(anchor)
 				}
 			</div>
@@ -34,7 +34,7 @@ templ Footer(companyInfo model.CompanyInfo, socialLinks []model.Anchor) {
 	</footer>
 }
 
-templ FooterNav(title string, links []model.Anchor) {
+templ FooterNav(title string, links []AnchorProps) {
 	<nav>
 		<h6 class="footer-title">{ title }</h6>
 		for _, link := range links {

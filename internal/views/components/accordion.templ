@@ -2,19 +2,23 @@
 // https://daisyui.com/components/accordion
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type AccordionRowProps struct {
+	Label string
+	Type  string
+	Name  string
+}
 
-templ AccordionRow(a model.Accordion) {
+templ AccordionRow(props AccordionRowProps) {
 	<div class="collapse collapse-arrow bg-base-300 join-item">
 		<input
-			if a.Type == "" {
+			if props.Type == "" {
 				type="checkbox"
 			} else {
-				type={ a.Type }
+				type={ props.Type }
 			}
-			name={ a.Name }
+			name={ props.Name }
 		/>
-		<div class="collapse-title text-xl font-medium">{ a.Label }</div>
+		<div class="collapse-title text-xl font-medium">{ props.Label }</div>
 		<div class="collapse-content bg-base-200">
 			{ children... }
 		</div>

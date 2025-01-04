@@ -1,44 +1,44 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ FeaturesExample() {
 	@components.Features(
-		"Discover our exclusive features",
-		[]model.Feature{
-			{
-				Icon:        CustomizationIcon(),
-				Title:       "Customization",
-				Description: "Tailor our product to suit your needs.",
-			},
-			{
-				Icon:        SecurityIcon(),
-				Title:       "Security",
-				Description: "Your data is protected by the latest security measures.",
-			},
-			{
-				Icon:        SupportIcon(),
-				Title:       "Support",
-				Description: "24/7 customer support for all your inquiries.",
-			},
-			{
-				Icon:        PerformanceIcon(),
-				Title:       "Performance",
-				Description: "Experience blazing-fast performance with our product.",
-			},
-			{
-				Icon:        GlobalReachIcon(),
-				Title:       "Global reach",
-				Description: "Tailor our product to suit your needs. Expand your reach with our global network.",
-			},
-			{
-				Icon:        CommunicationIcon(),
-				Title:       "Communication",
-				Description: "Seamless communication for your team.",
+		components.FeaturesProps{
+			Title: "Discover our exclusive features",
+			Features: []components.FeatureProps{
+				{
+					Icon:        CustomizationIcon(),
+					Title:       "Customization",
+					Description: "Tailor our product to suit your needs.",
+				},
+				{
+					Icon:        SecurityIcon(),
+					Title:       "Security",
+					Description: "Your data is protected by the latest security measures.",
+				},
+				{
+					Icon:        SupportIcon(),
+					Title:       "Support",
+					Description: "24/7 customer support for all your inquiries.",
+				},
+				{
+					Icon:        PerformanceIcon(),
+					Title:       "Performance",
+					Description: "Experience blazing-fast performance with our product.",
+				},
+				{
+					Icon:  GlobalReachIcon(),
+					Title: "Global reach",
+					Description: `Tailor our product to suit your needs. Expand your reach 
+with our global network.`,
+				},
+				{
+					Icon:        CommunicationIcon(),
+					Title:       "Communication",
+					Description: "Seamless communication for your team.",
+				},
 			},
 		},
 	)

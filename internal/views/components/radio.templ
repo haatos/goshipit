@@ -2,18 +2,22 @@
 // https://daisyui.com/components/radio
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type RadioProps struct {
+	Name   string
+	Values map[string]string
+	Class  string
+}
 
-templ Radio(r model.Radio) {
-	for l, v := range r.Values {
+templ Radio(props RadioProps) {
+	for l, v := range props.Values {
 		<div class="form-control">
 			<label class="label cursor-pointer">
 				<span class="label-text">{ l }</span>
 				<input
 					type="radio"
-					name={ r.Name }
+					name={ props.Name }
 					value={ v }
-					class={ "radio", r.Class }
+					class={ "radio", props.Class }
 				/>
 			</label>
 		</div>

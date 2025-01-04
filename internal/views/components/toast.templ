@@ -2,11 +2,15 @@
 // https://daisyui.com/components/toast
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type ToastProps struct {
+	Name       string
+	ToastClass string
+	AlertClass string
+}
 
-templ Toast(toast model.Toast) {
-	<div name={ toast.Name } class={ "toast", toast.ToastClass }>
-		<div class={ "alert", toast.AlertClass }>
+templ Toast(props ToastProps) {
+	<div name={ props.Name } class={ "toast", props.ToastClass }>
+		<div class={ "alert", props.AlertClass }>
 			{ children... }
 		</div>
 	</div>

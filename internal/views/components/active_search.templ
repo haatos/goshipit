@@ -1,29 +1,33 @@
 // data_display
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ ActiveSearchInput(asi model.ActiveSearchInput) {
+type ActiveSearchInputProps struct {
+	ID     string
+	URL    string
+	Target string
+	Input  InputProps
+}
+
+templ ActiveSearchInput(props ActiveSearchInputProps) {
 	<div class="w-full flex space-x-2 items-center">
 		<div class="w-full max-w-xs">
 			@Form(
 				templ.Attributes{
-					"id":           asi.ID,
-					"hx-get":       asi.URL,
-					"hx-target":    asi.Target,
+					"id":           props.ID,
+					"hx-get":       props.URL,
+					"hx-target":    props.Target,
 					"hx-swap":      "innerHTML",
-					"hx-trigger":   fmt.Sprintf("keyup from:input[name=%s] delay:500ms, search", asi.Input.Name),
-					"hx-indicator": fmt.Sprintf("#%s", asi.ID),
+					"hx-trigger":   fmt.Sprintf("keyup from:input[name=%s] delay:500ms, search", props.Input.Name),
+					"hx-indicator": fmt.Sprintf("#%s", props.ID),
 				},
 			) {
-				@Input(asi.Input)
+				@Input(props.Input)
 			}
 		</div>
 		<div class="flex justify-center items-center">
-			<span id={ asi.ID } class="htmx-indicator loading loading-spinner"></span>
+			<span id={ props.ID } class="htmx-indicator loading loading-spinner"></span>
 		</div>
 	</div>
 }

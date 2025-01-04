@@ -22,6 +22,7 @@ var ExampleComponents = map[string]templ.Component{
 	"OnlineAndOffline":           examples.OnlineAndOffline(),
 	"BannerExample":              examples.BannerExample(),
 	"BreadcrumbsExample":         examples.BreadcrumbsExample(),
+	"BasicButton":                examples.BasicButton(),
 	"BasicCard":                  examples.BasicCard(),
 	"BasicCardWithImage":         examples.BasicCardWithImage(),
 	"CarouselExample":            examples.CarouselExample(),

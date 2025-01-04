@@ -2,33 +2,41 @@
 // https://daisyui.com/components/range
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
+
+type RangeProps struct {
+	ID    string
+	Label string
+	Name  string
+	Value int
+	Min   int
+	Max   int
+	Step  int
+	Class string
+}
 
 // Note: usage requires alpine.js
-templ Range(r model.Range) {
+templ Range(props RangeProps) {
 	<script src="/static/js/alpine.js" defer></script>
 	<div class="form-control">
 		<label
 			class="label space-x-1"
-			x-data={ fmt.Sprintf("{ value: %d }", r.Value) }
+			x-data={ fmt.Sprintf("{ value: %d }", props.Value) }
 		>
-			if r.Label != "" {
-				<span>{ r.Label }</span>
+			if props.Label != "" {
+				<span>{ props.Label }</span>
 			}
 			<input
 				type="range"
-				if r.ID != "" {
-					id={ r.ID }
+				if props.ID != "" {
+					id={ props.ID }
 				}
-				name={ r.Name }
-				min={ fmt.Sprintf("%d", r.Min) }
-				max={ fmt.Sprintf("%d", r.Max) }
+				name={ props.Name }
+				min={ fmt.Sprintf("%d", props.Min) }
+				max={ fmt.Sprintf("%d", props.Max) }
 				x-model="value"
-				class={ "range", r.Class }
-				step={ fmt.Sprintf("%d", r.Step) }
+				class={ "range", props.Class }
+				step={ fmt.Sprintf("%d", props.Step) }
 			/>
 			<div x-text="value" class="w-full max-w-7"></div>
 		</label>

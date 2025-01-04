@@ -1,9 +1,6 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ JoinButtons() {
@@ -32,5 +29,5 @@ templ JoinInputs() {
 }
 
 templ joinInput(label string) {
-	@components.Input(model.Input{Label: label, Class: "input-bordered"})
+	@components.Input(components.InputProps{Label: label, Class: "input-bordered"})
 }

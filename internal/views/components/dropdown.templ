@@ -2,13 +2,23 @@
 // https://daisyui.com/components/dropdown
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type DropdownProps struct {
+	Label     string
+	Class     string
+	ListClass string
+	Items     []DropdownItem
+}
 
-templ Dropdown(d model.Dropdown) {
-	<details class={ "dropdown", d.Class }>
-		<summary class="btn m-1">{ d.Label }</summary>
-		<ul class={ "menu dropdown-content", d.ListClass }>
-			for _, di := range d.Items {
+type DropdownItem struct {
+	Label string
+	Attrs templ.Attributes
+}
+
+templ Dropdown(props DropdownProps) {
+	<details class={ "dropdown", props.Class }>
+		<summary class="btn m-1">{ props.Label }</summary>
+		<ul class={ "menu dropdown-content", props.ListClass }>
+			for _, di := range props.Items {
 				<li><a { di.Attrs... }>{ di.Label }</a></li>
 			}
 		</ul>

@@ -2,14 +2,24 @@
 // https://daisyui.com/components/tab
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type TabsProps struct {
+	Name         string
+	Class        string
+	Tabs         []TabProps
+	ContentClass string
+}
 
-templ Tabs(t model.Tabs) {
-	<div role="tablist" class={ "tabs", t.Class }>
-		for i, tab := range t.Tabs {
+type TabProps struct {
+	Label   string
+	Content templ.Component
+}
+
+templ Tabs(props TabsProps) {
+	<div role="tablist" class={ "tabs", props.Class }>
+		for i, tab := range props.Tabs {
 			<input
 				type="radio"
-				name={ t.Name }
+				name={ props.Name }
 				role="tab"
 				class="tab"
 				aria-label={ tab.Label }
@@ -17,7 +27,7 @@ templ Tabs(t model.Tabs) {
 					checked="checked"
 				}
 			/>
-			<div class={ "tab-content", t.ContentClass }>
+			<div class={ "tab-content", props.ContentClass }>
 				@tab.Content
 			</div>
 		}

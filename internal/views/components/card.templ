@@ -2,18 +2,24 @@
 // https://daisyui.com/components/card
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type CardProps struct {
+	Title   string
+	Content string
+	Source  string
+	Alt     string
+	Class   string
+}
 
-templ Card(card model.Card) {
-	<div class={ "card", card.Class }>
-		if card.Source != "" {
+templ Card(props CardProps) {
+	<div class={ "card", props.Class }>
+		if props.Source != "" {
 			<figure>
-				<img src={ card.Source } alt={ card.Alt }/>
+				<img src={ props.Source } alt={ props.Alt }/>
 			</figure>
 		}
 		<div class="card-body">
-			<h2 class="card-title">{ card.Title }</h2>
-			<p>{ card.Content }</p>
+			<h2 class="card-title">{ props.Title }</h2>
+			<p>{ props.Content }</p>
 			<div class="card-actions justify-end">
 				{ children... }
 			</div>

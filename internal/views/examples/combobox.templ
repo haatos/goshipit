@@ -1,15 +1,12 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicCombobox() {
 	<div class="h-96">
 		<form hx-post="/combobox-submit/example_combo" class="space-x-4">
-			@components.Combobox(model.Combobox{
+			@components.Combobox(components.ComboboxProps{
 				Name:  "example_combo",
 				Label: "Example",
 				URL:   "/combobox/%s/%s",

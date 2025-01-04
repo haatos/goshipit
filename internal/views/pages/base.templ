@@ -84,13 +84,13 @@ templ SideNavLayout(head templ.Component) {
 							Name:      "Haatos Ltd",
 							Copyright: fmt.Sprintf("%s", time.Now().UTC().Format("2006")),
 						},
-						[]model.Anchor{
+						[]components.AnchorProps{
 							{LeftIcon: examples.GithubIcon(), Href: "https://github.com/haatos"},
 							{LeftIcon: examples.LinkedInIcon(), Href: "https://linkedin.com/in/tomihaapalainen"},
 						}) {
 						@components.FooterNav(
 							"Links",
-							[]model.Anchor{
+							[]components.AnchorProps{
 								{
 									Label: "Getting started",
 									Attrs: templ.Attributes{
@@ -131,7 +131,7 @@ templ SideNavLayout(head templ.Component) {
 							})
 						@components.FooterNav(
 							"Legal",
-							[]model.Anchor{
+							[]components.AnchorProps{
 								{
 									Label: "Privacy policy",
 									Attrs: templ.Attributes{
@@ -156,7 +156,7 @@ templ SideNavLayout(head templ.Component) {
 					}
 				</div>
 				@drawerSide(
-					[]model.Anchor{
+					[]components.AnchorProps{
 						{
 							Label: "Getting started",
 							Attrs: templ.Attributes{
@@ -269,7 +269,7 @@ templ SideNavLayout(head templ.Component) {
 	</html>
 }
 
-templ drawerSide(anchors []model.Anchor) {
+templ drawerSide(anchors []components.AnchorProps) {
 	<div class="drawer-side">
 		<label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 		<ul class="menu bg-base-300 text-base-content min-h-full w-80 p-4 space-y-2">
@@ -281,11 +281,11 @@ templ drawerSide(anchors []model.Anchor) {
 			</li>
 			<div id="my-active-search" class="pl-1">
 				@components.ActiveSearchInput(
-					model.ActiveSearchInput{
+					components.ActiveSearchInputProps{
 						ID:     "component-search-input",
 						URL:    "/components/search",
 						Target: "#search-dropdown-side",
-						Input: model.Input{
+						Input: components.InputProps{
 							Icon:        searchIcon(),
 							Name:        "search",
 							Type:        "search",

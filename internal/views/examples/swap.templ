@@ -1,15 +1,12 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicSwap() {
 	<div class="flex justify-center items-center h-20">
 		@components.Swap(
-			model.Swap{
+			components.SwapProps{
 				On:    SwapExampleOn(),
 				Off:   SwapExampleOff(),
 				Class: "swap-flip",

@@ -2,40 +2,49 @@
 // https://daisyui.com/components/toggle
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type ToggleProps struct {
+	ID        string
+	Before    string
+	After     string
+	Name      string
+	Checked   bool
+	Class     string
+	Highlight bool
+	Attrs     templ.Attributes
+}
 
-templ Toggle(toggle model.Toggle) {
+templ Toggle(props ToggleProps) {
 	<div class="form-control">
 		<label class="label cursor-pointer space-x-2">
 			<span
 				class={
 					"label-text",
-					templ.KV("text-primary", toggle.Highlight && !toggle.Checked),
+					templ.KV("text-primary", props.Highlight && !props.Checked),
 				}
-			>{ toggle.Before }</span>
+			>{ props.Before }</span>
 			<input
-				{ toggle.Attrs... }
+				{ props.Attrs... }
 				type="checkbox"
-				if toggle.ID != "" {
-					id={ toggle.ID }
+				if props.ID != "" {
+					id={ props.ID }
 				}
-				name={ toggle.Name }
-				class={ "toggle", toggle.Class }
-				if toggle.Checked {
+				name={ props.Name }
+				class={ "toggle", props.Class }
+				if props.Checked {
 					checked="checked"
 				}
-				if toggle.Highlight {
+				if props.Highlight {
 					onclick="toggler(event)"
 				}
 			/>
 			<span
 				class={
 					"label-text",
-					templ.KV("text-primary", toggle.Highlight && toggle.Checked),
+					templ.KV("text-primary", props.Highlight && props.Checked),
 				}
-			>{ toggle.After }</span>
+			>{ props.After }</span>
 		</label>
-		if toggle.Highlight {
+		if props.Highlight {
 			<script>
 			function toggler(evt) {
 				evt.target.previousElementSibling.classList.toggle("text-primary")

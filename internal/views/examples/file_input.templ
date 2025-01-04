@@ -1,13 +1,10 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicFileInput() {
-	@components.FileInput(model.Input{
+	@components.FileInput(components.FileInputProps{
 		Label: "File upload",
 		Name:  "file",
 		Class: "input-bordered",

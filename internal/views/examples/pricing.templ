@@ -1,7 +1,6 @@
 package examples
 
 import "fmt"
-import "github.com/haatos/goshipit/internal/model"
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
@@ -20,8 +19,8 @@ var ProductPrices = map[string]map[bool]int{
 	},
 }
 
-func PriceDataExample(yearly bool) []model.Price {
-	return []model.Price{
+func PriceDataExample(yearly bool) components.PricingProps {
+	return components.PricingProps{
 		{
 			Title:            "Free",
 			Description:      "My free plan",
@@ -29,7 +28,7 @@ func PriceDataExample(yearly bool) []model.Price {
 			Per:              "/ month",
 			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3"},
 			ExcludedFeatures: []string{"Feature 4", "Feature 5"},
-			CallToAction: model.Button{
+			CallToAction: components.ButtonProps{
 				Label: "Start now",
 				Attrs: templ.Attributes{
 					"class": "btn btn-outline btn-sm",
@@ -43,7 +42,7 @@ func PriceDataExample(yearly bool) []model.Price {
 			Per:              "/ month",
 			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3", "Feature 4"},
 			ExcludedFeatures: []string{"Feature 4"},
-			CallToAction: model.Button{
+			CallToAction: components.ButtonProps{
 				Label: "Start free trial",
 				Attrs: templ.Attributes{
 					"class": "btn btn-primary btn-sm",
@@ -56,7 +55,7 @@ func PriceDataExample(yearly bool) []model.Price {
 			Price:            fmt.Sprintf("$ %d", ProductPrices["Professional"][yearly]),
 			Per:              "/ month",
 			IncludedFeatures: []string{"Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"},
-			CallToAction: model.Button{
+			CallToAction: components.ButtonProps{
 				Label: "Start free trial",
 				Attrs: templ.Attributes{
 					"class": "btn btn-primary btn-sm",

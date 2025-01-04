@@ -1,7 +1,6 @@
 package pages
 
 import (
-	"github.com/haatos/goshipit/internal/model"
 	"github.com/haatos/goshipit/internal/views/components"
 	"github.com/haatos/goshipit/internal/views/scripts"
 )
@@ -38,43 +37,44 @@ templ IndexPageContent() {
 			</div>
 		</div>
 		@components.Features(
-			"",
-			[]model.Feature{
-				{
-					Icon:        goIcon(),
-					Title:       "Golang",
-					Description: "simple and efficient programming language ideal for building scalable, high-performance applications",
-					URL:         "https://go.dev",
-				},
-				{
-					Icon:        templIcon(),
-					Title:       "Templ",
-					Description: "fast, type-safe templating engine for Go to create HTML templates using Go code",
-					URL:         "https://templ.guide",
-				},
-				{
-					Icon:        htmxIcon(),
-					Title:       "HTMX",
-					Description: "lightweight JavaScript library to simplify building dynamic, interactive web applications",
-					URL:         "https://htmx.org",
-				},
-				{
-					Icon:        tailwindcssIcon(),
-					Title:       "TailwindCSS",
-					Description: "utility-first CSS framework to create flexible and efficient modern web interfaces",
-					URL:         "https://tailwindcss.com",
-				},
-				{
-					Icon:        daisyuiIcon(),
-					Title:       "DaisyUI",
-					Description: "component library to create attractive, responsive user interfaces with minimal custom styling",
-					URL:         "https://daisyui.com",
-				},
-				{
-					Icon:        modelIcon(),
-					Title:       "Types",
-					Description: "optional component arguments to simplify usage and reduce boilerplate code",
-					URL:         "https://goship.it/types",
+			components.FeaturesProps{
+				Features: []components.FeatureProps{
+					{
+						Icon:        goIcon(),
+						Title:       "Golang",
+						Description: "simple and efficient programming language ideal for building scalable, high-performance applications",
+						URL:         "https://go.dev",
+					},
+					{
+						Icon:        templIcon(),
+						Title:       "Templ",
+						Description: "fast, type-safe templating engine for Go to create HTML templates using Go code",
+						URL:         "https://templ.guide",
+					},
+					{
+						Icon:        htmxIcon(),
+						Title:       "HTMX",
+						Description: "lightweight JavaScript library to simplify building dynamic, interactive web applications",
+						URL:         "https://htmx.org",
+					},
+					{
+						Icon:        tailwindcssIcon(),
+						Title:       "TailwindCSS",
+						Description: "utility-first CSS framework to create flexible and efficient modern web interfaces",
+						URL:         "https://tailwindcss.com",
+					},
+					{
+						Icon:        daisyuiIcon(),
+						Title:       "DaisyUI",
+						Description: "component library to create attractive, responsive user interfaces with minimal custom styling",
+						URL:         "https://daisyui.com",
+					},
+					{
+						Icon:        modelIcon(),
+						Title:       "Types",
+						Description: "optional component arguments to simplify usage and reduce boilerplate code",
+						URL:         "https://goship.it/types",
+					},
 				},
 			},
 		)

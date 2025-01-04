@@ -1,9 +1,6 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 /*
@@ -13,7 +10,7 @@ Label before checkbox.
 templ DefaultCheckbox() {
 	<div class="mx-auto pt-4">
 		@components.Checkbox(
-			model.Checkbox{
+			components.CheckboxProps{
 				Before:  "Remember me",
 				Name:    "remember_me",
 				Checked: false,
@@ -30,7 +27,7 @@ Label after checkbox.
 templ PrimaryCheckbox() {
 	<div class="mx-auto pt-4">
 		@components.Checkbox(
-			model.Checkbox{
+			components.CheckboxProps{
 				After:   "Remember me",
 				Name:    "remember_me",
 				Checked: true,

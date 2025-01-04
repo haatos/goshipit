@@ -1,0 +1,11 @@
+// actions
+package components
+
+type ButtonProps struct {
+	Label string
+	Attrs templ.Attributes
+}
+
+templ Button(props ButtonProps) {
+	<button { props.Attrs... }>{ props.Label }</button>
+}

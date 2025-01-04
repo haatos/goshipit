@@ -2,31 +2,45 @@
 // https://daisyui.com/components/select
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type SelectProps struct {
+	ID      string
+	Label   string
+	Name    string
+	Options []SelectOption
+	Attrs   templ.Attributes
+	Class   string
+}
 
-templ Select(s model.Select) {
+type SelectOption struct {
+	Label    string
+	Value    string
+	Selected bool
+	Disabled bool
+}
+
+templ Select(props SelectProps) {
 	<label
-		class={ "form-control", templ.KV("pb-2", s.Label != "") }
+		class={ "form-control", templ.KV("pb-2", props.Label != "") }
 	>
-		if s.Label != "" {
+		if props.Label != "" {
 			<div class="label pr-2">
-				<span class="label-text">{ s.Label }</span>
+				<span class="label-text">{ props.Label }</span>
 			</div>
 		}
 		<select
-			if s.ID != "" {
-				id={ s.ID }
+			if props.ID != "" {
+				id={ props.ID }
 			}
-			name={ s.Name }
-			class={ "select", s.Class }
-			{ s.Attrs... }
+			name={ props.Name }
+			class={ "select", props.Class }
+			{ props.Attrs... }
 		>
-			@SelectOptions(s.Options)
+			@SelectOptions(props.Options)
 		</select>
 	</label>
 }
 
-templ SelectOptions(options []model.SelectOption) {
+templ SelectOptions(options []SelectOption) {
 	for i := range options {
 		<option
 			if options[i].Selected {

@@ -2,27 +2,33 @@
 // https://daisyui.com/components/timeline
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type TimelineProps []TimelineProp
 
-templ Timeline(items []model.TimelineItem) {
+type TimelineProp struct {
+	Start  string
+	Middle templ.Component
+	End    string
+}
+
+templ Timeline(props TimelineProps) {
 	<ul class="timeline">
-		for i, item := range items {
+		for i, prop := range props {
 			<li>
 				if i > 0 {
 					<hr/>
 				}
-				if item.Start != "" {
-					<div class="timeline-start">{ item.Start }</div>
+				if prop.Start != "" {
+					<div class="timeline-start">{ prop.Start }</div>
 				}
-				if item.Middle != nil {
+				if prop.Middle != nil {
 					<div class="timeline-middle">
-						@item.Middle
+						@prop.Middle
 					</div>
 				}
-				if item.End != "" {
-					<div class="timeline-end">{ item.End }</div>
+				if prop.End != "" {
+					<div class="timeline-end">{ prop.End }</div>
 				}
-				if i < len(items) - 1 {
+				if i < len(props) - 1 {
 					<hr/>
 				}
 			</li>

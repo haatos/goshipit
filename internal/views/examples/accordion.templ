@@ -1,9 +1,6 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 /*
@@ -12,14 +9,14 @@ Accordion with input type 'checkbox': multiple rows can be open at a time.
 
 templ AccordionWithCheckbox() {
 	<div class="w-full flex join join-vertical pt-4">
-		@components.AccordionRow(model.Accordion{Label: "Label 1", Name: "accordion-example-1"}) {
+		@components.AccordionRow(components.AccordionRowProps{Label: "Label 1", Name: "accordion-example-1"}) {
 			<p class="pt-4">Label 1 content</p>
 		}
-		@components.AccordionRow(model.Accordion{Label: "Label 2", Name: "accordion-example-2"}) {
+		@components.AccordionRow(components.AccordionRowProps{Label: "Label 2", Name: "accordion-example-2"}) {
 			<h2 class="text-xl font-bold py-4">Content 2</h2>
 			<p>Label 2 content</p>
 		}
-		@components.AccordionRow(model.Accordion{Label: "Label 3", Name: "accordion-example-3"}) {
+		@components.AccordionRow(components.AccordionRowProps{Label: "Label 3", Name: "accordion-example-3"}) {
 			<h2 class="text-xl font-bold py-4">Content 3</h2>
 			<ul class="list-disc [&>li]:ml-4">
 				<li>Item 1</li>
@@ -37,14 +34,14 @@ Accordion with input type 'radio': only a single row can be open at a time.
 
 templ AccordionWithRadio() {
 	<div class="w-full flex join join-vertical pt-4">
-		@components.AccordionRow(model.Accordion{Label: "Label 1", Name: "accordion-example-2", Type: "radio"}) {
+		@components.AccordionRow(components.AccordionRowProps{Label: "Label 1", Name: "accordion-example-2", Type: "radio"}) {
 			<p class="pt-4">Label 1 content</p>
 		}
-		@components.AccordionRow(model.Accordion{Label: "Label 2", Name: "accordion-example-2", Type: "radio"}) {
+		@components.AccordionRow(components.AccordionRowProps{Label: "Label 2", Name: "accordion-example-2", Type: "radio"}) {
 			<h2 class="text-xl font-bold py-4">Content 2</h2>
 			<p>Label 2 content</p>
 		}
-		@components.AccordionRow(model.Accordion{Label: "Label 3", Name: "accordion-example-2", Type: "radio"}) {
+		@components.AccordionRow(components.AccordionRowProps{Label: "Label 3", Name: "accordion-example-2", Type: "radio"}) {
 			<h2 class="text-xl font-bold py-4">Content 3</h2>
 			<ul class="list-disc [&>li]:ml-4">
 				<li>Item 1</li>

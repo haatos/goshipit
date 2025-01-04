@@ -1,25 +1,32 @@
 // navigation
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type AnchorProps struct {
+	Href      string
+	Label     string
+	LeftIcon  templ.Component
+	RightIcon templ.Component
+	Attrs     templ.Attributes
+	Class     string
+}
 
-templ Anchor(a model.Anchor) {
+templ Anchor(props AnchorProps) {
 	<a
-		if a.Href != "" {
-			href={ templ.SafeURL(a.Href) }
+		if props.Href != "" {
+			href={ templ.SafeURL(props.Href) }
 		}
-		class={ "group flex items-center cursor-pointer", a.Class }
-		{ a.Attrs... }
+		class={ "group flex items-center cursor-pointer", props.Class }
+		{ props.Attrs... }
 	>
-		if a.LeftIcon != nil {
+		if props.LeftIcon != nil {
 			<div class="inline-block mr-1">
-				@a.LeftIcon
+				@props.LeftIcon
 			</div>
 		}
-		{ a.Label }
-		if a.RightIcon != nil {
+		{ props.Label }
+		if props.RightIcon != nil {
 			<div class="inline-block ml-1">
-				@a.RightIcon
+				@props.RightIcon
 			</div>
 		}
 	</a>

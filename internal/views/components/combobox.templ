@@ -3,42 +3,57 @@ package components
 
 import (
 	"fmt"
-	"github.com/haatos/goshipit/internal/model"
 	"net/url"
 )
 
-templ Combobox(cb model.Combobox) {
+type ComboboxProps struct {
+	Label    string
+	Name     string
+	URL      string
+	Options  []string
+	Selected []string
+}
+
+templ Combobox(props ComboboxProps) {
 	<details class="dropdown w-full max-w-md min-h-8">
-		<summary class="cursor-pointer flex space-x-2 w-full rounded-box border border-base-content py-1 px-2">
-			<span class="text-sm text-nowrap">{ cb.Label }</span>
+		<summary
+			class={
+				"cursor-pointer flex space-x-2 w-full rounded-box",
+				"border border-base-content py-1 px-2",
+			}
+		>
+			<span class="text-sm text-nowrap">{ props.Label }</span>
 			<div class="w-full flex items-center space-x-1">
-				<div id={ fmt.Sprintf("%s_selections", cb.Name) } class="w-full grid-flow-col-dense">
-					for _, s := range cb.Selected {
-						@ComboBadge(cb.Name, s)
+				<div
+					id={ fmt.Sprintf("%s_selections", props.Name) }
+					class="w-full grid-flow-col-dense"
+				>
+					for _, s := range props.Selected {
+						@ComboBadge(props.Name, s)
 					}
 				</div>
 			</div>
 		</summary>
 		<ul class="menu dropdown-content bg-base-200 rounded-box z-50 p-2 shadow">
-			for _, opt := range cb.Options {
+			for _, opt := range props.Options {
 				<li>
 					<label class="label cursor-pointer space-x-2">
 						<span class="label-text">
 							{ opt }
 						</span>
 						<input
-							hx-post={ fmt.Sprintf(cb.URL, cb.Name, url.PathEscape(opt)) }
-							hx-target={ fmt.Sprintf("#%s_selections", cb.Name) }
+							hx-post={ fmt.Sprintf(props.URL, props.Name, url.PathEscape(opt)) }
+							hx-target={ fmt.Sprintf("#%s_selections", props.Name) }
 							hx-swap="beforeend"
 							type="checkbox"
-							name={ cb.Name }
+							name={ props.Name }
 							class={ "checkbox" }
 						/>
 					</label>
 				</li>
 			}
 		</ul>
-		<script data-checkbox-name={ cb.Name } type="text/javascript">
+		<script data-checkbox-name={ props.Name } type="text/javascript">
 			var name = document.currentScript.getAttribute("data-checkbox-name");
 			((name) => {
 				document.addEventListener("htmx:configRequest", (evt) => {
@@ -67,7 +82,10 @@ templ ComboBadge(name, value string) {
 	<div class="ml-2 badge badge-neutral p-1 text-nowrap select-none">
 		<input type="hidden" name={ name } value={ value }/>
 		<span>{ value }</span>
-		<button onclick="uncheckAndRemoveBadge(event)" class="ml-1 btn btn-xs btn-circle btn-ghost">
+		<button
+			onclick="uncheckAndRemoveBadge(event)"
+			class="ml-1 btn btn-xs btn-circle btn-ghost"
+		>
 			@crossIcon()
 		</button>
 		<script>

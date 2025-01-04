@@ -1,32 +1,41 @@
 package examples
 
-import "github.com/haatos/goshipit/internal/model"
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicAnchor() {
-	@components.Anchor(model.Anchor{Label: "Basic anchor", Class: "link"})
+	@components.Anchor(components.AnchorProps{
+		Label: "Basic anchor",
+		Class: "link",
+	})
 }
 
 // example
 templ PrimaryAnchor() {
-	@components.Anchor(model.Anchor{Label: "Primary anchor", Class: "link link-primary"})
+	@components.Anchor(components.AnchorProps{
+		Label: "Primary anchor",
+		Class: "link link-primary",
+	})
 }
 
 // example
 templ AnchorWithIcon() {
-	@components.Anchor(model.Anchor{Label: "GitHub profile", LeftIcon: GithubIcon(), Class: "link"})
+	@components.Anchor(components.AnchorProps{
+		Label:    "GitHub profile",
+		LeftIcon: GithubIcon(),
+		Class:    "link",
+	})
 }
 
 // example
 templ SocialAnchors() {
 	<div class="mx-auto">
 		<div class="flex space-x-4">
-			@components.Anchor(model.Anchor{LeftIcon: XIcon()})
-			@components.Anchor(model.Anchor{LeftIcon: YoutubeIcon()})
-			@components.Anchor(model.Anchor{LeftIcon: FacebookIcon()})
-			@components.Anchor(model.Anchor{LeftIcon: GithubIcon()})
-			@components.Anchor(model.Anchor{LeftIcon: LinkedInIcon()})
+			@components.Anchor(components.AnchorProps{LeftIcon: XIcon()})
+			@components.Anchor(components.AnchorProps{LeftIcon: YoutubeIcon()})
+			@components.Anchor(components.AnchorProps{LeftIcon: FacebookIcon()})
+			@components.Anchor(components.AnchorProps{LeftIcon: GithubIcon()})
+			@components.Anchor(components.AnchorProps{LeftIcon: LinkedInIcon()})
 		</div>
 	</div>
 }

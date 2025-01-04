@@ -2,40 +2,49 @@
 // https://daisyui.com/components/textarea
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ Textarea(textarea model.Textarea) {
+type TextareaProps struct {
+	ID          string
+	Label       string
+	Name        string
+	Placeholder string
+	Value       string
+	Rows        int
+	Err         string
+	Class       string
+	Attrs       templ.Attributes
+}
+
+templ Textarea(props TextareaProps) {
 	<label class="form-control">
-		if textarea.Label != "" {
+		if props.Label != "" {
 			<div class="label">
-				<span class="label-text">{ textarea.Label }</span>
+				<span class="label-text">{ props.Label }</span>
 			</div>
 		}
 		<textarea
-			{ textarea.Attrs... }
-			if textarea.ID != "" {
-				id={ textarea.ID }
+			{ props.Attrs... }
+			if props.ID != "" {
+				id={ props.ID }
 			}
-			name={ textarea.Name }
-			placeholder={ textarea.Placeholder }
+			name={ props.Name }
+			placeholder={ props.Placeholder }
 			class={
 				"textarea",
-				textarea.Class,
-				templ.KV("textarea-error", textarea.Err != ""),
+				props.Class,
+				templ.KV("textarea-error", props.Err != ""),
 			}
-			if textarea.Rows > 0 {
-				rows={ fmt.Sprintf("%d", textarea.Rows) }
+			if props.Rows > 0 {
+				rows={ fmt.Sprintf("%d", props.Rows) }
 			} else {
 				rows="3"
 			}
 		>
-			{ textarea.Value }
+			{ props.Value }
 		</textarea>
 		<div class="label h-6 !p-0">
-			<span class="label-text-alt text-error">{ textarea.Err }</span>
+			<span class="label-text-alt text-error">{ props.Err }</span>
 		</div>
 	</label>
 }

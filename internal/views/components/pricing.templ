@@ -1,12 +1,23 @@
 // data_display
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type PricingProps []PriceProps
 
-templ Pricing(checked bool, prices []model.Price) {
+type PriceProps struct {
+	Title            string
+	Description      string
+	Price            string
+	Per              string
+	IncludedFeatures []string
+	ExcludedFeatures []string
+	CallToAction     ButtonProps
+	Footer           templ.Component
+}
+
+templ Pricing(checked bool, props PricingProps) {
 	<div class="w-full mx-auto py-8 max-w-screen-md">
 		<div class="max-w-xs mx-auto">
-			@Toggle(model.Toggle{
+			@Toggle(ToggleProps{
 				Before:    "Paid monthly",
 				After:     "Paid annually",
 				Name:      "period",
@@ -19,19 +30,22 @@ templ Pricing(checked bool, prices []model.Price) {
 				},
 			})
 		</div>
-		@PriceGrid(prices)
+		@PriceGrid(props)
 	</div>
 }
 
-templ PriceGrid(prices []model.Price) {
-	<div id="price-grid" class="grid grid-cols-1 md:grid-cols-3 px-4 pt-4 gap-4 w-full mx-auto">
+templ PriceGrid(prices PricingProps) {
+	<div
+		id="price-grid"
+		class="grid grid-cols-1 md:grid-cols-3 px-4 pt-4 gap-4 w-full mx-auto"
+	>
 		for i := range prices {
 			@Price(prices[i], nil)
 		}
 	</div>
 }
 
-templ Price(price model.Price, footer templ.Component) {
+templ Price(price PriceProps, footer templ.Component) {
 	<div class="card ring-1 ring-base-content/60 rounded-box w-full max-w-xs p-6 space-y-8 mx-auto">
 		<div class="card-title text-3xl"><h2 class="mx-auto">{ price.Title }</h2></div>
 		<p class="text-center text-3xl font-bold">{ price.Price } <span class="text-xs font-normal">{ price.Per }</span></p>

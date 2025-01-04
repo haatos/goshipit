@@ -1,18 +1,15 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicTabs() {
 	@components.Tabs(
-		model.Tabs{
+		components.TabsProps{
 			Name:         "basic-tabs",
 			Class:        "tabs-boxed",
 			ContentClass: "bg-base-100 py-8",
-			Tabs: []model.Tab{
+			Tabs: []components.TabProps{
 				{
 					Label:   "Home",
 					Content: homeTabContent(),

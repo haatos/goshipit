@@ -3,18 +3,53 @@ package components
 
 import "fmt"
 import "time"
-import "github.com/haatos/goshipit/internal/model"
 
-templ DatePicker(dp model.DatePicker) {
+type DatePickerProps struct {
+	Year        int
+	Month       int
+	Selected    time.Time
+	StartOfWeek time.Weekday
+}
+
+func (props DatePickerProps) Days() []time.Time {
+	days := make([]time.Time, 0, 31)
+	now := time.Now().UTC()
+	start := time.Date(props.Year, time.Month(props.Month), 1, 0, 0, 0, 0, now.Location())
+	end := start.AddDate(0, 1, -1)
+	for end.Weekday() != props.StartOfWeek {
+		end = end.AddDate(0, 0, 1)
+	}
+	end = end.AddDate(0, 0, -1)
+
+	for start.Weekday() != props.StartOfWeek {
+		start = start.AddDate(0, 0, -1)
+	}
+	for !start.After(end) {
+		days = append(days, start)
+		start = start.AddDate(0, 0, 1)
+	}
+	return days
+}
+
+func (props DatePickerProps) Months() []time.Time {
+	months := make([]time.Time, 12)
+	for i := 1; i <= 12; i++ {
+		dt := time.Date(props.Year, time.Month(i), 1, 0, 0, 0, 0, time.Now().Location())
+		months[i-1] = dt
+	}
+	return months
+}
+
+templ DatePicker(props DatePickerProps) {
 	{{ utcNow := time.Now().UTC() }}
-	{{ days := dp.Days() }}
+	{{ days := props.Days() }}
 	<div
 		name="datepicker-div"
 		class="flex flex-col space-y-1 w-[300px] h-[405px]"
 	>
 		<div class="flex space-x-1">
 			<button
-				hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", dp.Year, dp.Month-1) }
+				hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", props.Year, props.Month-1) }
 				hx-target="div[name=datepicker-div]"
 				hx-swap="outerHTML"
 				class="btn btn-square btn-sm"
@@ -28,13 +63,16 @@ templ DatePicker(dp model.DatePicker) {
 				</svg>
 			</button>
 			<details class="dropdown w-full max-w-[300px]">
-				<summary class="btn btn-sm w-full">{ fmt.Sprintf("%d", dp.Year) }</summary>
+				<summary class="btn btn-sm w-full">{ fmt.Sprintf("%d", props.Year) }</summary>
 				<div
-					class="menu dropdown-content grid grid-cols-3 gap-1 w-full max-w-[300px] p-1 bg-base-300 rounded-b-box"
-					hx-get={ fmt.Sprintf("/datepicker/yearpicker?year=%d", dp.Year) }
+					class={
+						"menu dropdown-content grid grid-cols-3 gap-1",
+						"w-full max-w-[300px] p-1 bg-base-300 rounded-b-box",
+					}
+					hx-get={ fmt.Sprintf("/datepicker/yearpicker?year=%d", props.Year) }
 					hx-trigger="datePickerDropdownClosed from:body"
 				>
-					@DatePickerYearPicker(dp)
+					@DatePickerYearPicker(props)
 				</div>
 				<script>
                     ((details)=>{
@@ -48,7 +86,7 @@ templ DatePicker(dp model.DatePicker) {
                 </script>
 			</details>
 			<button
-				hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", dp.Year, dp.Month+1) }
+				hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", props.Year, props.Month+1) }
 				hx-target="div[name=datepicker-div]"
 				hx-swap="outerHTML"
 				class="btn btn-square btn-sm"
@@ -63,7 +101,7 @@ templ DatePicker(dp model.DatePicker) {
 			</button>
 		</div>
 		<div class="grid grid-cols-7 gap-1 text-sm text-base-content/75">
-			if dp.StartOfWeek == time.Sunday {
+			if props.StartOfWeek == time.Sunday {
 				<span class="text-center">Su</span>
 			}
 			<span class="text-center">Mo</span>
@@ -72,27 +110,27 @@ templ DatePicker(dp model.DatePicker) {
 			<span class="text-center">Th</span>
 			<span class="text-center">Fr</span>
 			<span class="text-center">Sa</span>
-			if dp.StartOfWeek == time.Monday {
+			if props.StartOfWeek == time.Monday {
 				<span class="text-center">Su</span>
 			}
 		</div>
 		<div
 			class="grid grid-cols-7 gap-1"
 		>
-			@DatePickerInput(dp.Selected)
+			@DatePickerInput(props.Selected)
 			for _, d := range days {
 				<button
 					name="datepicker-day-btn"
 					class={
 						"btn btn-ghost btn-square bg-base-100 border shadow-md shadow-base-300 h-10 w-10 p-3",
 						templ.KV("text-primary", d.Year() == utcNow.Year() && d.Month() == utcNow.Month() && utcNow.Day() == d.Day()),
-						templ.KV("btn-neutral", d.Month() != time.Month(dp.Month)),
-						templ.KV("border-primary bg-base-300", !dp.Selected.IsZero() && d.Day() == dp.Selected.Day()),
+						templ.KV("btn-neutral", d.Month() != time.Month(props.Month)),
+						templ.KV("border-primary bg-base-300", !props.Selected.IsZero() && d.Day() == props.Selected.Day()),
 					}
 					hx-post={ "/datepicker/select?date=" + d.Format("2006-01-02") }
 					hx-target="#datepicker-input"
 					hx-swap="outerHTML"
-					if d.Month() != time.Month(dp.Month) {
+					if d.Month() != time.Month(props.Month) {
 						disabled
 					}
 				>
@@ -128,15 +166,15 @@ templ DatePickerInput(d time.Time) {
 	<input id="datepicker-input" type="hidden" name="date" value={ d.Format("2006-01-02") }/>
 }
 
-templ DatePickerYearPicker(dp model.DatePicker) {
+templ DatePickerYearPicker(props DatePickerProps) {
 	{{ utcNow := time.Now().UTC() }}
 	for i := range 12 {
 		<button
 			class="btn btn-sm border"
-			hx-get={ fmt.Sprintf("/datepicker/monthpicker?year=%d", dp.Year-(12-i)) }
+			hx-get={ fmt.Sprintf("/datepicker/monthpicker?year=%d", props.Year-(12-i)) }
 			hx-target="closest div"
 		>
-			{ fmt.Sprintf("%d", dp.Year-(12-i)) }
+			{ fmt.Sprintf("%d", props.Year-(12-i)) }
 		</button>
 	}
 	<button
@@ -148,15 +186,15 @@ templ DatePickerYearPicker(dp model.DatePicker) {
 	</button>
 }
 
-templ DatePickerMonthPicker(dp model.DatePicker) {
-	{{ months := dp.Months() }}
+templ DatePickerMonthPicker(props DatePickerProps) {
+	{{ months := props.Months() }}
 	for _, m := range months {
 		<button
 			class={
 				"btn btn-sm border",
-				templ.KV("border-primary", m.Month() == time.Month(dp.Month)),
+				templ.KV("border-primary", m.Month() == time.Month(props.Month)),
 			}
-			hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", dp.Year, m.Month()) }
+			hx-get={ fmt.Sprintf("/datepicker?year=%d&month=%d", props.Year, m.Month()) }
 			hx-target="div[name=datepicker-div]"
 			hx-swap="outerHTML"
 		>

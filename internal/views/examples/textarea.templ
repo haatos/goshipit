@@ -1,15 +1,12 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicTextarea() {
 	<div class="pt-4">
 		@components.Textarea(
-			model.Textarea{
+			components.TextareaProps{
 				Label: "Description",
 				Name:  "description",
 				Class: "textarea-bordered resize-none",
@@ -22,7 +19,7 @@ templ BasicTextarea() {
 templ BasicTextareaWithError() {
 	<div class="pt-4">
 		@components.Textarea(
-			model.Textarea{
+			components.TextareaProps{
 				Label: "Description",
 				Name:  "description",
 				Err:   "Description cannot be empty",

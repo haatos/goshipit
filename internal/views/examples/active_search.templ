@@ -3,7 +3,6 @@ package examples
 import (
 	"fmt"
 	"github.com/haatos/goshipit/internal/views/components"
-	"github.com/haatos/goshipit/internal/model"
 )
 
 // example
@@ -24,11 +23,11 @@ templ ActiveSearchExampleTable() {
 templ ActiveSearchExample(id string, headers []templ.Component, rows []templ.Component) {
 	<div class="py-8">
 		@components.ActiveSearchInput(
-			model.ActiveSearchInput{
+			components.ActiveSearchInputProps{
 				ID:     "active-search-example-input",
 				URL:    "/active-search",
 				Target: fmt.Sprintf("#%s > tbody", id),
-				Input: model.Input{
+				Input: components.InputProps{
 					Icon:        searchIcon(),
 					Name:        "active-search-example",
 					Type:        "search",

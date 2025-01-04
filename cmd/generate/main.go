@@ -106,7 +106,7 @@ func getComponentCode(path string, info fs.FileInfo, fmap model.ComponentCodeMap
 			description = append(description, line)
 			continue
 		}
-		if strings.HasPrefix(line, "templ ") {
+		if strings.HasPrefix(line, "type ") || strings.HasPrefix(line, "templ ") {
 			inFunction = true
 		}
 		if inFunction {

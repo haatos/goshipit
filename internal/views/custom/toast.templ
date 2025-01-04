@@ -1,13 +1,10 @@
 package custom
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 templ ToastErrorConfirm(errs ...string) {
 	@components.Toast(
-		model.Toast{
+		components.ToastProps{
 			Name:       "toast-error",
 			ToastClass: "toast-top toast-center",
 			AlertClass: "alert-error",
@@ -39,7 +36,7 @@ templ ToastErrorConfirm(errs ...string) {
 
 templ HXToastInfoFade(messages ...string) {
 	@components.Toast(
-		model.Toast{
+		components.ToastProps{
 			Name:       "toast-info",
 			ToastClass: "toast-bottom toast-end w-full max-w-xs",
 			AlertClass: "alert-info w-full max-w-xs space-x-4",

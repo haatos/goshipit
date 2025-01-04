@@ -3,7 +3,6 @@ package pages
 import (
 	"fmt"
 	"github.com/haatos/goshipit/internal"
-	"github.com/haatos/goshipit/internal/model"
 	"github.com/haatos/goshipit/internal/views/components"
 )
 
@@ -11,11 +10,11 @@ templ InternalServerError() {
 	@SideNavLayout(nil) {
 		@SideNavLayout(nil) {
 			@components.Status(
-				model.Status{
+				components.StatusProps{
 					Code:        401,
 					Title:       "Unauthorized",
 					Description: fmt.Sprintf("Something went terribly wrong! Please contact us at %s if the problem persists.", internal.Settings.ContactEmail),
-					ReturnButton: model.Button{
+					ReturnButton: components.ButtonProps{
 						Label: "Go back home",
 						Attrs: templ.Attributes{
 							"hx-get":      "/",

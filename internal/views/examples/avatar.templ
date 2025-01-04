@@ -1,18 +1,20 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ MultipleAvatarSizes() {
 	<div class="flex justify-center items-center space-x-4 pt-4">
-		@components.Avatar(model.Avatar{ContainerClass: "rounded w-8", Source: "/static/images/avatar.jpg"})
-		@components.Avatar(model.Avatar{ContainerClass: "rounded w-12", Source: "/static/images/avatar.jpg"})
-		@components.Avatar(model.Avatar{ContainerClass: "rounded w-16", Source: "/static/images/avatar.jpg"})
-		@components.Avatar(model.Avatar{ContainerClass: "rounded w-20", Source: "/static/images/avatar.jpg"})
-		@components.Avatar(model.Avatar{ContainerClass: "rounded w-24", Source: "/static/images/avatar.jpg"})
+		@components.Avatar(components.AvatarProps{
+			ContainerClass: "rounded w-8", Source: "/static/images/avatar.jpg"})
+		@components.Avatar(components.AvatarProps{
+			ContainerClass: "rounded w-12", Source: "/static/images/avatar.jpg"})
+		@components.Avatar(components.AvatarProps{
+			ContainerClass: "rounded w-16", Source: "/static/images/avatar.jpg"})
+		@components.Avatar(components.AvatarProps{
+			ContainerClass: "rounded w-20", Source: "/static/images/avatar.jpg"})
+		@components.Avatar(components.AvatarProps{
+			ContainerClass: "rounded w-24", Source: "/static/images/avatar.jpg"})
 	</div>
 }
 
@@ -20,11 +22,16 @@ templ MultipleAvatarSizes() {
 templ GroupOfAvatars() {
 	<div class="flex justify-center items-center space-x-4 pt-4">
 		@components.AvatarGroup("-space-x-8") {
-			@components.Avatar(model.Avatar{ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
-			@components.Avatar(model.Avatar{ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
-			@components.Avatar(model.Avatar{ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
-			@components.Avatar(model.Avatar{ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
-			@components.Avatar(model.Avatar{ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
+			@components.Avatar(components.AvatarProps{
+				ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
+			@components.Avatar(components.AvatarProps{
+				ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
+			@components.Avatar(components.AvatarProps{
+				ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
+			@components.Avatar(components.AvatarProps{
+				ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
+			@components.Avatar(components.AvatarProps{
+				ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
 		}
 	</div>
 }
@@ -36,7 +43,15 @@ Avatar with online/offline indicator.
 
 templ OnlineAndOffline() {
 	<div class="flex justify-center items-center space-x-4 pt-4">
-		@components.Avatar(model.Avatar{AvatarClass: "online", ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
-		@components.Avatar(model.Avatar{AvatarClass: "offline", ContainerClass: "rounded-full w-12", Source: "/static/images/avatar.jpg"})
+		@components.Avatar(components.AvatarProps{
+			AvatarClass:    "online",
+			ContainerClass: "rounded-full w-12",
+			Source:         "/static/images/avatar.jpg",
+		})
+		@components.Avatar(components.AvatarProps{
+			AvatarClass:    "offline",
+			ContainerClass: "rounded-full w-12",
+			Source:         "/static/images/avatar.jpg",
+		})
 	</div>
 }

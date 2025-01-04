@@ -20,7 +20,7 @@ templ ComponentMain(cc model.ComponentCode, examples []templ.Component) {
 			<h1 class="text-4xl font-bold pb-8">
 				{ cc.Label }
 				if cc.DaisyUIURL != "" {
-					@components.Anchor(model.Anchor{
+					@components.Anchor(components.AnchorProps{
 						Label:     "@DaisyUI",
 						Href:      cc.DaisyUIURL,
 						Class:     "text-sm link link-primary",
@@ -81,9 +81,9 @@ templ ComponentExampleTabs(description string, tabs templ.Component) {
 	@tabs
 }
 
-templ ComponentTabs(name string, tabs []model.Tab) {
+templ ComponentTabs(name string, tabs []components.TabProps) {
 	@components.Tabs(
-		model.Tabs{
+		components.TabsProps{
 			Name:         name,
 			Class:        "tabs-lifted",
 			ContentClass: "bg-base-100 border-base-300 rounded-box p-4 overflow-x-auto",

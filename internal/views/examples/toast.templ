@@ -1,15 +1,12 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ InfoToast() {
 	<div class="relative min-h-60">
 		@components.Toast(
-			model.Toast{
+			components.ToastProps{
 				Name:       "info-toast",
 				ToastClass: "absolute toast-end toast-top",
 				AlertClass: "alert-info",
@@ -24,7 +21,7 @@ templ InfoToast() {
 templ WarningToast() {
 	<div class="relative min-h-60">
 		@components.Toast(
-			model.Toast{
+			components.ToastProps{
 				Name:       "warning-toast",
 				ToastClass: "absolute toast-end toast-bottom",
 				AlertClass: "alert-warning",
@@ -39,7 +36,7 @@ templ WarningToast() {
 templ ErrorToast() {
 	<div class="relative min-h-60">
 		@components.Toast(
-			model.Toast{
+			components.ToastProps{
 				Name:       "error-toast",
 				ToastClass: "absolute toast-center toast-top",
 				AlertClass: "alert-error",
@@ -53,7 +50,7 @@ templ ErrorToast() {
 // example
 templ InfoToastConfirm() {
 	<div class="relative min-h-60">
-		@components.Toast(model.Toast{
+		@components.Toast(components.ToastProps{
 			Name:       "error-toast",
 			ToastClass: "absolute toast-end toast-top",
 			AlertClass: "alert-info",

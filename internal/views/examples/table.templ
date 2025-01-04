@@ -1,16 +1,13 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicTable() {
 	@components.Table(
 		[]templ.Component{
 			components.Checkbox(
-				model.Checkbox{
+				components.CheckboxProps{
 					Name: "all",
 				},
 			),
@@ -30,7 +27,7 @@ templ BasicTable() {
 templ TableExampleRow(name, email string) {
 	<tr>
 		<td>
-			@components.Checkbox(model.Checkbox{Name: email})
+			@components.Checkbox(components.CheckboxProps{Name: email})
 		</td>
 		<td>
 			@components.PlainText(name)

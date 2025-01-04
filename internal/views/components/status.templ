@@ -1,22 +1,32 @@
 // feedback
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ Status(status model.Status) {
+type StatusProps struct {
+	Code         int
+	Title        string
+	Description  string
+	ReturnButton ButtonProps
+}
+
+templ Status(props StatusProps) {
 	<section class="grid min-h-dvh place-content-center px-4">
 		<div class="text-center">
-			<h1 class="text-9xl font-black text-neutral">{ fmt.Sprintf("%d", status.Code) }</h1>
-			<p class="text-2xl font-bold tracking-tight text-base-content sm:text-4xl">{ status.Title }</p>
-			<p class="mt-4 text-neutral">{ status.Description }</p>
+			<h1 class="text-9xl font-black text-neutral">
+				{ fmt.Sprintf("%d", props.Code) }
+			</h1>
+			<p class="text-2xl font-bold tracking-tight text-base-content sm:text-4xl">
+				{ props.Title }
+			</p>
+			<p class="mt-4 text-neutral">
+				{ props.Description }
+			</p>
 			<a
-				{ status.ReturnButton.Attrs... }
+				{ props.ReturnButton.Attrs... }
 				class="mt-4 btn btn-primary"
 			>
-				{ status.ReturnButton.Label }
+				{ props.ReturnButton.Label }
 			</a>
 		</div>
 	</section>

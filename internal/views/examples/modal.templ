@@ -48,7 +48,10 @@ templ ModalConfirmDelete() {
 		<div class="grid grid-cols-3 gap-4">
 			for i := range 6 {
 				<div name="modal-confirm-example">
-					@components.Modal(fmt.Sprintf("modal_confirm_%d", i), modalConfirmDeleteButton(i, templ.Attributes{"onclick": fmt.Sprintf("modal_confirm_%d.showModal()", i)})) {
+					@components.Modal(
+						fmt.Sprintf("modal_confirm_%d", i),
+						modalConfirmDeleteButton(i, templ.Attributes{"onclick": fmt.Sprintf("modal_confirm_%d.showModal()", i)}),
+					) {
 						<div class="space-y-8">
 							<div class="grid grid-cols-8 gap-2">
 								<div class="flex justify-center items-center">

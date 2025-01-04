@@ -1,13 +1,12 @@
 package examples
 
 import "time"
-import "github.com/haatos/goshipit/internal/model"
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicDatePicker() {
 	@components.DatePicker(
-		model.DatePicker{
+		components.DatePickerProps{
 			Year:        2024,
 			Month:       12,
 			Selected:    time.Date(2024, 12, 25, 0, 0, 0, 0, time.Now().Location()),

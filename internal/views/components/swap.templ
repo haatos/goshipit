@@ -2,16 +2,20 @@
 // https://daisyui.com/components/swap
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type SwapProps struct {
+	On    templ.Component
+	Off   templ.Component
+	Class string
+}
 
-templ Swap(s model.Swap) {
-	<label class={ "swap", s.Class }>
+templ Swap(props SwapProps) {
+	<label class={ "swap", props.Class }>
 		<input type="checkbox"/>
 		<div class="swap-on">
-			@s.On
+			@props.On
 		</div>
 		<div class="swap-off">
-			@s.Off
+			@props.Off
 		</div>
 	</label>
 }

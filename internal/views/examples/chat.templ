@@ -1,50 +1,53 @@
 package examples
 
 import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
 	"time"
+	"github.com/haatos/goshipit/internal/views/components"
 )
 
 // example
 templ BasicChat() {
 	<div class="w-full max-w-screen-sm rounded-box mx-auto border border-base-content/30 p-4">
-		@components.Chat(model.Chat{
-			Messages: []model.ChatMessage{
-				{
-					AvatarURL: "/static/images/avatar.jpg",
-					Sender:    "Me",
-					Time:      time.Now().UTC().Add(-4 * time.Minute).Format("15:04:05"),
-					Message:   "I started learning how to cook more dishes from scratch, and it's been way more satisfying than I expected. Last night, I made homemade pasta!",
-					Footer:    "✓✓",
-					Location:  "start",
-					Class:     "chat-bubble-primary",
-				},
-				{
-					AvatarURL: "/static/images/avatar-reverse.jpg",
-					Sender:    "Myself",
-					Time:      time.Now().UTC().Add(-2 * time.Minute).Format("15:04:05"),
-					Message:   "That's awesome! Homemade pasta is no joke—it's a workout, too! Did you use a pasta machine, or go for the classic rolling pin method?",
-					Footer:    "✓✓",
-					Location:  "end",
-				},
-				{
-					AvatarURL: "/static/images/avatar.jpg",
-					Sender:    "Me",
-					Time:      time.Now().UTC().Add(-1 * time.Minute).Format("15:04:05"),
-					Message:   "Went old-school with the rolling pin! Took forever, but it was worth it. I made a simple marinara sauce to go with it, and honestly, it was better than what I usually order.",
-					Footer:    "✓✓",
-					Location:  "start",
-					Class:     "chat-bubble-primary",
-				},
-				{
-					AvatarURL: "/static/images/avatar-reverse.jpg",
-					Sender:    "Myself",
-					Time:      time.Now().UTC().Format("15:04:05"),
-					Message:   "Love it! Next up, you've got to try ravioli. It's a bit more work, but filling them with something like ricotta and spinach makes it feel super fancy. You'll impress everyone!",
-					Footer:    "✓✓",
-					Location:  "end",
-				},
+		@components.Chat(components.ChatProps{
+			{
+				AvatarURL: "/static/images/avatar.jpg",
+				Sender:    "Me",
+				Time:      time.Now().UTC().Add(-4 * time.Minute).Format("15:04:05"),
+				Message: `I started learning how to cook more dishes from scratch, 
+and it's been way more satisfying than I expected. Last night, I made homemade pasta!`,
+				Footer:   "✓✓",
+				Location: "start",
+				Class:    "chat-bubble-primary",
+			},
+			{
+				AvatarURL: "/static/images/avatar-reverse.jpg",
+				Sender:    "Myself",
+				Time:      time.Now().UTC().Add(-2 * time.Minute).Format("15:04:05"),
+				Message: `That's awesome! Homemade pasta is no joke—it's a workout, 
+too! Did you use a pasta machine, or go for the classic rolling pin method?`,
+				Footer:   "✓✓",
+				Location: "end",
+			},
+			{
+				AvatarURL: "/static/images/avatar.jpg",
+				Sender:    "Me",
+				Time:      time.Now().UTC().Add(-1 * time.Minute).Format("15:04:05"),
+				Message: `Went old-school with the rolling pin! Took forever, but it 
+was worth it. I made a simple marinara sauce to go with it, and honestly, it was better 
+than what I usually order.`,
+				Footer:   "✓✓",
+				Location: "start",
+				Class:    "chat-bubble-primary",
+			},
+			{
+				AvatarURL: "/static/images/avatar-reverse.jpg",
+				Sender:    "Myself",
+				Time:      time.Now().UTC().Format("15:04:05"),
+				Message: `Love it! Next up, you've got to try ravioli. It's a bit 
+more work, but filling them with something like ricotta and spinach makes it feel 
+super fancy. You'll impress everyone!`,
+				Footer:   "✓✓",
+				Location: "end",
 			},
 		})
 	</div>

@@ -1,25 +1,137 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ TestimonialGridExample() {
 	@components.TestimonialGrid(
 		"Read what our customers think",
-		[]model.Testimonial{
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 5, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 4, Content: "maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 3, Content: "Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 5, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 5, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. "},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 1, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 2, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 5, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 4, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum."},
-			{Avatar: components.Avatar(model.Avatar{ContainerClass: "rounded h-20", Source: "/static/images/avatar.jpg"}), Name: "Jane Doe", Rating: 4, Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum accusamus voluptas."},
+		components.TestimonialProps{
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 5,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore 
+earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum 
+similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus 
+necessitatibus perspiciatis, aliquid repellat iste.`,
+			},
+			{
+				Avatar: components.Avatar(
+					components.AvatarProps{
+						ContainerClass: "rounded h-20",
+						Source:         "/static/images/avatar.jpg"},
+				),
+				Name:   "Jane Doe",
+				Rating: 4,
+				Content: `maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum 
+similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus 
+necessitatibus perspiciatis, aliquid repellat iste.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 3,
+				Content: `Iure impedit, placeat sed provident enim fuga possimus 
+ducimus est iusto inventore earum aliquid officia minus, maiores quia dicta magni 
+ex labore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero maxime 
+quos laboriosam natus illum similique id nam, rerum, sunt veritatis dolorum 
+accusamus voluptas odio minus necessitatibus perspiciatis, aliquid repellat iste.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 5,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore 
+earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum 
+similique id nam, rerum, sunt veritatis dolorum accusamus voluptas odio minus 
+necessitatibus perspiciatis, aliquid repellat iste.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:    "Jane Doe",
+				Rating:  5,
+				Content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 1,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore 
+earum aliquid officia minus.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 2,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore 
+earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 5,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore
+earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum 
+similique id nam, rerum, sunt veritatis.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 4,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore 
+earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum 
+similique id nam, rerum.`,
+			},
+			{
+				Avatar: components.Avatar(components.AvatarProps{
+					ContainerClass: "rounded h-20",
+					Source:         "/static/images/avatar.jpg",
+				}),
+				Name:   "Jane Doe",
+				Rating: 4,
+				Content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Iure impedit, placeat sed provident enim fuga possimus ducimus est iusto inventore 
+earum aliquid officia minus, maiores quia dicta magni ex labore? Lorem ipsum dolor 
+sit amet consectetur adipisicing elit. Libero maxime quos laboriosam natus illum 
+similique id nam, rerum, sunt veritatis dolorum accusamus voluptas.`,
+			},
 		},
 	)
 }

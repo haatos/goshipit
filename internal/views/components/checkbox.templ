@@ -2,30 +2,38 @@
 // https://daisyui.com/components/checkbox
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type CheckboxProps struct {
+	ID      string
+	Before  string
+	After   string
+	Name    string
+	Checked bool
+	Class   string
+	Attrs   templ.Attributes
+}
 
-templ Checkbox(checkbox model.Checkbox) {
+templ Checkbox(props CheckboxProps) {
 	<label class="label justify-center cursor-pointer space-x-4">
-		if checkbox.Before != "" {
+		if props.Before != "" {
 			<span class="label-text">
-				{ checkbox.Before }
+				{ props.Before }
 			</span>
 		}
 		<input
-			{ checkbox.Attrs... }
-			if checkbox.ID != "" {
-				id={ checkbox.ID }
+			{ props.Attrs... }
+			if props.ID != "" {
+				id={ props.ID }
 			}
 			type="checkbox"
-			name={ checkbox.Name }
-			if checkbox.Checked {
+			name={ props.Name }
+			if props.Checked {
 				checked="checked"
 			}
-			class={ "checkbox", checkbox.Class }
+			class={ "checkbox", props.Class }
 		/>
-		if checkbox.After != "" {
+		if props.After != "" {
 			<span class="label-text">
-				{ checkbox.After }
+				{ props.After }
 			</span>
 		}
 	</label>

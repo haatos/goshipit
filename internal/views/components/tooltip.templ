@@ -2,10 +2,13 @@
 // https://daisyui.com/components/tooltip
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type TooltipProps struct {
+	Tip   string
+	Class string
+}
 
-templ Tooltip(t model.Tooltip) {
-	<div class={ "tooltip", t.Class } data-tip={ t.Tip }>
+templ Tooltip(props TooltipProps) {
+	<div class={ "tooltip", props.Class } data-tip={ props.Tip }>
 		{ children... }
 	</div>
 }

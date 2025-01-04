@@ -45,7 +45,7 @@ func GetComponentPage(c echo.Context) error {
 	exampleCodes := internal.ComponentExampleCodeMap[name]
 	coms := make([]templ.Component, 0, len(exampleCodes))
 	for i, exampleCode := range exampleCodes {
-		tabs := []model.Tab{
+		tabs := []components.TabProps{
 			{
 				Label: "Preview",
 				Content: templ.Raw(
@@ -60,7 +60,7 @@ func GetComponentPage(c echo.Context) error {
 		if exampleCode.Handler != "" {
 			tabs = append(
 				tabs,
-				model.Tab{
+				components.TabProps{
 					Label:   "Handler",
 					Content: templ.Raw(markdown.GetHTMLFromMarkdown([]byte(exampleCode.Handler))),
 				})
@@ -204,7 +204,7 @@ func GetPricingExample(c echo.Context) error {
 // PricingExample
 
 // CascadingSelect
-var modelOptions = map[string][]model.SelectOption{
+var modelOptions = map[string][]components.SelectOption{
 	"audi": {
 		{Label: "A1", Value: "a1"},
 		{Label: "A4", Value: "a4"},
@@ -257,7 +257,7 @@ func GetPaginationExamplePage(c echo.Context) error {
 
 	com := examples.BasicPagination(
 		"pagination-example-1",
-		model.PaginationItem{
+		components.PaginationProps{
 			URL:      c.Request().URL.Path,
 			Page:     page,
 			Low:      low,
@@ -356,7 +356,7 @@ func GetDatePicker(c echo.Context) error {
 		c,
 		http.StatusOK,
 		components.DatePicker(
-			model.DatePicker{
+			components.DatePickerProps{
 				Year:        year,
 				Month:       month,
 				Selected:    selected,
@@ -386,11 +386,11 @@ func GetDatePickerMonthPicker(c echo.Context) error {
 		return newErrorToast(http.StatusUnprocessableEntity, "Invalid year")
 	}
 
-	dp := model.DatePicker{
+	dpp := components.DatePickerProps{
 		Year: year,
 	}
 
-	return render(c, http.StatusOK, components.DatePickerMonthPicker(dp))
+	return render(c, http.StatusOK, components.DatePickerMonthPicker(dpp))
 }
 
 func GetDatePickerYearPicker(c echo.Context) error {
@@ -401,11 +401,11 @@ func GetDatePickerYearPicker(c echo.Context) error {
 		return newErrorToast(http.StatusUnprocessableEntity, "Invalid year")
 	}
 
-	dp := model.DatePicker{
+	dpp := components.DatePickerProps{
 		Year: year,
 	}
 
-	return render(c, http.StatusOK, components.DatePickerYearPicker(dp))
+	return render(c, http.StatusOK, components.DatePickerYearPicker(dpp))
 }
 
 // BasicDatePicker

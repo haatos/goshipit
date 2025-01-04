@@ -1,17 +1,14 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicDropdown() {
 	<div class="h-48">
 		@components.Dropdown(
-			model.Dropdown{
+			components.DropdownProps{
 				Label: "Dropdown label",
-				Items: []model.DropdownItem{
+				Items: []components.DropdownItem{
 					{Label: "Item 1"},
 					{Label: "Item 2"},
 					{Label: "Item 3"},

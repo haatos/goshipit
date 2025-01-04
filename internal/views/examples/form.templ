@@ -1,9 +1,6 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ SignUpFormExample() {
@@ -35,7 +32,7 @@ templ SignUpForm(
 			},
 		) {
 			@components.Input(
-				model.Input{
+				components.InputProps{
 					Label: "First name",
 					Name:  "first_name",
 					Value: firstName,
@@ -47,7 +44,7 @@ templ SignUpForm(
 				},
 			)
 			@components.Input(
-				model.Input{
+				components.InputProps{
 					Label: "Last name",
 					Name:  "last_name",
 					Value: lastName,
@@ -59,7 +56,7 @@ templ SignUpForm(
 				},
 			)
 			@components.Input(
-				model.Input{
+				components.InputProps{
 					Label: "Email",
 					Name:  "email",
 					Type:  "email",
@@ -72,7 +69,7 @@ templ SignUpForm(
 				},
 			)
 			@components.Input(
-				model.Input{
+				components.InputProps{
 					Label: "Password",
 					Name:  "password",
 					Type:  "password",

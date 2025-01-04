@@ -2,34 +2,44 @@
 // https://daisyui.com/components/chat
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type ChatProps []ChatMessageProps
 
-templ Chat(chat model.Chat) {
-	for _, message := range chat.Messages {
-		@ChatMessage(message)
+type ChatMessageProps struct {
+	AvatarURL string
+	Sender    string
+	Time      string
+	Message   string
+	Footer    string
+	Location  string
+	Class     string
+}
+
+templ Chat(props ChatProps) {
+	for _, prop := range props {
+		@ChatMessage(prop)
 	}
 }
 
-templ ChatMessage(message model.ChatMessage) {
+templ ChatMessage(props ChatMessageProps) {
 	<div
 		class={
 			"chat",
-			templ.KV("chat-start", message.Location == "start"),
-			templ.KV("chat-end", message.Location == "end"),
+			templ.KV("chat-start", props.Location == "start"),
+			templ.KV("chat-end", props.Location == "end"),
 		}
 	>
-		if message.AvatarURL != "" {
-			@Avatar(model.Avatar{ContainerClass: "chat-image w-10 rounded-full", Source: message.AvatarURL})
+		if props.AvatarURL != "" {
+			@Avatar(AvatarProps{ContainerClass: "chat-image w-10 rounded-full", Source: props.AvatarURL})
 		}
 		<div class="chat-header">
-			{ message.Sender }
-			<time class="text-xs opacity-50">{ message.Time }</time>
+			{ props.Sender }
+			<time class="text-xs opacity-50">{ props.Time }</time>
 		</div>
-		<div class={ "chat-bubble", message.Class }>
-			{ message.Message }
+		<div class={ "chat-bubble", props.Class }>
+			{ props.Message }
 		</div>
 		<div class="chat-footer">
-			{ message.Footer }
+			{ props.Footer }
 		</div>
 	</div>
 }

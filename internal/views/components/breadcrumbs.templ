@@ -2,17 +2,22 @@
 // https://daisyui.com/components/breadcrumbs
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type BreadcrumbsProps []BreadcrumbsProp
 
-templ Breadcrumbs(links []model.Button) {
+type BreadcrumbsProp struct {
+	Label string
+	Attrs templ.Attributes
+}
+
+templ Breadcrumbs(props BreadcrumbsProps) {
 	<div class="breadcrumbs text-sm">
 		<ul>
-			for i, l := range links {
+			for i, prop := range props {
 				<li class="select-none">
-					if i < len(links) - 1 {
-						<a { l.Attrs... }>{ l.Label }</a>
+					if i < len(props) - 1 {
+						<a { prop.Attrs... }>{ prop.Label }</a>
 					} else {
-						{ l.Label }
+						{ prop.Label }
 					}
 				</li>
 			}

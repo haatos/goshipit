@@ -1,17 +1,14 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ StatusNotFound() {
-	@components.Status(model.Status{
+	@components.Status(components.StatusProps{
 		Code:        404,
 		Title:       "Not Found",
 		Description: "Looks like there's nothing here...",
-		ReturnButton: model.Button{
+		ReturnButton: components.ButtonProps{
 			Label: "Go back",
 		},
 	})
