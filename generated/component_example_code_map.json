@@ -81,12 +81,6 @@
       "code": "```go\ntempl BreadcrumbsExample() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Breadcrumbs(\n\t\t\tcomponents.BreadcrumbsProps{\n\t\t\t\t{\n\t\t\t\t\tLabel: \"Laptops\",\n\t\t\t\t\tAttrs: templ.Attributes{\"href\": \"/laptops\", \"class\": \"link\"},\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tLabel: \"Macbooks\",\n\t\t\t\t\tAttrs: templ.Attributes{\"href\": \"/laptops/macbooks\", \"class\": \"link\"},\n\t\t\t\t},\n\t\t\t\t{Label: \"Macbook Pro 14\"},\n\t\t\t},\n\t\t)\n\t\u003c/div\u003e\n}\n```"
     }
   ],
-  "button": [
-    {
-      "name": "BasicButton",
-      "code": "```go\ntempl BasicButton() {\n\t@components.Button(components.ButtonProps{Label: \"I'm a button\"})\n}\n```"
-    }
-  ],
   "card": [
     {
       "name": "BasicCard",

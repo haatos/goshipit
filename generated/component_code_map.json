@@ -1,10 +1,6 @@
 {
   "actions": [
     {
-      "name": "button",
-      "code": "```go\ntype ButtonProps struct {\n\tLabel string\n\tClass string\n\tAttrs templ.Attributes\n}\n\ntempl Button(props ButtonProps) {\n\t\u003cbutton class={ \"btn\", props.Class } { props.Attrs... }\u003e\n\t\t{ props.Label }\n\t\u003c/button\u003e\n}\n```"
-    },
-    {
       "name": "dropdown",
       "code": "```go\ntype DropdownProps struct {\n\tLabel     string\n\tClass     string\n\tListClass string\n\tItems     []DropdownItem\n}\n\ntype DropdownItem struct {\n\tLabel string\n\tAttrs templ.Attributes\n}\n\ntempl Dropdown(props DropdownProps) {\n\t\u003cdetails class={ \"dropdown\", props.Class }\u003e\n\t\t\u003csummary class=\"btn m-1\"\u003e{ props.Label }\u003c/summary\u003e\n\t\t\u003cul class={ \"menu dropdown-content\", props.ListClass }\u003e\n\t\t\tfor _, di := range props.Items {\n\t\t\t\t\u003cli\u003e\u003ca { di.Attrs... }\u003e{ di.Label }\u003c/a\u003e\u003c/li\u003e\n\t\t\t}\n\t\t\u003c/ul\u003e\n\t\u003c/details\u003e\n}\n```",
       "daisy_ui_url": "https://daisyui.com/components/dropdown"
