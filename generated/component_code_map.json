@@ -2,7 +2,7 @@
   "actions": [
     {
       "name": "button",
-      "code": "```go\ntype ButtonProps struct {\n\tLabel string\n\tAttrs templ.Attributes\n}\n\ntempl Button(props ButtonProps) {\n\t\u003cbutton { props.Attrs... }\u003e{ props.Label }\u003c/button\u003e\n}\n```"
+      "code": "```go\ntype ButtonProps struct {\n\tLabel string\n\tClass string\n\tAttrs templ.Attributes\n}\n\ntempl Button(props ButtonProps) {\n\t\u003cbutton class={ \"btn\", props.Class } { props.Attrs... }\u003e\n\t\t{ props.Label }\n\t\u003c/button\u003e\n}\n```"
     },
     {
       "name": "dropdown",
@@ -11,7 +11,7 @@
     },
     {
       "name": "modal",
-      "code": "```go\ntempl Modal(id string, label any) {\n\t@modalWrapper(\n\t\tid,\n\t\tlabel,\n\t\ttempl.Attributes{\"onclick\": fmt.Sprintf(\"%s.showModal()\", id)},\n\t) {\n\t\t{ children... }\n\t}\n}\n\ntempl modalWrapper(id string, label any, attrs templ.Attributes) {\n\t// you can use a string or a templ.Component as the 'label'\n\t// of the modal button\n\tif s, ok := label.(string); ok {\n\t\t\u003cdiv class=\"btn\" { attrs... }\u003e\n\t\t\t{ s }\n\t\t\u003c/div\u003e\n\t} else if c, ok := label.(templ.Component); ok {\n\t\t@c\n\t}\n\t\u003cdialog id={ id } class=\"modal\"\u003e\n\t\t\u003cdiv class=\"modal-box\"\u003e\n\t\t\t{ children... }\n\t\t\u003c/div\u003e\n\t\t\u003cform method=\"dialog\" class=\"modal-backdrop\"\u003e\n\t\t\t\u003cbutton\u003eclose\u003c/button\u003e\n\t\t\u003c/form\u003e\n\t\u003c/dialog\u003e\n}\n```",
+      "code": "```go\ntype ModalProps struct {\n\tID    string\n\tLabel any\n}\n\ntempl Modal(props ModalProps) {\n\t@modalWrapper(\n\t\tprops,\n\t\ttempl.Attributes{\"onclick\": fmt.Sprintf(\"%s.showModal()\", props.ID)},\n\t) {\n\t\t{ children... }\n\t}\n}\n\ntempl modalWrapper(props ModalProps, attrs templ.Attributes) {\n\t// you can use a string or a templ.Component as the 'label'\n\t// of the modal button\n\tif s, ok := props.Label.(string); ok {\n\t\t\u003cdiv class=\"btn\" { attrs... }\u003e\n\t\t\t{ s }\n\t\t\u003c/div\u003e\n\t} else if c, ok := props.Label.(templ.Component); ok {\n\t\t@c\n\t}\n\t\u003cdialog id={ props.ID } class=\"modal\"\u003e\n\t\t\u003cdiv class=\"modal-box\"\u003e\n\t\t\t{ children... }\n\t\t\u003c/div\u003e\n\t\t\u003cform method=\"dialog\" class=\"modal-backdrop\"\u003e\n\t\t\t\u003cbutton\u003eclose\u003c/button\u003e\n\t\t\u003c/form\u003e\n\t\u003c/dialog\u003e\n}\n```",
       "daisy_ui_url": "https://daisyui.com/components/modal"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "name": "diff",
-      "code": "```go\ntempl Diff(w, h int, image1, image2 model.Image) {\n\t\u003cdiv class={ \"diff\", fmt.Sprintf(\"aspect-[%d/%d]\", w, h) }\u003e\n\t\t\u003cdiv class=\"diff-item-1\"\u003e\n\t\t\t\u003cimg alt={ image1.Alt } src={ image1.Source }/\u003e\n\t\t\u003c/div\u003e\n\t\t\u003cdiv class=\"diff-item-2\"\u003e\n\t\t\t\u003cimg alt={ image2.Alt } src={ image2.Source }/\u003e\n\t\t\u003c/div\u003e\n\t\t\u003cdiv class=\"diff-resizer\"\u003e\u003c/div\u003e\n\t\u003c/div\u003e\n}\n```",
+      "code": "```go\ntype DiffProps struct {\n\tWidth  int\n\tHeight int\n\tImage1 DiffImage\n\tImage2 DiffImage\n}\n\ntype DiffImage struct {\n\tSource string\n\tAlt    string\n}\n\ntempl Diff(props DiffProps) {\n\t\u003cdiv class={ \"diff\", fmt.Sprintf(\"aspect-[%d/%d]\", props.Width, props.Height) }\u003e\n\t\t\u003cdiv class=\"diff-item-1\"\u003e\n\t\t\t\u003cimg alt={ props.Image1.Alt } src={ props.Image1.Source }/\u003e\n\t\t\u003c/div\u003e\n\t\t\u003cdiv class=\"diff-item-2\"\u003e\n\t\t\t\u003cimg alt={ props.Image2.Alt } src={ props.Image2.Source }/\u003e\n\t\t\u003c/div\u003e\n\t\t\u003cdiv class=\"diff-resizer\"\u003e\u003c/div\u003e\n\t\u003c/div\u003e\n}\n```",
       "daisy_ui_url": "https://daisyui.com/components/diff"
     },
     {
@@ -207,7 +207,7 @@
     },
     {
       "name": "footer",
-      "code": "```go\ntempl Footer(companyInfo model.CompanyInfo, anchors []AnchorProps) {\n\t\u003cfooter class=\"footer bg-base-200 text-base-content p-10 mt-24\"\u003e\n\t\t{ children... }\n\t\u003c/footer\u003e\n\t\u003cfooter class=\"footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4\"\u003e\n\t\t\u003caside class=\"grid-flow-col items-center\"\u003e\n\t\t\tif companyInfo.Icon != nil {\n\t\t\t\t\u003cdiv class=\"w-6 h-6\"\u003e\n\t\t\t\t\t@companyInfo.Icon\n\t\t\t\t\u003c/div\u003e\n\t\t\t}\n\t\t\t\u003cp\u003e\n\t\t\t\tif companyInfo.Copyright != \"\" {\n\t\t\t\t\t\u003cspan\u003e\u0026copy; { companyInfo.Copyright }\u003c/span\u003e\n\t\t\t\t}\n\t\t\t\t{ companyInfo.Name }\n\t\t\t\t\u003cbr/\u003e\n\t\t\t\t{ companyInfo.Description }\n\t\t\t\u003c/p\u003e\n\t\t\u003c/aside\u003e\n\t\t\u003cnav class=\"md:place-self-center md:justify-self-end\"\u003e\n\t\t\t\u003cdiv class=\"grid grid-flow-col gap-4\"\u003e\n\t\t\t\tfor _, anchor := range anchors {\n\t\t\t\t\t@Anchor(anchor)\n\t\t\t\t}\n\t\t\t\u003c/div\u003e\n\t\t\u003c/nav\u003e\n\t\u003c/footer\u003e\n}\n\ntempl FooterNav(title string, links []AnchorProps) {\n\t\u003cnav\u003e\n\t\t\u003ch6 class=\"footer-title\"\u003e{ title }\u003c/h6\u003e\n\t\tfor _, link := range links {\n\t\t\t\u003ca { link.Attrs... } class=\"link link-hover\"\u003e{ link.Label }\u003c/a\u003e\n\t\t}\n\t\u003c/nav\u003e\n}\n```",
+      "code": "```go\ntype FooterProps struct {\n\tIcon        templ.Component\n\tName        string\n\tDescription string\n\tCopyright   string\n\tAnchors     []AnchorProps\n}\n\ntempl Footer(props FooterProps) {\n\t\u003cfooter class=\"footer bg-base-200 text-base-content p-10 mt-24\"\u003e\n\t\t{ children... }\n\t\u003c/footer\u003e\n\t\u003cfooter class=\"footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4\"\u003e\n\t\t\u003caside class=\"grid-flow-col items-center\"\u003e\n\t\t\tif props.Icon != nil {\n\t\t\t\t\u003cdiv class=\"w-6 h-6\"\u003e\n\t\t\t\t\t@props.Icon\n\t\t\t\t\u003c/div\u003e\n\t\t\t}\n\t\t\t\u003cp\u003e\n\t\t\t\tif props.Copyright != \"\" {\n\t\t\t\t\t\u003cspan\u003e\u0026copy; { props.Copyright }\u003c/span\u003e\n\t\t\t\t}\n\t\t\t\t{ props.Name }\n\t\t\t\t\u003cbr/\u003e\n\t\t\t\t{ props.Description }\n\t\t\t\u003c/p\u003e\n\t\t\u003c/aside\u003e\n\t\t\u003cnav class=\"md:place-self-center md:justify-self-end\"\u003e\n\t\t\t\u003cdiv class=\"grid grid-flow-col gap-4\"\u003e\n\t\t\t\tfor _, anchor := range props.Anchors {\n\t\t\t\t\t@Anchor(anchor)\n\t\t\t\t}\n\t\t\t\u003c/div\u003e\n\t\t\u003c/nav\u003e\n\t\u003c/footer\u003e\n}\n\ntempl FooterNav(title string, links []AnchorProps) {\n\t\u003cnav\u003e\n\t\t\u003ch6 class=\"footer-title\"\u003e{ title }\u003c/h6\u003e\n\t\tfor _, link := range links {\n\t\t\t\u003ca { link.Attrs... } class=\"link link-hover\"\u003e{ link.Label }\u003c/a\u003e\n\t\t}\n\t\u003c/nav\u003e\n}\n```",
       "daisy_ui_url": "https://daisyui.com/components/footer"
     },
     {
@@ -238,7 +238,7 @@
     },
     {
       "name": "steps",
-      "code": "```go\ntempl Steps() {\n\t\u003cul class=\"steps\"\u003e\n\t\t{ children... }\n\t\u003c/ul\u003e\n}\n\ntempl Step(label string, done bool, attrs templ.Attributes) {\n\t\u003cli\n\t\tclass={ \"step\", templ.KV(\"step-primary\", done) }\n\t\u003e\n\t\t\u003ca { attrs... }\u003e{ label }\u003c/a\u003e\n\t\u003c/li\u003e\n}\n```",
+      "code": "```go\ntempl Steps() {\n\t\u003cul class=\"steps\"\u003e\n\t\t{ children... }\n\t\u003c/ul\u003e\n}\n\ntype StepProps struct {\n\tLabel string\n\tDone  bool\n\tAttrs templ.Attributes\n}\n\ntempl Step(props StepProps) {\n\t\u003cli\n\t\tclass={ \"step\", templ.KV(\"step-primary\", props.Done) }\n\t\u003e\n\t\t\u003ca { props.Attrs... }\u003e{ props.Label }\u003c/a\u003e\n\t\u003c/li\u003e\n}\n```",
       "daisy_ui_url": "https://daisyui.com/components/steps"
     },
     {

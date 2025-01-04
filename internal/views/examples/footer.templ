@@ -1,22 +1,19 @@
 package examples
 
-import (
-	"github.com/haatos/goshipit/internal/model"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 // example
 templ BasicFooterWithLinks() {
 	@components.Footer(
-		model.CompanyInfo{
+		components.FooterProps{
 			Icon:        FooterCompanyInfoIconExample(),
 			Name:        "ACME Industries Ltd.",
 			Description: "Providing reliable tech since 1992",
-		},
-		[]components.AnchorProps{
-			{LeftIcon: XIcon()},
-			{LeftIcon: YoutubeIcon()},
-			{LeftIcon: FacebookIcon()},
+			Anchors: []components.AnchorProps{
+				{LeftIcon: XIcon()},
+				{LeftIcon: YoutubeIcon()},
+				{LeftIcon: FacebookIcon()},
+			},
 		},
 	) {
 		@components.FooterNav(

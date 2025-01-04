@@ -16,7 +16,6 @@ var typesHTML string
 
 const (
 	contentTypesMarkdownPath   = "content/types.md"
-	generatedTypesMarkdownPath = "generated/types.md"
 	gettingStartedMarkdownPath = "content/getting_started.md"
 )
 
@@ -43,12 +42,7 @@ func getTypesHTML() {
 		log.Fatal(err)
 	}
 
-	typesMarkdown, err := os.ReadFile(generatedTypesMarkdownPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	typesHTML = markdown.GetHTMLFromMarkdown(append(pageContent, typesMarkdown...))
+	typesHTML = markdown.GetHTMLFromMarkdown(pageContent)
 }
 
 func GetIndexPage(c echo.Context) error {

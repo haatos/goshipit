@@ -8,10 +8,16 @@ templ Steps() {
 	</ul>
 }
 
-templ Step(label string, done bool, attrs templ.Attributes) {
+type StepProps struct {
+	Label string
+	Done  bool
+	Attrs templ.Attributes
+}
+
+templ Step(props StepProps) {
 	<li
-		class={ "step", templ.KV("step-primary", done) }
+		class={ "step", templ.KV("step-primary", props.Done) }
 	>
-		<a { attrs... }>{ label }</a>
+		<a { props.Attrs... }>{ props.Label }</a>
 	</li>
 }

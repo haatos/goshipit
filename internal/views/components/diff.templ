@@ -2,18 +2,27 @@
 // https://daisyui.com/components/diff
 package components
 
-import (
-	"fmt"
-	"github.com/haatos/goshipit/internal/model"
-)
+import "fmt"
 
-templ Diff(w, h int, image1, image2 model.Image) {
-	<div class={ "diff", fmt.Sprintf("aspect-[%d/%d]", w, h) }>
+type DiffProps struct {
+	Width  int
+	Height int
+	Image1 DiffImage
+	Image2 DiffImage
+}
+
+type DiffImage struct {
+	Source string
+	Alt    string
+}
+
+templ Diff(props DiffProps) {
+	<div class={ "diff", fmt.Sprintf("aspect-[%d/%d]", props.Width, props.Height) }>
 		<div class="diff-item-1">
-			<img alt={ image1.Alt } src={ image1.Source }/>
+			<img alt={ props.Image1.Alt } src={ props.Image1.Source }/>
 		</div>
 		<div class="diff-item-2">
-			<img alt={ image2.Alt } src={ image2.Source }/>
+			<img alt={ props.Image2.Alt } src={ props.Image2.Source }/>
 		</div>
 		<div class="diff-resizer"></div>
 	</div>

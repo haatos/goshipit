@@ -6,10 +6,10 @@ import "github.com/haatos/goshipit/internal/views/components"
 templ BasicSteps() {
 	<div class="flex justify-center items-center pt-4">
 		@components.Steps() {
-			@components.Step("Register", true, nil)
-			@components.Step("Choose plan", true, nil)
-			@components.Step("Purchase", false, nil)
-			@components.Step("Receive product", false, nil)
+			@components.Step(components.StepProps{Label: "Register", Done: true})
+			@components.Step(components.StepProps{Label: "Choose plan", Done: true})
+			@components.Step(components.StepProps{Label: "Purchase"})
+			@components.Step(components.StepProps{Label: "Receive product"})
 		}
 	</div>
 }

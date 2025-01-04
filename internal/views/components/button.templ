@@ -3,9 +3,12 @@ package components
 
 type ButtonProps struct {
 	Label string
+	Class string
 	Attrs templ.Attributes
 }
 
 templ Button(props ButtonProps) {
-	<button { props.Attrs... }>{ props.Label }</button>
+	<button class={ "btn", props.Class } { props.Attrs... }>
+		{ props.Label }
+	</button>
 }

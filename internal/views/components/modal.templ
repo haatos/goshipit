@@ -4,27 +4,31 @@ package components
 
 import "fmt"
 
-templ Modal(id string, label any) {
+type ModalProps struct {
+	ID    string
+	Label any
+}
+
+templ Modal(props ModalProps) {
 	@modalWrapper(
-		id,
-		label,
-		templ.Attributes{"onclick": fmt.Sprintf("%s.showModal()", id)},
+		props,
+		templ.Attributes{"onclick": fmt.Sprintf("%s.showModal()", props.ID)},
 	) {
 		{ children... }
 	}
 }
 
-templ modalWrapper(id string, label any, attrs templ.Attributes) {
+templ modalWrapper(props ModalProps, attrs templ.Attributes) {
 	// you can use a string or a templ.Component as the 'label'
 	// of the modal button
-	if s, ok := label.(string); ok {
+	if s, ok := props.Label.(string); ok {
 		<div class="btn" { attrs... }>
 			{ s }
 		</div>
-	} else if c, ok := label.(templ.Component); ok {
+	} else if c, ok := props.Label.(templ.Component); ok {
 		@c
 	}
-	<dialog id={ id } class="modal">
+	<dialog id={ props.ID } class="modal">
 		<div class="modal-box">
 			{ children... }
 		</div>

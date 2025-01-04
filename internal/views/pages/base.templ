@@ -9,6 +9,11 @@ import (
 	"time"
 )
 
+type Script struct {
+	Source string
+	Defer  bool
+}
+
 templ DefaultHead() {
 	@Head(
 		"goship.it",
@@ -17,13 +22,13 @@ templ DefaultHead() {
 			"/static/css/custom.css",
 			"/static/css/chroma.css",
 		},
-		[]model.Script{
+		[]Script{
 			{Source: "/static/js/htmx.min.js"},
 		},
 	)
 }
 
-templ Head(title string, stylesheets []string, scripts []model.Script) {
+templ Head(title string, stylesheets []string, scripts []Script) {
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -80,13 +85,13 @@ templ SideNavLayout(head templ.Component) {
 						{ children... }
 					</main>
 					@components.Footer(
-						model.CompanyInfo{
+						components.FooterProps{
 							Name:      "Haatos Ltd",
 							Copyright: fmt.Sprintf("%s", time.Now().UTC().Format("2006")),
-						},
-						[]components.AnchorProps{
-							{LeftIcon: examples.GithubIcon(), Href: "https://github.com/haatos"},
-							{LeftIcon: examples.LinkedInIcon(), Href: "https://linkedin.com/in/tomihaapalainen"},
+							Anchors: []components.AnchorProps{
+								{LeftIcon: examples.GithubIcon(), Href: "https://github.com/haatos"},
+								{LeftIcon: examples.LinkedInIcon(), Href: "https://linkedin.com/in/tomihaapalainen"},
+							},
 						}) {
 						@components.FooterNav(
 							"Links",

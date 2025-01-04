@@ -1,40 +1,45 @@
 # Getting started
 
-To get started with goship.it in a new project using *Echo* router:
+To get started with goship.it in a new project using _Echo_ router:
 
 - Create a new folder for your project
 - Initialize the module by running
-	- `go mod init github.com/my/package`
-	- replace the package with your own repository!
+  - `go mod init github.com/my/package`
+  - replace the package with your own repository!
 - Get Go modules:
-	- `go get -u github.com/labstack/echo/v4`
-	- `go get -u github.com/a-h/templ`
+  - `go get -u github.com/labstack/echo/v4`
+  - `go get -u github.com/a-h/templ`
 - Install Templ CLI:
-	- `go install github.com/a-h/templ/cmd/templ@latest`
+  - `go install github.com/a-h/templ/cmd/templ@latest`
 - Install TailwindCSS and DaisyUI:
-	- `npm i -D tailwindcss @tailwindcss/typography daisyui`
+  - `npm i -D tailwindcss @tailwindcss/typography daisyui`
 - Initialize TailwindCSS:
-	- `npx tailwindcss init`
+  - `npx tailwindcss init`
 - Configure `tailwind.config.js`, which the previous command generated, to look like this:
+
 ```javascript
 module.exports = {
-	content: ["internal/views/**/*.templ"],
-	theme: {
-		extend: {},
-	},
-	plugins: [require("@tailwindcss/typography"), require("daisyui")],
-	daisyui: {
-		themes: ["light"]
-	}
-}
+  content: ["internal/views/**/*.templ"],
+  theme: {
+    extend: {},
+  },
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  daisyui: {
+    themes: ["light"],
+  },
+};
 ```
+
 - Create `input.css` at the base of your project with the following contents:
+
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
+
 - Create `Makefile` at the base of your project with the following contents:
+
 ```make
 tw:
 	@npx tailwindcss -i input.css -o public/static/css/tw.css --watch
@@ -42,7 +47,9 @@ tw:
 dev:
 	@templ generate -watch -proxy="http://localhost:8080" -open-browser=false -cmd="go run main.go"
 ```
+
 - Place the following rows in `main.go` (remember to update the components package import path to match your project):
+
 ```go
 package main
 
@@ -62,30 +69,48 @@ func main() {
 	e.Static("/", "public")
 
 	e.GET("/", func(c echo.Context) error {
-		buf := templ.GetBuffer()
-		defer templ.ReleaseBuffer(buf)
-
 		accordion := components.AccordionExample()
-		if err := accordion.Render(c.Request().Context(), buf); err != nil {
-			return err
-		}
-
-		return c.HTML(http.StatusOK, buf.String())
+        return render(accordion)
 	})
 
 	e.Start(":8080")
 }
 
+func render(c echo.Context, component templ.Component) error {
+    buf := templ.GetBuffer()
+    defer templ.ReleaseBuffer(buf)
+
+    if err := component.Render(c.Request().Context(), buf); err != nil {
+        return err
+    }
+    return c.HTML(http.StatusOK, buf.String())
+}
+
 ```
+
 - Create the accordion component `internal/views/components/accordion.templ`:
+
 ```go
 package components
 
-templ AccordionRow(label string) {
-	<div class="collapse collapse-arrow bg-base-200">
-		<input type="checkbox" name="templ-accordion"/>
-		<div class="collapse-title text-xl font-medium">{ label }</div>
-		<div class="collapse-content">
+type AccordionRowProps struct {
+	Label string
+	Type  string
+	Name  string
+}
+
+templ AccordionRow(props AccordionRowProps) {
+	<div class="collapse collapse-arrow bg-base-300 join-item">
+		<input
+			if props.Type == "" {
+				type="checkbox"
+			} else {
+				type={ props.Type }
+			}
+			name={ props.Name }
+		/>
+		<div class="collapse-title text-xl font-medium">{ props.Label }</div>
+		<div class="collapse-content bg-base-200">
 			{ children... }
 		</div>
 	</div>
@@ -103,10 +128,10 @@ templ AccordionExample() {
 		<body class="w-full h-full min-h-svh">
 			<main>
 				<div>
-					@AccordionRow("Accordion row 1") {
+					@AccordionRow(AccordionRowProps{Label: "Accordion row 1", Type: "checkbox"}) {
 						<p>This is the first content</p>
 					}
-					@AccordionRow("Accordion row 2") {
+					@AccordionRow(AccordionRowProps{Label: "Accordion row 2", Type: "checkbox") {
 						<p>This is the second content</p>
 					}
 				</div>
@@ -141,16 +166,16 @@ If you are using VSCode as your IDE, you should also add a `.vscode/settings.jso
 
 ```json
 {
-    "[templ]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "a-h.templ"
-    },
-    "tailwindCSS.includeLanguages": {
-        "templ": "html"
-    },
-    "emmet.includeLanguages": {
-        "templ": "html"
-    }
+  "[templ]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "a-h.templ"
+  },
+  "tailwindCSS.includeLanguages": {
+    "templ": "html"
+  },
+  "emmet.includeLanguages": {
+    "templ": "html"
+  }
 }
 ```
 

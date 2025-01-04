@@ -8,7 +8,7 @@ import (
 // example
 templ BasicModal() {
 	<div class="flex justify-center items-center py-8">
-		@components.Modal("my_modal", "Click me") {
+		@components.Modal(components.ModalProps{ID: "my_modal", Label: "Click me"}) {
 			<h3 class="text-3xl">Modal title</h3>
 			<p>Modal content goes here</p>
 		}
@@ -20,7 +20,7 @@ templ MultipleModals() {
 	<div class="flex justify-center items-center py-8">
 		<div class="grid grid-cols-3 gap-4">
 			for i := range 3 {
-				@components.Modal(fmt.Sprintf("my_modal_%d", i), "Click me") {
+				@components.Modal(components.ModalProps{ID: fmt.Sprintf("my_modal_%d", i), Label: "Click me"}) {
 					<h3 class="text-3xl">Modal title { fmt.Sprintf("%d", i) }</h3>
 					<p>Modal content { fmt.Sprintf("%d", i) }</p>
 				}
@@ -32,7 +32,7 @@ templ MultipleModals() {
 // example
 templ ModalWithAction() {
 	<div class="flex justify-center items-center py-8">
-		@components.Modal("my_modal_actions", "Click me") {
+		@components.Modal(components.ModalProps{ID: "my_modal_actions", Label: "Click me"}) {
 			<h3 class="text-3xl">Modal title</h3>
 			<p>Modal content goes here</p>
 			<div class="modal-action">
@@ -49,8 +49,10 @@ templ ModalConfirmDelete() {
 			for i := range 6 {
 				<div name="modal-confirm-example">
 					@components.Modal(
-						fmt.Sprintf("modal_confirm_%d", i),
-						modalConfirmDeleteButton(i, templ.Attributes{"onclick": fmt.Sprintf("modal_confirm_%d.showModal()", i)}),
+						components.ModalProps{
+							ID:    fmt.Sprintf("modal_confirm_%d", i),
+							Label: modalConfirmDeleteButton(i, templ.Attributes{"onclick": fmt.Sprintf("modal_confirm_%d.showModal()", i)}),
+						},
 					) {
 						<div class="space-y-8">
 							<div class="grid grid-cols-8 gap-2">

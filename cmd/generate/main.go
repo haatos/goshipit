@@ -19,20 +19,17 @@ import (
 const (
 	componentCodeMapJSONPath        = "generated/component_code_map.json"
 	componentExampleCodeMapJSONPath = "generated/component_example_code_map.json"
-	componentModelsPath             = "internal/model/components.go"
 	componentsDir                   = "internal/views/components/"
 	componentsHandlerPath           = "internal/handler/components.go"
 	examplesDir                     = "internal/views/examples/"
 	generatedDir                    = "generated"
 	generatedComponentsPath         = "generated/components.go"
-	generatedTypesPath              = "generated/types.md"
 )
 
 func main() {
 	generateComponentCodeMap()
 	generateComponentExampleCodeMap()
 	generateComponentMap()
-	generateTypesMarkdown()
 }
 
 func generateComponentCodeMap() {
@@ -307,20 +304,4 @@ func writeGeneratedFunctions(functionNames []string) {
 	}
 	defer fg.Close()
 	fg.Write(b)
-}
-
-func generateTypesMarkdown() {
-	b, err := os.ReadFile(componentModelsPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-	b = append([]byte("```go\n"), b...)
-	b = append(b, '`', '`', '`', '\n')
-
-	f, err := os.Create(generatedTypesPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-	f.Write(b)
 }

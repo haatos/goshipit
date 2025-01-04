@@ -2,31 +2,37 @@
 // https://daisyui.com/components/footer
 package components
 
-import "github.com/haatos/goshipit/internal/model"
+type FooterProps struct {
+	Icon        templ.Component
+	Name        string
+	Description string
+	Copyright   string
+	Anchors     []AnchorProps
+}
 
-templ Footer(companyInfo model.CompanyInfo, anchors []AnchorProps) {
+templ Footer(props FooterProps) {
 	<footer class="footer bg-base-200 text-base-content p-10 mt-24">
 		{ children... }
 	</footer>
 	<footer class="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
 		<aside class="grid-flow-col items-center">
-			if companyInfo.Icon != nil {
+			if props.Icon != nil {
 				<div class="w-6 h-6">
-					@companyInfo.Icon
+					@props.Icon
 				</div>
 			}
 			<p>
-				if companyInfo.Copyright != "" {
-					<span>&copy; { companyInfo.Copyright }</span>
+				if props.Copyright != "" {
+					<span>&copy; { props.Copyright }</span>
 				}
-				{ companyInfo.Name }
+				{ props.Name }
 				<br/>
-				{ companyInfo.Description }
+				{ props.Description }
 			</p>
 		</aside>
 		<nav class="md:place-self-center md:justify-self-end">
 			<div class="grid grid-flow-col gap-4">
-				for _, anchor := range anchors {
+				for _, anchor := range props.Anchors {
 					@Anchor(anchor)
 				}
 			</div>
