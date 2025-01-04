@@ -15,19 +15,15 @@ templ Anchor(props AnchorProps) {
 		if props.Href != "" {
 			href={ templ.SafeURL(props.Href) }
 		}
-		class={ "group flex items-center cursor-pointer", props.Class }
+		class={ "group items-center cursor-pointer", props.Class }
 		{ props.Attrs... }
 	>
 		if props.LeftIcon != nil {
-			<div class="inline-block mr-1">
-				@props.LeftIcon
-			</div>
+			@props.LeftIcon
 		}
 		{ props.Label }
 		if props.RightIcon != nil {
-			<div class="inline-block ml-1">
-				@props.RightIcon
-			</div>
+			@props.RightIcon
 		}
 	</a>
 }

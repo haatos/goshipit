@@ -219,7 +219,7 @@
   "navigation": [
     {
       "name": "anchor",
-      "code": "```go\ntype AnchorProps struct {\n\tHref      string\n\tLabel     string\n\tLeftIcon  templ.Component\n\tRightIcon templ.Component\n\tAttrs     templ.Attributes\n\tClass     string\n}\n\ntempl Anchor(props AnchorProps) {\n\t\u003ca\n\t\tif props.Href != \"\" {\n\t\t\thref={ templ.SafeURL(props.Href) }\n\t\t}\n\t\tclass={ \"group flex items-center cursor-pointer\", props.Class }\n\t\t{ props.Attrs... }\n\t\u003e\n\t\tif props.LeftIcon != nil {\n\t\t\t\u003cdiv class=\"inline-block mr-1\"\u003e\n\t\t\t\t@props.LeftIcon\n\t\t\t\u003c/div\u003e\n\t\t}\n\t\t{ props.Label }\n\t\tif props.RightIcon != nil {\n\t\t\t\u003cdiv class=\"inline-block ml-1\"\u003e\n\t\t\t\t@props.RightIcon\n\t\t\t\u003c/div\u003e\n\t\t}\n\t\u003c/a\u003e\n}\n```"
+      "code": "```go\ntype AnchorProps struct {\n\tHref      string\n\tLabel     string\n\tLeftIcon  templ.Component\n\tRightIcon templ.Component\n\tAttrs     templ.Attributes\n\tClass     string\n}\n\ntempl Anchor(props AnchorProps) {\n\t\u003ca\n\t\tif props.Href != \"\" {\n\t\t\thref={ templ.SafeURL(props.Href) }\n\t\t}\n\t\tclass={ \"group items-center cursor-pointer\", props.Class }\n\t\t{ props.Attrs... }\n\t\u003e\n\t\tif props.LeftIcon != nil {\n\t\t\t@props.LeftIcon\n\t\t}\n\t\t{ props.Label }\n\t\tif props.RightIcon != nil {\n\t\t\t@props.RightIcon\n\t\t}\n\t\u003c/a\u003e\n}\n```"
     },
     {
       "name": "breadcrumbs",
