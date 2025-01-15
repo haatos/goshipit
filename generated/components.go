@@ -49,6 +49,8 @@ var ExampleComponents = map[string]templ.Component{
 	"JoinInputs":                 examples.JoinInputs(),
 	"LazyLoadExample":            examples.LazyLoadExample(),
 	"MenuExample":                examples.MenuExample(),
+	"MenuWithSubmenusExample":    examples.MenuWithSubmenusExample(),
+	"DashboardMenuExample":       examples.DashboardMenuExample(),
 	"BasicModal":                 examples.BasicModal(),
 	"MultipleModals":             examples.MultipleModals(),
 	"ModalWithAction":            examples.ModalWithAction(),

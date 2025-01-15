@@ -68,6 +68,7 @@ func GetComponentPage(c echo.Context) error {
 		coms = append(
 			coms,
 			pages.ComponentExampleTabs(
+				exampleCode.Title,
 				exampleCode.Description,
 				pages.ComponentTabs(fmt.Sprintf("%s-%d-tab", exampleCode.Name, i), tabs),
 			),

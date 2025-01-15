@@ -139,6 +139,7 @@ func generateComponentExampleCodeMap() {
 			m[componentName] = []model.ComponentCode{}
 			inExample := false
 			description := []string{}
+			title := ""
 			inDescription := false
 
 			scanner := bufio.NewScanner(f)
@@ -151,6 +152,7 @@ func generateComponentExampleCodeMap() {
 							model.ComponentCode{
 								Name:        functionName,
 								Code:        markdown.CodeSliceToMarkdown(functionLines),
+								Title:       title,
 								Description: strings.Join(description, "\n"),
 							})
 						functionName = ""
@@ -158,6 +160,11 @@ func generateComponentExampleCodeMap() {
 						description = []string{}
 					}
 					inExample = true
+					continue
+				}
+
+				if strings.HasPrefix(line, "// ") && !strings.HasPrefix(line, "// example") {
+					title = strings.TrimPrefix(line, "// ")
 					continue
 				}
 
@@ -189,6 +196,7 @@ func generateComponentExampleCodeMap() {
 				model.ComponentCode{
 					Name:        functionName,
 					Code:        markdown.CodeSliceToMarkdown(functionLines),
+					Title:       title,
 					Description: strings.Join(description, "\n"),
 				})
 		}

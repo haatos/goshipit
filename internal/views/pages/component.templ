@@ -76,7 +76,10 @@ templ RawHTML(html string) {
 	@templ.Raw(html)
 }
 
-templ ComponentExampleTabs(description string, tabs templ.Component) {
+templ ComponentExampleTabs(title, description string, tabs templ.Component) {
+	if title != "" {
+		<h2 class="text-lg">{ title }</h2>
+	}
 	@templ.Raw(markdown.GetHTMLFromMarkdown([]byte(description)))
 	@tabs
 }

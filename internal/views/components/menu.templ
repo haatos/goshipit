@@ -2,17 +2,66 @@
 // https://daisyui.com/components/menu
 package components
 
-templ Menu() {
-	<ul class="menu rounded-box bg-base-300">
+type MenuProps struct {
+	Title string
+	Class string
+}
+
+templ Menu(props MenuProps) {
+	<ul class={ "menu", props.Class }>
+		if props.Title != "" {
+			<h2 class="font-bold">{ props.Title }</h2>
+		}
 		{ children... }
 	</ul>
 }
 
-templ MenuItem(label string, attrs templ.Attributes) {
+type MenuItemProps struct {
+	Label     string
+	Attrs     templ.Attributes
+	Icon      templ.Component
+	IconAfter bool
+}
+
+templ MenuItem(props MenuItemProps) {
 	<li>
-		<a { attrs... }>{ label }</a>
+		<a { props.Attrs... }>
+			if props.Icon != nil && !props.IconAfter {
+				@props.Icon
+			}
+			{ props.Label }
+			if props.Icon != nil && props.IconAfter {
+				@props.Icon
+			}
+		</a>
 		<ul>
 			{ children... }
 		</ul>
+	</li>
+}
+
+type SubmenuProps struct {
+	Title     string
+	Attrs     templ.Attributes
+	Icon      templ.Component
+	IconAfter bool
+}
+
+templ Submenu(props SubmenuProps) {
+	<li>
+		<details { props.Attrs... }>
+			<summary>
+				if props.Icon != nil && !props.IconAfter {
+					@props.Icon
+				}
+				{ props.Title }
+				if props.Icon != nil && props.IconAfter {
+					@props.Icon
+				}
+			</summary>
+			<ul>
+				{ children... }
+			</ul>
+		</details>
 	</li>
 }

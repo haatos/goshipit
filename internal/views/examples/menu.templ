@@ -3,23 +3,129 @@ package examples
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
+// Basic menu
 templ MenuExample() {
 	<div class="mx-auto max-w-xs pt-4">
-		@components.Menu() {
-			@components.MenuItem("Section 1", templ.Attributes{"class": "menu-title"})
-			@components.MenuItem("Section 2", templ.Attributes{"class": "menu-title"}) {
-				@components.MenuItem("2.1", nil) {
-					@components.MenuItem("2.1.1", nil)
-					@components.MenuItem("2.1.2", nil)
+		@components.Menu(components.MenuProps{Title: "Basic menu"}) {
+			@components.MenuItem(components.MenuItemProps{Label: "Section 1", Attrs: templ.Attributes{"class": "menu-title"}})
+			@components.MenuItem(components.MenuItemProps{Label: "Section 2", Attrs: templ.Attributes{"class": "menu-title"}}) {
+				@components.MenuItem(components.MenuItemProps{Label: "2.1"}) {
+					@components.MenuItem(components.MenuItemProps{Label: "2.1.1"})
+					@components.MenuItem(components.MenuItemProps{Label: "2.1.2"})
 				}
-				@components.MenuItem("2.2", nil) {
-					@components.MenuItem("2.2.1", nil)
+				@components.MenuItem(components.MenuItemProps{Label: "2.2"}) {
+					@components.MenuItem(components.MenuItemProps{Label: "2.2.1"})
 				}
-				@components.MenuItem("2.3", nil)
+				@components.MenuItem(components.MenuItemProps{Label: "2.3"})
 			}
-			@components.MenuItem("Section 3", templ.Attributes{"class": "menu-title"}) {
-				@components.MenuItem("3.1", nil)
+			@components.MenuItem(components.MenuItemProps{Label: "Section 3", Attrs: templ.Attributes{"class": "menu-title"}}) {
+				@components.MenuItem(components.MenuItemProps{Label: "3.1"})
 			}
 		}
 	</div>
+}
+
+// example
+// Menu with a submenu
+templ MenuWithSubmenusExample() {
+	<div class="mx-auto max-w-xs pt-4 min-h-72">
+		@components.Menu(components.MenuProps{}) {
+			@components.MenuItem(
+				components.MenuItemProps{
+					Label: "Section 1",
+					Attrs: templ.Attributes{"class": "menu-title"},
+				})
+			@components.Submenu(
+				components.SubmenuProps{
+					Title: "Section 2",
+					Attrs: templ.Attributes{"open": ""},
+				},
+			) {
+				@components.MenuItem(components.MenuItemProps{Label: "2.1"})
+				@components.MenuItem(components.MenuItemProps{Label: "2.2"})
+			}
+		}
+	</div>
+}
+
+// example
+// Menu with icons and a submenu
+templ DashboardMenuExample() {
+	@components.Menu(
+		components.MenuProps{Class: "max-w-64 bg-base-200 rounded-box"}) {
+		@components.MenuItem(
+			components.MenuItemProps{
+				Label: "Dashboard",
+				Icon:  HomeIcon(),
+				Attrs: templ.Attributes{"href": "#dashboard"},
+			})
+		@components.MenuItem(
+			components.MenuItemProps{
+				Label: "Users",
+				Icon:  UsersIcon(),
+				Attrs: templ.Attributes{"href": "#users"},
+			})
+		@components.Submenu(components.SubmenuProps{Title: "Content", Icon: ContentIcon()}) {
+			@components.MenuItem(
+				components.MenuItemProps{
+					Label: "Posts",
+					Icon:  PostsIcon(),
+					Attrs: templ.Attributes{"href": "#posts"},
+				})
+			@components.MenuItem(
+				components.MenuItemProps{
+					Label: "Images",
+					Icon:  ImagesIcon(),
+					Attrs: templ.Attributes{"href": "#images"},
+				})
+			@components.MenuItem(
+				components.MenuItemProps{
+					Label: "Videos",
+					Icon:  VideosIcon(),
+					Attrs: templ.Attributes{"href": "#videos"},
+				})
+		}
+	}
+}
+
+templ HomeIcon() {
+	<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path class="stroke-current" d="M2 12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274C22 8.77128 22 9.91549 22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039Z" stroke-width="1.5"></path>
+		<path class="stroke-current" d="M15 18H9" stroke-width="1.5" stroke-linecap="round"></path>
+	</svg>
+}
+
+templ UsersIcon() {
+	<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path class="stroke-current" d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+		<path class="stroke-current" d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+	</svg>
+}
+
+templ ContentIcon() {
+	<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path class="stroke-current" opacity="0.5" d="M18 10L13 10" stroke-width="1.5" stroke-linecap="round"></path>
+		<path class="stroke-current" d="M2 6.94975C2 6.06722 2 5.62595 2.06935 5.25839C2.37464 3.64031 3.64031 2.37464 5.25839 2.06935C5.62595 2 6.06722 2 6.94975 2C7.33642 2 7.52976 2 7.71557 2.01738C8.51665 2.09229 9.27652 2.40704 9.89594 2.92051C10.0396 3.03961 10.1763 3.17633 10.4497 3.44975L11 4C11.8158 4.81578 12.2237 5.22367 12.7121 5.49543C12.9804 5.64471 13.2651 5.7626 13.5604 5.84678C14.0979 6 14.6747 6 15.8284 6H16.2021C18.8345 6 20.1506 6 21.0062 6.76946C21.0849 6.84024 21.1598 6.91514 21.2305 6.99383C22 7.84935 22 9.16554 22 11.7979V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V6.94975Z" stroke-width="1.5"></path>
+	</svg>
+}
+
+templ PostsIcon() {
+	<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path class="stroke-current" d="M1 6v12h9V6zm8 11H2V7h7zm-8 3h22v1H1zM1 3h22v1H1zm11 4h11v1H12zm0 3h11v1H12zm0 3h11v1H12zm0 3h11v1H12z"></path><path fill="none" d="M0 0h24v24H0z"></path>
+	</svg>
+}
+
+templ ImagesIcon() {
+	<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<rect width="24" height="24" class="fill-base-100"></rect>
+		<path class="stroke-current" d="M21 16V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V18M21 16V4C21 3.44772 20.5523 3 20 3H4C3.44772 3 3 3.44772 3 4V18M21 16L15.4829 12.3219C15.1843 12.1228 14.8019 12.099 14.4809 12.2595L3 18" stroke-linejoin="round"></path>
+		<circle class="stroke-current" cx="8" cy="9" r="2" stroke-linejoin="round"></circle>
+	</svg>
+}
+
+templ VideosIcon() {
+	<svg class="h-5 w-5 opacity-75" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path class="fill-current" fill-rule="evenodd" clip-rule="evenodd" d="M9.98966 10.91C10.4482 10.609 11.0657 10.5541 11.6048 10.8884L14.9764 12.9785C15.5136 13.3116 15.75 13.8874 15.75 14.4102C15.75 14.933 15.5136 15.5088 14.9764 15.8418L11.6048 17.932C11.0657 18.2662 10.4482 18.2114 9.98966 17.9103C9.539 17.6144 9.25 17.0934 9.25 16.5003V12.32C9.25 11.727 9.539 11.2059 9.98966 10.91ZM10.8129 12.1639C10.7945 12.176 10.75 12.2203 10.75 12.32V16.5003C10.75 16.6 10.7945 16.6443 10.8129 16.6564L10.8142 16.6572L14.186 14.5669C14.2072 14.5538 14.25 14.5085 14.25 14.4102C14.25 14.3118 14.2072 14.2665 14.186 14.2534L10.8145 12.1633L10.8129 12.1639Z"></path>
+		<path class="fill-current" fill-rule="evenodd" clip-rule="evenodd" d="M8.69935 1.25001C8.4795 1.24995 8.31094 1.2499 8.16359 1.26571C6.80943 1.41104 5.77295 2.52304 5.71005 3.87007C4.51917 4.22559 3.67058 5.3275 3.65528 6.5913C3.05445 6.77164 2.53621 7.05606 2.11196 7.51432C1.45997 8.21857 1.25792 9.08649 1.25023 10.1003C1.24283 11.075 1.41651 12.3067 1.63219 13.8363L2.07118 16.9499C2.23979 18.146 2.37676 19.1176 2.58989 19.879C2.81286 20.6756 3.14152 21.331 3.75003 21.8349C4.35372 22.3347 5.06993 22.5502 5.91647 22.6518C6.73501 22.75 7.76474 22.75 9.04682 22.75H14.9531C16.2352 22.75 17.265 22.75 18.0835 22.6518C18.9301 22.5502 19.6463 22.3347 20.25 21.8349C20.8585 21.331 21.1871 20.6756 21.4101 19.879C21.6232 19.1176 21.7602 18.146 21.9288 16.9499L22.3678 13.8363C22.5835 12.3067 22.7572 11.075 22.7498 10.1003C22.7421 9.08649 22.54 8.21857 21.888 7.51432C21.4637 7.05595 20.9453 6.77151 20.3443 6.59118C20.3289 5.3275 19.4805 4.22571 18.2897 3.87013C18.2268 2.52307 17.1903 1.41104 15.8362 1.26571C15.6888 1.2499 15.5203 1.24995 15.3004 1.25001H8.69935ZM18.8105 6.32781C18.6734 5.72018 18.1306 5.25001 17.4617 5.25001H6.53787C5.86896 5.25001 5.32618 5.72019 5.18902 6.32785C6.11481 6.24999 7.24973 6.25 8.61594 6.25001H15.384C16.75 6.25 17.8848 6.24999 18.8105 6.32781ZM16.7677 3.75001C16.6611 3.22633 16.2263 2.8162 15.6761 2.75715C15.6198 2.75111 15.5396 2.75001 15.2588 2.75001H8.74099C8.46013 2.75001 8.37993 2.75111 8.32365 2.75715C7.77344 2.8162 7.33862 3.22633 7.2321 3.75001H16.7677ZM3.21267 8.53336C3.51557 8.20618 3.97106 7.98917 4.85612 7.87145C5.75726 7.75159 6.96357 7.75001 8.67239 7.75001H15.3276C17.0364 7.75001 18.2427 7.75159 19.1439 7.87145C20.0289 7.98917 20.4844 8.20618 20.7873 8.53336C21.0832 8.85293 21.2436 9.28782 21.2498 10.1117C21.2563 10.9618 21.1002 12.0828 20.8738 13.6883L20.4509 16.6883C20.2731 17.9491 20.1486 18.821 19.9656 19.4747C19.7894 20.1042 19.582 20.4405 19.2934 20.6795C18.9999 20.9225 18.6058 21.0784 17.9048 21.1625C17.1861 21.2488 16.2465 21.25 14.9046 21.25H9.09536C7.75347 21.25 6.81393 21.2488 6.09519 21.1625C5.39417 21.0784 5.00014 20.9225 4.70664 20.6795C4.41795 20.4405 4.21058 20.1042 4.03437 19.4747C3.8514 18.821 3.7269 17.9491 3.54913 16.6883L3.12616 13.6883C2.89981 12.0828 2.74373 10.9618 2.75018 10.1117C2.75644 9.28782 2.91681 8.85293 3.21267 8.53336Z"></path>
+	</svg>
 }
