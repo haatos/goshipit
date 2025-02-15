@@ -60,6 +60,7 @@ func main() {
 	e.GET("/datepicker", handler.GetDatePicker)
 	e.GET("/datepicker/monthpicker", handler.GetDatePickerMonthPicker)
 	e.GET("/datepicker/yearpicker", handler.GetDatePickerYearPicker)
+	e.GET("/timeslotpicker", handler.GetTimeSlotPicker)
 	// handlers for component examples
 
 	internal.GracefulShutdown(e, internal.Settings.Port)

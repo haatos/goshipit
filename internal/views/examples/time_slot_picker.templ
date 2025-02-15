@@ -1,0 +1,9 @@
+package examples
+
+import "time"
+
+// example
+// Basic time slot picker
+templ BasicTimeSlotPicker() {
+	<div hx-get={ "/timeslotpicker?date=" + time.Now().UTC().Format("2006-01-02") } hx-trigger="intersect" hx-swap="outerHTML"></div>
+}

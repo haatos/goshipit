@@ -1,0 +1,179 @@
+// data_input
+package components
+
+import "time"
+
+type TimeSlotPickerProps struct {
+	ID          string
+	CurrentDate time.Time
+	TimeSlots   []TimeSlot
+	PickerURL   string
+	ReserveURL  string
+}
+
+type TimeSlot struct {
+	Start time.Time
+	End   time.Time
+}
+
+func (x *TimeSlotPickerProps) Days() []time.Time {
+	date := time.Date(x.CurrentDate.Year(), x.CurrentDate.Month(), x.CurrentDate.Day(), 0, 0, 0, 0, x.CurrentDate.Location())
+	dates := make([]time.Time, 7)
+	dates[0] = date
+	for i := range 6 {
+		date = date.Add(24 * time.Hour)
+		dates[i+1] = date
+	}
+	return dates
+}
+
+func (x *TimeSlotPickerProps) GetSlots(day time.Time) []TimeSlot {
+	slots := make([]TimeSlot, 0)
+	now := time.Now().UTC()
+	now = time.Date(
+		now.Year(), now.Month(), now.Day(),
+		now.Hour(), 0, 0, 0,
+		now.Location()).Add(time.Duration(24-now.Hour()) * time.Hour)
+	for _, s := range x.TimeSlots {
+		if s.Start.After(now) && s.Start.Format("20060102") == day.Format("20060102") {
+			slots = append(slots, s)
+		}
+	}
+	return slots
+}
+
+templ TimeSlotPicker(props TimeSlotPickerProps) {
+	{{ id := "time-slot-picker-" + props.CurrentDate.Format("20060102") }}
+	<div id={ id } class="p-4">
+		<div class="grid grid-cols-7 gap-1 h-[500px] w-full max-w-screen-xl">
+			for _, day := range props.Days() {
+				@timeSlotPickerDay(props, day)
+			}
+		</div>
+		@timeSlotPickerControls(props, id)
+	</div>
+}
+
+templ timeSlotPickerDay(props TimeSlotPickerProps, day time.Time) {
+	<div
+		class={
+			"flex flex-col space-y-2 border border-base-content rounded-box text-sm overflow-y-auto",
+			templ.KV("border-primary", time.Now().UTC().Format("20060102") == day.Format("20060102")),
+		}
+	>
+		<div class="text-center pt-1">
+			<span>{ day.Format("Mon Jan 02") }</span>
+			<div class="divider !my-0 !py-0"></div>
+		</div>
+		<ul class="space-y-1">
+			for _, slot := range props.GetSlots(day) {
+				{{ slotName := "time_slot_" + slot.Start.Format("200601021504") }}
+				@Modal(ModalProps{
+					ID: slotName,
+					Label: timeSlotButton(
+						slot,
+						templ.Attributes{"onclick": slotName + ".showModal()"},
+					),
+				},
+				) {
+					@timeSlotModalContent(slot, slotName, props.ReserveURL)
+				}
+			}
+		</ul>
+	</div>
+}
+
+templ timeSlotButton(slot TimeSlot, attrs templ.Attributes) {
+	<button class="btn btn-sm btn-ghost w-full" { attrs... }>
+		{ slot.Start.Format("15:04") } - { slot.End.Format("15:04") }
+	</button>
+}
+
+templ timeSlotModalContent(slot TimeSlot, slotName, reserveURL string) {
+	<div class="space-y-8">
+		<div class="flex items-center space-x-2">
+			<div class="flex justify-center items-center">
+				<svg
+					class="h-8 w-8"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path class="stroke-current" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke-width="1.5"></path>
+					<path class="stroke-current" d="M10.125 8.875C10.125 7.83947 10.9645 7 12 7C13.0355 7 13.875 7.83947 13.875 8.875C13.875 9.56245 13.505 10.1635 12.9534 10.4899C12.478 10.7711 12 11.1977 12 11.75V13" stroke-width="1.5" stroke-linecap="round"></path>
+					<circle class="fill-current" cx="12" cy="16" r="1"></circle>
+				</svg>
+			</div>
+			<p class="col-span-7">
+				Make a reservation from <b>{ slot.Start.Format("15:04") }</b> to <b>{ slot.End.Format("15:04") }</b> on <b>{ slot.Start.Format("January 02") }</b>?
+			</p>
+		</div>
+		<div class="flex justify-between items-center">
+			<button
+				id="modal-confirm-reservation"
+				class="btn btn-sm btn-primary"
+				hx-post={ reserveURL + "?slot=" + slot.Start.Format("2006-01-02-15-04") }
+			>
+				Reserve
+			</button>
+			<button class="btn btn-sm" { templ.Attributes{"onclick": slotName + ".close()"}... }>
+				Cancel
+			</button>
+		</div>
+		<script>
+            ((modal) => {
+                document.addEventListener("htmx:afterRequest", (evt) => {
+                    if (evt.detail.elt.id === "modal-confirm-reservation" && evt.detail.successful) {
+                        modal.close()
+                    }
+                })
+            })(document.currentScript.closest("dialog.modal"))
+        </script>
+	</div>
+}
+
+templ timeSlotPickerControls(props TimeSlotPickerProps, id string) {
+	<div class="flex justify-between items-center py-2">
+		<button
+			hx-get={ props.PickerURL + "?date=" + props.CurrentDate.Add(time.Duration(-7*24)*time.Hour).Format("2006-01-02") }
+			hx-target={ "#" + id }
+			hx-swap="outerHTML"
+			class={ "btn btn-ghost btn-sm disabled:opacity-50", }
+			if props.CurrentDate.Format("2006-01-02") == time.Now().UTC().Format("2006-01-02") {
+				disabled
+			}
+		>
+			@chevronLeft()
+		</button>
+		<button
+			hx-get={ props.PickerURL + "?date=" + props.CurrentDate.Add(time.Duration(7*24)*time.Hour).Format("2006-01-02") }
+			hx-target={ "#" + id }
+			hx-swap="outerHTML"
+			class="btn btn-ghost btn-sm"
+		>
+			@chevronRight()
+		</button>
+	</div>
+}
+
+templ chevronLeft() {
+	<svg
+		class="h-6 w-6"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path class="stroke-base-content" d="M15 6L9 12L15 18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+	</svg>
+}
+
+templ chevronRight() {
+	<svg
+		class="h-6 w-6"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path class="stroke-base-content" d="M9 6L15 12L9 18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+	</svg>
+}

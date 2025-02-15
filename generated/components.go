@@ -79,6 +79,7 @@ var ExampleComponents = map[string]templ.Component{
 	"TestimonialGridExample":     examples.TestimonialGridExample(),
 	"BasicTextarea":              examples.BasicTextarea(),
 	"BasicTextareaWithError":     examples.BasicTextareaWithError(),
+	"BasicTimeSlotPicker":        examples.BasicTimeSlotPicker(),
 	"BasicTimeline":              examples.BasicTimeline(),
 	"InfoToast":                  examples.InfoToast(),
 	"WarningToast":               examples.WarningToast(),
