@@ -10,12 +10,20 @@ type CheckboxProps struct {
 	Checked bool
 	Class   string
 	Attrs   templ.Attributes
+	Size    string
 }
 
 templ Checkbox(props CheckboxProps) {
 	<label class="label justify-center cursor-pointer space-x-4">
 		if props.Before != "" {
-			<span class="label-text">
+			<span
+				class={
+					templ.KV("text-xs", props.Size == "xs"),
+					templ.KV("text-sm", props.Size == "sm"),
+					templ.KV("text-lg", props.Size == "lg"),
+					templ.KV("text-xl", props.Size == "xl"),
+				}
+			>
 				{ props.Before }
 			</span>
 		}
@@ -29,7 +37,13 @@ templ Checkbox(props CheckboxProps) {
 			if props.Checked {
 				checked="checked"
 			}
-			class={ "checkbox", props.Class }
+			class={
+				"checkbox", props.Class,
+				templ.KV("checkbox-xs", props.Size == "xs"),
+				templ.KV("checkbox-sm", props.Size == "sm"),
+				templ.KV("checkbox-lg", props.Size == "lg"),
+				templ.KV("checkbox-xl", props.Size == "xl"),
+			}
 		/>
 		if props.After != "" {
 			<span class="label-text">

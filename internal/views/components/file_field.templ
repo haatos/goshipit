@@ -1,0 +1,45 @@
+// data_input
+// https://daisyui.com/components/file-input
+package components
+
+type FileFieldProps struct {
+	Name            string
+	Label           string
+	Value           string
+	Description     string
+	Attrs           templ.Attributes
+	DisabledMessage string
+	Required        bool
+	Size            string
+}
+
+templ FileField(props FileFieldProps) {
+	<fieldset
+		class="fieldset tooltip tooltip-top w-full"
+		if props.DisabledMessage != "" {
+			data-tip={ props.DisabledMessage }
+		}
+	>
+		if props.Label != "" {
+			<legend class="fieldset-legend">{ props.Label }</legend>
+		}
+		<input
+			type="file"
+			class={
+				"file-input w-full",
+				templ.KV("file-input-xs", props.Size == "xs"),
+				templ.KV("file-input-sm", props.Size == "sm"),
+				templ.KV("file-input-lg", props.Size == "lg"),
+				templ.KV("file-input-xl", props.Size == "xl"),
+			}
+			name={ props.Name }
+			if props.DisabledMessage != "" {
+				disabled
+			}
+			{ props.Attrs... }
+		/>
+		if props.Description != "" {
+			<label class="fieldset-label">{ props.Description }</label>
+		}
+	</fieldset>
+}

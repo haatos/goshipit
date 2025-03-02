@@ -1,0 +1,27 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+// Different size file inputs
+templ DifferentSizeFileFields() {
+	@components.FileField(components.FileFieldProps{
+		Label: "File upload",
+		Size:  "xs",
+	})
+	@components.FileField(components.FileFieldProps{
+		Label: "File upload",
+		Size:  "sm",
+	})
+	@components.FileField(components.FileFieldProps{
+		Label: "File upload",
+	})
+	@components.FileField(components.FileFieldProps{
+		Label: "File upload",
+		Size:  "lg",
+	})
+	@components.FileField(components.FileFieldProps{
+		Label: "File upload",
+		Size:  "xl",
+	})
+}

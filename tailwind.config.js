@@ -25,38 +25,4 @@ module.exports = {
       },
     },
   },
-  /* @tailwind/typography plugin should be befire daisyui */
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
-  daisyui: {
-    themes: [
-      {
-        light: {
-          primary: "#D48921",
-          secondary: "#9FB798",
-          accent: "#d946ef",
-          neutral: "#222630",
-          "base-100": "#EDF5FC",
-          info: "#4ECDC4",
-          warning: "#FFBA08",
-          error: "#E84855",
-          success: "35FF69",
-          "--rounded-box": "0.15rem",
-          "--rounded-btn": "0.15rem",
-        },
-        dark: {
-          primary: "#E3A24A",
-          secondary: "#9FB798",
-          accent: "#d946ef",
-          neutral: "#ADADAD",
-          "base-100": "#191D24",
-          info: "#4ECDC4",
-          warning: "#FFBA08",
-          error: "#E84855",
-          success: "35FF69",
-          "--rounded-box": "0.15rem",
-          "--rounded-btn": "0.15rem",
-        },
-      },
-    ],
-  },
 };

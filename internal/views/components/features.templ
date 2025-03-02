@@ -39,7 +39,7 @@ templ Feature(feature FeatureProps) {
 		if feature.Title != "" {
 			<h3 class="text-xl font-semibold mb-3">{ feature.Title }</h3>
 		}
-		<p class="text-neutral group-hover:text-base-content text-sm">{ feature.Description }</p>
+		<p class="text-base-content/70 group-hover:text-base-content text-sm">{ feature.Description }</p>
 		if feature.URL != "" {
 			<a href={ templ.SafeURL(feature.URL) } class="mt-2 link link-primary">Learn more</a>
 		}

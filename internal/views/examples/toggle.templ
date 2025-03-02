@@ -3,13 +3,41 @@ package examples
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
-// Basic toggle with label before
-templ DefaultToggle() {
-	<div class="max-w-52 mx-auto pt-4">
+// Different size toggles
+templ DifferentSizeToggles() {
+	<div class="max-w-52 mx-auto pt-4 space-y-2">
 		@components.Toggle(
 			components.ToggleProps{
 				Before: "Check me out",
 				Name:   "checkbox1",
+				Size:   "xs",
+			},
+		)
+		@components.Toggle(
+			components.ToggleProps{
+				Before: "Check me out",
+				Name:   "checkbox1",
+				Size:   "sm",
+			},
+		)
+		@components.Toggle(
+			components.ToggleProps{
+				Before: "Check me out",
+				Name:   "checkbox1",
+			},
+		)
+		@components.Toggle(
+			components.ToggleProps{
+				Before: "Check me out",
+				Name:   "checkbox1",
+				Size:   "lg",
+			},
+		)
+		@components.Toggle(
+			components.ToggleProps{
+				Before: "Check me out",
+				Name:   "checkbox1",
+				Size:   "xl",
 			},
 		)
 	</div>
@@ -24,7 +52,7 @@ templ PrimaryToggle() {
 				After:   "Check me out",
 				Name:    "checkbox2",
 				Checked: true,
-				Class:   "checkbox-primary",
+				Class:   "toggle-primary",
 			},
 		)
 	</div>
@@ -40,7 +68,7 @@ templ PrimaryToggleWithHighlight() {
 				After:     "Paid annually",
 				Name:      "checkbox3",
 				Highlight: true,
-				Class:     "checkbox-primary",
+				Class:     "toggle-primary",
 			},
 		)
 	</div>

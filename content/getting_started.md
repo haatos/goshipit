@@ -12,7 +12,7 @@ To get started with goship.it in a new project using _Echo_ router:
 - Install Templ CLI:
   - `go install github.com/a-h/templ/cmd/templ@latest`
 - Install TailwindCSS and DaisyUI:
-  - `npm i -D tailwindcss @tailwindcss/typography daisyui`
+  - `npm i -D tailwindcss@latest @tailwindcss/typography daisyui@latest`
 - Initialize TailwindCSS:
   - `npx tailwindcss init`
 - Configure `tailwind.config.js`, which the previous command generated, to look like this:
@@ -23,19 +23,16 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
-  daisyui: {
-    themes: ["light"],
-  },
 };
 ```
 
 - Create `input.css` at the base of your project with the following contents:
 
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source(none);
+@config "./tailwind.config.js";
+@source "./internal/views/**/*.templ";
+@plugin "daisyui";
 ```
 
 - Create `Makefile` at the base of your project with the following contents:

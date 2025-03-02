@@ -3,14 +3,46 @@ package examples
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
-// Checkbox with label before
-templ DefaultCheckbox() {
+// Different size checkboxes
+templ DifferentSizeCheckboxes() {
 	<div class="mx-auto pt-4">
 		@components.Checkbox(
 			components.CheckboxProps{
 				Before:  "Remember me",
 				Name:    "remember_me",
 				Checked: false,
+				Size:    "xs",
+			},
+		)
+		@components.Checkbox(
+			components.CheckboxProps{
+				Before:  "Remember me",
+				Name:    "remember_me",
+				Checked: false,
+				Size:    "sm",
+			},
+		)
+		@components.Checkbox(
+			components.CheckboxProps{
+				Before:  "Remember me",
+				Name:    "remember_me",
+				Checked: false,
+			},
+		)
+		@components.Checkbox(
+			components.CheckboxProps{
+				Before:  "Remember me",
+				Name:    "remember_me",
+				Checked: false,
+				Size:    "lg",
+			},
+		)
+		@components.Checkbox(
+			components.CheckboxProps{
+				Before:  "Remember me",
+				Name:    "remember_me",
+				Checked: false,
+				Size:    "xl",
 			},
 		)
 	</div>

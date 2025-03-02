@@ -48,7 +48,7 @@ templ ModalWithAction() {
 // example
 // Modal to confirm delete action
 templ ModalConfirmDelete() {
-	<div class="flex justify-center items-center py-8">
+	<div class="flex justify-center items-center">
 		<div class="grid grid-cols-3 gap-4">
 			for i := range 6 {
 				<div name="modal-confirm-example">
@@ -58,24 +58,26 @@ templ ModalConfirmDelete() {
 							Label: modalConfirmDeleteButton(i, templ.Attributes{"onclick": fmt.Sprintf("modal_confirm_%d.showModal()", i)}),
 						},
 					) {
-						<div class="space-y-8">
-							<div class="grid grid-cols-8 gap-2">
-								<div class="flex justify-center items-center">
+						<div class="flex flex-col gap-8">
+							<div class="grid grid-cols-9 gap-6">
+								<div class="col-span-2 flex justify-center items-center">
 									<svg
-										class="col-span-1 h-8 w-8"
+										class="col-span-1 h-10 w-10"
 										viewBox="0 0 24 24"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
 									><path class="fill-error" fill-rule="evenodd" clip-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-1.5-5.009c0-.867.659-1.491 1.491-1.491.85 0 1.509.624 1.509 1.491 0 .867-.659 1.509-1.509 1.509-.832 0-1.491-.642-1.491-1.509zM11.172 6a.5.5 0 0 0-.499.522l.306 7a.5.5 0 0 0 .5.478h1.043a.5.5 0 0 0 .5-.478l.305-7a.5.5 0 0 0-.5-.522h-1.655z"></path></svg>
 								</div>
-								<p class="col-span-7">
-									Are you sure you want to delete { fmt.Sprintf("%d", i) } ?
-								</p>
+								<div class="flex justify-center items-center col-span-7">
+									<p>
+										Are you sure you want to delete { fmt.Sprintf("%d", i) }?
+									</p>
+								</div>
 							</div>
 							<div class="flex justify-between items-center">
 								<button
 									id="modal-confirm-example-delete-button"
-									class="btn btn-sm btn-error"
+									class="btn btn-error"
 									hx-delete={ fmt.Sprintf("/modal-confirm?value=%d", i) }
 									hx-target="closest div[name=modal-confirm-example]"
 									hx-swap="outerHTML"

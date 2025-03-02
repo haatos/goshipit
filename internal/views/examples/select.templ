@@ -3,18 +3,66 @@ package examples
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
-// Basic select
-templ BasicSelect() {
+// Different size selects
+templ DifferentSizeSelects() {
 	<div class="max-w-xs mx-auto pt-4">
 		@components.Select(
 			components.SelectProps{
 				Label: "Make a choice",
 				Name:  "my-select",
 				Options: []components.SelectOption{
-					{Label: "Which one?", Disabled: true},
+					{Label: "Which one?", Selected: true, Disabled: true},
 					{Label: "Apples", Value: "apples"},
 					{Label: "Oranges", Value: "oranges"},
 				},
+				Size: "xs",
+			},
+		)
+		@components.Select(
+			components.SelectProps{
+				Label: "Make a choice",
+				Name:  "my-select",
+				Options: []components.SelectOption{
+					{Label: "Which one?", Selected: true, Disabled: true},
+					{Label: "Apples", Value: "apples"},
+					{Label: "Oranges", Value: "oranges"},
+				},
+				Size: "sm",
+			},
+		)
+		@components.Select(
+			components.SelectProps{
+				Label: "Make a choice",
+				Name:  "my-select",
+				Options: []components.SelectOption{
+					{Label: "Which one?", Selected: true, Disabled: true},
+					{Label: "Apples", Value: "apples"},
+					{Label: "Oranges", Value: "oranges"},
+				},
+			},
+		)
+		@components.Select(
+			components.SelectProps{
+				Label: "Make a choice",
+				Name:  "my-select",
+				Options: []components.SelectOption{
+					{Label: "Which one?", Selected: true, Disabled: true},
+					{Label: "Apples", Value: "apples"},
+					{Label: "Oranges", Value: "oranges"},
+				},
+				Size: "lg",
+			},
+		)
+		@components.Select(
+			components.SelectProps{
+				Label: "Make a choice",
+				Name:  "my-select",
+				Options: []components.SelectOption{
+					{Label: "Which one?", Selected: true, Disabled: true},
+					{Label: "Apples", Value: "apples"},
+					{Label: "Oranges", Value: "oranges"},
+				},
+				Size: "xl",
 			},
 		)
 	</div>

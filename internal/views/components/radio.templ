@@ -6,20 +6,35 @@ type RadioProps struct {
 	Name   string
 	Values map[string]string
 	Class  string
+	Size   string
 }
 
 templ Radio(props RadioProps) {
-	for l, v := range props.Values {
-		<div class="form-control">
-			<label class="label cursor-pointer">
-				<span class="label-text">{ l }</span>
+	<div class="space-y-2 w-full">
+		for l, v := range props.Values {
+			<label for={ props.Name } class="label cursor-pointer grid grid-cols-7">
+				<span
+					class={
+						"col-span-6 text-wrap",
+						templ.KV("text-xs", props.Size == "xs"),
+						templ.KV("text-sm", props.Size == "sm"),
+						templ.KV("text-lg", props.Size == "lg"),
+						templ.KV("text-xl", props.Size == "xl"),
+					}
+				>{ l }</span>
 				<input
 					type="radio"
 					name={ props.Name }
 					value={ v }
-					class={ "radio", props.Class }
+					class={
+						"radio col-span-1", props.Class,
+						templ.KV("radio-xs", props.Size == "xs"),
+						templ.KV("radio-sm", props.Size == "sm"),
+						templ.KV("radio-lg", props.Size == "lg"),
+						templ.KV("radio-xl", props.Size == "xl"),
+					}
 				/>
 			</label>
-		</div>
-	}
+		}
+	</div>
 }

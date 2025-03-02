@@ -13,6 +13,7 @@ type RangeProps struct {
 	Max   int
 	Step  int
 	Class string
+	Size  string
 }
 
 // Note: usage requires alpine.js
@@ -24,7 +25,14 @@ templ Range(props RangeProps) {
 			x-data={ fmt.Sprintf("{ value: %d }", props.Value) }
 		>
 			if props.Label != "" {
-				<span>{ props.Label }</span>
+				<span
+					class={
+						templ.KV("text-xs", props.Size == "xs"),
+						templ.KV("text-sm", props.Size == "sm"),
+						templ.KV("text-lg", props.Size == "lg"),
+						templ.KV("text-xl", props.Size == "xl"),
+					}
+				>{ props.Label }</span>
 			}
 			<input
 				type="range"
@@ -35,7 +43,13 @@ templ Range(props RangeProps) {
 				min={ fmt.Sprintf("%d", props.Min) }
 				max={ fmt.Sprintf("%d", props.Max) }
 				x-model="value"
-				class={ "range", props.Class }
+				class={
+					"range", props.Class,
+					templ.KV("range-xs", props.Size == "xs"),
+					templ.KV("range-sm", props.Size == "sm"),
+					templ.KV("range-lg", props.Size == "lg"),
+					templ.KV("range-xl", props.Size == "xl"),
+				}
 				step={ fmt.Sprintf("%d", props.Step) }
 			/>
 			<div x-text="value" class="w-full max-w-7"></div>
@@ -52,7 +66,14 @@ templ DatastarRange(props RangeProps) {
 			data-signals={ fmt.Sprintf("{value: %d}", props.Value) }
 		>
 			if props.Label != "" {
-				<span>{ props.Label }</span>
+				<span
+					class={
+						templ.KV("text-xs", props.Size == "xs"),
+						templ.KV("text-sm", props.Size == "sm"),
+						templ.KV("text-lg", props.Size == "lg"),
+						templ.KV("text-xl", props.Size == "xl"),
+					}
+				>{ props.Label }</span>
 			}
 			<input
 				type="range"
@@ -62,7 +83,13 @@ templ DatastarRange(props RangeProps) {
 				name={ props.Name }
 				min={ fmt.Sprintf("%d", props.Min) }
 				max={ fmt.Sprintf("%d", props.Max) }
-				class={ "range", props.Class }
+				class={
+					"range", props.Class,
+					templ.KV("range-xs", props.Size == "xs"),
+					templ.KV("range-sm", props.Size == "sm"),
+					templ.KV("range-lg", props.Size == "lg"),
+					templ.KV("range-xl", props.Size == "xl"),
+				}
 				step={ fmt.Sprintf("%d", props.Step) }
 				data-bind-value
 			/>

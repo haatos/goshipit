@@ -4,30 +4,29 @@ package components
 import "fmt"
 
 type ActiveSearchInputProps struct {
-	ID     string
-	URL    string
-	Target string
-	Input  InputProps
+	ID         string
+	URL        string
+	Target     string
+	InputProps InputProps
 }
 
 templ ActiveSearchInput(props ActiveSearchInputProps) {
 	<div class="w-full flex space-x-2 items-center">
-		<div class="w-full max-w-xs">
-			@Form(
-				templ.Attributes{
-					"id":           props.ID,
-					"hx-get":       props.URL,
-					"hx-target":    props.Target,
-					"hx-swap":      "innerHTML",
-					"hx-trigger":   fmt.Sprintf("keyup from:input[name=%s] delay:500ms, search", props.Input.Name),
-					"hx-indicator": fmt.Sprintf("#%s", props.ID),
-				},
-			) {
-				@Input(props.Input)
-			}
-		</div>
-		<div class="flex justify-center items-center">
-			<span id={ props.ID } class="htmx-indicator loading loading-spinner"></span>
+		<div class="flex items-center gap-2 w-full max-w-xs">
+			<form
+				id={ props.ID }
+				hx-get={ props.URL }
+				hx-target={ props.Target }
+				hx-swap="innerHTML"
+				hx-trigger={ fmt.Sprintf("keyup from:input[name=%s] delay:500ms, search", props.InputProps.Name) }
+				hx-indicator={ fmt.Sprintf("#%s", props.ID) }
+				class="w-full relative"
+			>
+				@Input(props.InputProps)
+				<div class="absolute -right-8 top-2">
+					<span id={ props.ID } class="htmx-indicator loading loading-sm loading-spinner"></span>
+				</div>
+			</form>
 		</div>
 	</div>
 }

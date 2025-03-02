@@ -4,6 +4,8 @@ Golang + Templ + HTMX (+ TailwindCSS + DaisyUI) component library to enhance dev
 
 The library contains DaisyUI components translated into Templ components that can be easily customized using both TailwindCSS and DaisyUI.
 
+Updated to support DaisyUI 5. If you're looking for DaisyUI 4 compatible components, take a look [here](https://old.goship.it)
+
 ## Getting started
 
 Install node dependencies:

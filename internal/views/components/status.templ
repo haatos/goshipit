@@ -14,13 +14,13 @@ type StatusProps struct {
 templ Status(props StatusProps) {
 	<section class="grid min-h-dvh place-content-center px-4">
 		<div class="text-center">
-			<h1 class="text-9xl font-black text-neutral">
+			<h1 class="text-9xl font-black text-base-content/70">
 				{ fmt.Sprintf("%d", props.Code) }
 			</h1>
 			<p class="text-2xl font-bold tracking-tight text-base-content sm:text-4xl">
 				{ props.Title }
 			</p>
-			<p class="mt-4 text-neutral">
+			<p class="mt-4 text-base-content/70">
 				{ props.Description }
 			</p>
 			<a

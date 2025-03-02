@@ -5,7 +5,7 @@ import "github.com/haatos/goshipit/internal/views/components"
 // example
 // Range component using alpine.js
 templ BasicRange() {
-	<div class="max-w-sm mx-auto pt-4">
+	<div class="max-w-sm mx-auto pt-4 space-y-2">
 		@components.Range(
 			components.RangeProps{
 				Name:  "my-range",
@@ -13,6 +13,46 @@ templ BasicRange() {
 				Min:   0,
 				Max:   100,
 				Step:  5,
+				Size:  "xs",
+			},
+		)
+		@components.Range(
+			components.RangeProps{
+				Name:  "my-range",
+				Value: 25,
+				Min:   0,
+				Max:   100,
+				Step:  5,
+				Size:  "sm",
+			},
+		)
+		@components.Range(
+			components.RangeProps{
+				Name:  "my-range",
+				Value: 25,
+				Min:   0,
+				Max:   100,
+				Step:  5,
+			},
+		)
+		@components.Range(
+			components.RangeProps{
+				Name:  "my-range",
+				Value: 25,
+				Min:   0,
+				Max:   100,
+				Step:  5,
+				Size:  "lg",
+			},
+		)
+		@components.Range(
+			components.RangeProps{
+				Name:  "my-range",
+				Value: 25,
+				Min:   0,
+				Max:   100,
+				Step:  5,
+				Size:  "xl",
 			},
 		)
 	</div>

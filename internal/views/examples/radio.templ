@@ -3,7 +3,7 @@ package examples
 import "github.com/haatos/goshipit/internal/views/components"
 
 // example
-// Basic radio group
+// Different size radio groups
 templ DefaultRadio() {
 	<div class="max-w-xs mx-auto pt-4">
 		@components.Radio(
@@ -13,6 +13,50 @@ templ DefaultRadio() {
 					"Apples":  "apples",
 					"Oranges": "oranges",
 				},
+				Size: "xs",
+			},
+		)
+		<div class="divider"></div>
+		@components.Radio(
+			components.RadioProps{
+				Name: "my-radio-group1",
+				Values: map[string]string{
+					"Apples":  "apples",
+					"Oranges": "oranges",
+				},
+				Size: "sm",
+			},
+		)
+		<div class="divider"></div>
+		@components.Radio(
+			components.RadioProps{
+				Name: "my-radio-group1",
+				Values: map[string]string{
+					"Apples":  "apples",
+					"Oranges": "oranges",
+				},
+			},
+		)
+		<div class="divider"></div>
+		@components.Radio(
+			components.RadioProps{
+				Name: "my-radio-group1",
+				Values: map[string]string{
+					"Apples":  "apples",
+					"Oranges": "oranges",
+				},
+				Size: "lg",
+			},
+		)
+		<div class="divider"></div>
+		@components.Radio(
+			components.RadioProps{
+				Name: "my-radio-group1",
+				Values: map[string]string{
+					"Apples":  "apples",
+					"Oranges": "oranges",
+				},
+				Size: "xl",
 			},
 		)
 	</div>
@@ -28,6 +72,7 @@ templ PrimaryRadio() {
 				Values: map[string]string{
 					"Apples":  "apples",
 					"Oranges": "oranges",
+					"And something truly special here to see how this works with a longer key": "blaaaaa",
 				},
 				Class: "radio-primary",
 			},

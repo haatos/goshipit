@@ -11,16 +11,20 @@ type ToggleProps struct {
 	Class     string
 	Highlight bool
 	Attrs     templ.Attributes
+	Size      string
 }
 
 templ Toggle(props ToggleProps) {
-	<div class="form-control">
+	<div>
 		<label class="label cursor-pointer space-x-2">
 			if props.Before != "" {
 				<span
 					class={
-						"label-text",
 						templ.KV("text-primary", props.Highlight && !props.Checked),
+						templ.KV("text-xs", props.Size == "xs"),
+						templ.KV("text-sm", props.Size == "sm"),
+						templ.KV("text-lg", props.Size == "lg"),
+						templ.KV("text-xl", props.Size == "xl"),
 					}
 				>
 					{ props.Before }
@@ -33,7 +37,13 @@ templ Toggle(props ToggleProps) {
 					id={ props.ID }
 				}
 				name={ props.Name }
-				class={ "toggle", props.Class }
+				class={
+					"toggle", props.Class,
+					templ.KV("toggle-xs", props.Size == "xs"),
+					templ.KV("toggle-sm", props.Size == "sm"),
+					templ.KV("toggle-lg", props.Size == "lg"),
+					templ.KV("toggle-xl", props.Size == "xl"),
+				}
 				if props.Checked {
 					checked="checked"
 				}

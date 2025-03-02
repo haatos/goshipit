@@ -43,12 +43,12 @@ templ GroupOfAvatars() {
 templ OnlineAndOffline() {
 	<div class="flex justify-center items-center space-x-4 pt-4">
 		@components.Avatar(components.AvatarProps{
-			AvatarClass:    "online",
+			AvatarClass:    "avatar-online",
 			ContainerClass: "rounded-full w-12",
 			Source:         "/static/images/avatar.jpg",
 		})
 		@components.Avatar(components.AvatarProps{
-			AvatarClass:    "offline",
+			AvatarClass:    "avatar-offline",
 			ContainerClass: "rounded-full w-12",
 			Source:         "/static/images/avatar.jpg",
 		})

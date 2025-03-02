@@ -89,7 +89,7 @@ templ timeSlotButton(slot TimeSlot, attrs templ.Attributes) {
 }
 
 templ timeSlotModalContent(slot TimeSlot, slotName, reserveURL string) {
-	<div class="space-y-8">
+	<div>
 		<div class="flex items-center space-x-2">
 			<div class="flex justify-center items-center">
 				<svg
@@ -107,7 +107,7 @@ templ timeSlotModalContent(slot TimeSlot, slotName, reserveURL string) {
 				Reserve a time slot <b>{ slot.Start.Format("15:04") }</b> - <b>{ slot.End.Format("15:04") }</b>, <b>{ slot.Start.Format("Monday January 02") }</b>?
 			</p>
 		</div>
-		<div class="flex justify-between items-center">
+		<div class="flex justify-between items-center mt-8">
 			<button
 				id="modal-confirm-reservation"
 				class="btn btn-sm btn-primary"

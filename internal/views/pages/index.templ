@@ -24,17 +24,27 @@ templ IndexPageContent() {
 			</div>
 			<div class="flex justify-center items-center w-full max-w-72 sm:max-w-lg mx-auto text-xl sm:text-2xl lg:max-w-5xl pt-8 lg:pt-2">
 				<ul class="flex flex-col justify-center items-center space-y-1">
-					<p class="text-neutral font-bold text-center md:text-start">
+					<p class="text-base-content/60 font-bold text-center md:text-start">
 						The component library to
 					</p>
-					<p class="text-neutral font-bold text-center md:text-start">
+					<p class="text-base-content/60 font-bold text-center md:text-start">
 						give your Go applications
 					</p>
-					<p class="text-neutral font-bold text-center md:text-start">
+					<p class="text-base-content/60 font-bold text-center md:text-start">
 						a running start
 					</p>
 				</ul>
 			</div>
+		</div>
+		<div class="max-w-screen-md mx-auto prose">
+			<p>Now updated to DaisyUI5</p>
+			<ul>
+				<li>Updated changed class names</li>
+				<li>Refactored Input-component</li>
+				<li>Removed Form-component. Just use <a href="https://daisyui.com/components/form">DaisyUI</a> directly</li>
+				<li>Removed Join-component. Just use <a href="https://daisyui.com/components/join">DaisyUI</a> directly</li>
+				<li>Removed Stack-component. Just use <a href="https://daisyui.com/components/stack">DaisyUI</a> directly</li>
+			</ul>
 		</div>
 		@components.Features(
 			components.FeaturesProps{

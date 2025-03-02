@@ -14,14 +14,13 @@ type TextareaProps struct {
 	Err         string
 	Class       string
 	Attrs       templ.Attributes
+	Size        string
 }
 
 templ Textarea(props TextareaProps) {
-	<label class="form-control">
+	<fieldset>
 		if props.Label != "" {
-			<div class="label">
-				<span class="label-text">{ props.Label }</span>
-			</div>
+			<legend class="fieldset-legend !font-normal">{ props.Label }</legend>
 		}
 		<textarea
 			{ props.Attrs... }
@@ -34,6 +33,10 @@ templ Textarea(props TextareaProps) {
 				"textarea",
 				props.Class,
 				templ.KV("textarea-error", props.Err != ""),
+				templ.KV("textarea-xs", props.Size == "xs"),
+				templ.KV("textarea-sm", props.Size == "sm"),
+				templ.KV("textarea-lg", props.Size == "lg"),
+				templ.KV("textarea-xl", props.Size == "xl"),
 			}
 			if props.Rows > 0 {
 				rows={ fmt.Sprintf("%d", props.Rows) }
@@ -43,8 +46,6 @@ templ Textarea(props TextareaProps) {
 		>
 			{ props.Value }
 		</textarea>
-		<div class="label h-6 !p-0">
-			<span class="label-text-alt text-error">{ props.Err }</span>
-		</div>
-	</label>
+		<div class="h-6 !p-0 fieldset-label text-error text-sm">{ props.Err }</div>
+	</fieldset>
 }

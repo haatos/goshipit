@@ -1,106 +1,100 @@
 // data_input
-// https://daisyui.com/components/input
 package components
 
-import "fmt"
-
 type InputProps struct {
-	ID              string
-	Type            string // defaults to "text"
-	Label           string
+	// common
 	Name            string
+	Label           string
+	Type            string // defaults to "text"
 	Value           string
 	Placeholder     string
-	Err             string
-	Attrs           templ.Attributes
-	Class           string
-	Icon            templ.Component
-	Disabled        bool
+	Error           string
 	DisabledMessage string
+	Size            string // xs sm lg xl, default: md
 	Required        bool
+	Icon            templ.Component
+	Attrs           templ.Attributes
+
+	// text input
+	MinLength     string
+	MaxLength     string
+	Pattern       string
+	ValidatorHint string
+
+	// integer/decimal input
+	Min string
+	Max string
+
+	// decimal input
+	Step string
 }
 
 templ Input(props InputProps) {
-	<div
-		id={ fmt.Sprintf("%s-div", props.Name) }
-		hx-target={ fmt.Sprintf("#%s-error", props.Name) }
-		hx-swap="innerHTML"
-		class="w-full"
-	>
-		<label class={ "form-control w-full", }>
-			if props.Label != "" {
-				<div class="py-1 pr-2">
-					<span class="label-text leading-4">{ props.Label }</span>
-				</div>
+	<fieldset class="fieldset">
+		if props.Label != "" {
+			<legend class="fieldset-legend">{ props.Label }</legend>
+		}
+		<label
+			for={ props.Name }
+			class={
+				"input validator tooltip tooltip-top",
+				templ.KV("tooltip tooltip-top", props.DisabledMessage != ""),
+				templ.KV("input-xs", props.Size == "xs"),
+				templ.KV("input-sm", props.Size == "sm"),
+				templ.KV("input-lg", props.Size == "lg"),
+				templ.KV("input-xl", props.Size == "xl"),
 			}
-			<div
-				class={
-					"relative input !px-0 bg-transparent w-full flex items-center flex-grow",
-					templ.KV("!pl-3", props.Icon != nil),
-					templ.KV("input-error", props.Err != ""),
-					templ.KV("pb-1", props.Label != ""),
-					templ.KV("tooltip tooltip-top", props.DisabledMessage != ""),
-					props.Class,
+			if props.DisabledMessage != "" {
+				data-tip={ props.DisabledMessage }
+			}
+		>
+			if props.Icon != nil {
+				@props.Icon
+			}
+			<input
+				name={ props.Name }
+				if props.Type == "" {
+					type="text"
+				} else {
+					type={ props.Type }
 				}
-				if props.Disabled && props.DisabledMessage != "" {
-					data-tip={ props.DisabledMessage }
+				value={ props.Value }
+				placeholder={ props.Placeholder }
+				if props.Required {
+					required
 				}
-			>
-				if props.Icon != nil {
-					<div class="w-5 h-5">
-						@props.Icon
-					</div>
+				if props.Pattern != "" {
+					pattern={ props.Pattern }
 				}
-				<input
-					{ props.Attrs... }
-					if props.ID != "" {
-						id={ props.ID }
-					}
-					name={ props.Name }
-					if props.Type != "" {
-						type={ props.Type }
-					} else {
-						type="text"
-					}
-					placeholder={ props.Placeholder }
-					class={
-						"w-full focus:!outline-none !appearance-none px-2",
-						templ.KV("input-error", props.Err != ""),
-					}
-					value={ props.Value }
-					if props.Disabled {
-						disabled
-					}
-					if props.Required {
-						required
-					}
-				/>
-				<script>
-					document.addEventListener("htmx:afterRequest", (evt) => {
-						let name = evt.detail.elt.getAttribute("name")
-						let div = document.getElementById(name + "-div")
-						if (div === null) {
-							return
-						}
-						let inp = div.querySelector("input[name=" + name + "]")
-						if (200 <= evt.detail.xhr.status && evt.detail.xhr.status < 300) {
-							if (inp.classList.contains("input-error")) {
-								inp.classList.toggle("input-error")
-							}
-						} else {
-							if (!inp.classList.contains("input-error")) {
-								inp.classList.toggle("input-error")
-							}
-						}
-					})
-				</script>
-			</div>
-			<span
-				id={ fmt.Sprintf("%s-error", props.Name) }
-				class="text-error h-4 text-xs pt-1"
-			>
-				{ props.Err }
-			</span>
+				if props.ValidatorHint != "" {
+					title={ props.ValidatorHint }
+				}
+				if props.DisabledMessage != "" {
+					disabled
+				}
+				if props.MinLength != "" {
+					minlength={ props.MinLength }
+				}
+				if props.MaxLength != "" {
+					maxlength={ props.MaxLength }
+				}
+				if props.Min != "" {
+					min={ props.Min }
+				}
+				if props.Max != "" {
+					max={ props.Max }
+				}
+				if props.Step != "" {
+					step={ props.Step }
+				}
+				{ props.Attrs... }
+			/>
 		</label>
-	</div>
+		if props.Error != "" {
+			<p class="text-xs text-error max-w-xs">{ props.Error }</p>
+		}
+		if props.ValidatorHint != "" {
+			<p class="validator-hint hidden text-xs max-w-xs !mt-0">{ props.ValidatorHint }</p>
+		}
+	</fieldset>
 }

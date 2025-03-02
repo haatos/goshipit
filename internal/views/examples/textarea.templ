@@ -17,6 +17,52 @@ templ BasicTextarea() {
 }
 
 // example
+// Different sizes
+templ DifferentSizeTextareas() {
+	<div class="pt-4">
+		@components.Textarea(
+			components.TextareaProps{
+				Label: "Description",
+				Class: "textarea-bordered resize-none",
+				Value: "Extra small",
+				Size:  "xs",
+			},
+		)
+		@components.Textarea(
+			components.TextareaProps{
+				Label: "Description",
+				Class: "textarea-bordered resize-none",
+				Value: "Small",
+				Size:  "sm",
+			},
+		)
+		@components.Textarea(
+			components.TextareaProps{
+				Label: "Description",
+				Class: "textarea-bordered resize-none",
+				Value: "Medium",
+			},
+		)
+		@components.Textarea(
+			components.TextareaProps{
+				Label: "Description",
+				Class: "textarea-bordered resize-none",
+				Value: "Large",
+				Size:  "lg",
+			},
+		)
+		@components.Textarea(
+			components.TextareaProps{
+				Label: "Description",
+				Class: "textarea-bordered resize-none",
+				Value: "Extra Large",
+				Size:  "xl",
+			},
+		)
+	</div>
+}
+
+// example
 // Textarea with error
 templ BasicTextareaWithError() {
 	<div class="pt-4">
