@@ -8,12 +8,12 @@ deploy:
 	go run cmd/generate/main.go
 	templ generate
 	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags "-s -w" -o bin/main cmd/server/main.go
-	scp -r 'content' $(user)@$(ip):/opt/goshipit/
-	scp -r 'generated' $(user)@$(ip):/opt/goshipit/
-	scp -r 'public' $(user)@$(ip):/opt/goshipit/
-	ssh $(user)@$(ip) "sudo service goshipit stop"
-	scp 'bin/main' $(user)@$(ip):/opt/goshipit/
-	ssh $(user)@$(ip) "sudo service goshipit start"
+	scp -r 'content' $(user)@$(ip):/opt/goshipit-old/
+	scp -r 'generated' $(user)@$(ip):/opt/goshipit-old/
+	scp -r 'public' $(user)@$(ip):/opt/goshipit-old/
+	ssh $(user)@$(ip) "sudo service goshipit-old stop"
+	scp 'bin/main' $(user)@$(ip):/opt/goshipit-old/
+	ssh $(user)@$(ip) "sudo service goshipit-old start"
 
 gen:
 	go run cmd/generate/main.go
