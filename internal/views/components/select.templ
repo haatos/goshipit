@@ -3,13 +3,15 @@
 package components
 
 type SelectProps struct {
-	ID      string
-	Label   string
-	Name    string
-	Options []SelectOption
-	Attrs   templ.Attributes
-	Class   string
-	Size    string
+	ID          string
+	Label       string
+	Name        string
+	Description string
+	Class       string
+	Size        string
+	Required    bool
+	Options     []SelectOption
+	Attrs       templ.Attributes
 }
 
 type SelectOption struct {
@@ -20,38 +22,35 @@ type SelectOption struct {
 }
 
 templ Select(props SelectProps) {
-	<label
-		class={ "form-control", templ.KV("pb-2", props.Label != "") }
-	>
+	<fieldset class="fieldset">
 		if props.Label != "" {
-			<div class="label pr-2">
-				<span
-					class={
-						templ.KV("text-xs", props.Size == "xs"),
-						templ.KV("text-sm", props.Size == "sm"),
-						templ.KV("text-lg", props.Size == "lg"),
-						templ.KV("text-xl", props.Size == "xl"),
-					}
-				>{ props.Label }</span>
-			</div>
+			<legend class="fieldset-legend">{ props.Label }</legend>
 		}
 		<select
-			if props.ID != "" {
-				id={ props.ID }
-			}
-			name={ props.Name }
 			class={
-				"select", props.Class,
+				"select w-full",
+				props.Class,
+				templ.KV("pb-2", props.Label != ""),
 				templ.KV("select-xs", props.Size == "xs"),
 				templ.KV("select-sm", props.Size == "sm"),
 				templ.KV("select-lg", props.Size == "lg"),
 				templ.KV("select-xl", props.Size == "xl"),
 			}
+			if props.ID != "" {
+				id={ props.ID }
+			}
+			name={ props.Name }
+			if props.Required {
+				required
+			}
 			{ props.Attrs... }
 		>
 			@SelectOptions(props.Options)
 		</select>
-	</label>
+		if props.Description != "" {
+			<span class="label">{ props.Description }</span>
+		}
+	</fieldset>
 }
 
 templ SelectOptions(options []SelectOption) {

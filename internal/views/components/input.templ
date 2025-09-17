@@ -8,6 +8,7 @@ type InputProps struct {
 	Type            string // defaults to "text"
 	Value           string
 	Placeholder     string
+	Description     string
 	Error           string
 	DisabledMessage string
 	Size            string // xs sm lg xl, default: md
@@ -75,6 +76,9 @@ templ Input(props InputProps) {
 				{ props.Attrs... }
 			/>
 		</label>
+		if props.Description != "" {
+			<div class="label">{ props.Description }</div>
+		}
 		if props.Error != "" {
 			<p class="text-xs text-error max-w-xs">{ props.Error }</p>
 		}

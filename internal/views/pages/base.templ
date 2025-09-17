@@ -240,10 +240,10 @@ templ SideNavLayout(head templ.Component) {
 			</script>
 			<script>
 				function activeMenuLink() {
-				   document.querySelectorAll(".menu a").forEach(link => link.classList.remove("active"));
+				   document.querySelectorAll(".menu a").forEach(link => link.classList.remove("menu-active"));
 				   const activeLink = document.querySelector(`.menu a[hx-get="${window.location.pathname}"]`);
 				   if (activeLink) {
-					   activeLink.classList.add("active");
+					   activeLink.classList.add("menu-active");
 				   }
 				}
 
@@ -290,7 +290,7 @@ templ SideNavLayout(head templ.Component) {
 templ drawerSide(anchors []components.AnchorProps) {
 	<div class="drawer-side">
 		<label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-		<ul class="menu bg-base-300 text-base-content min-h-full w-[330px] p-4 space-y-2">
+		<ul class="menu bg-base-200 text-base-content min-h-full w-[330px] p-4 space-y-2">
 			<li class="pb-4">
 				<a href="/" class="group hover:!bg-transparent flex justify-center items-center">
 					<img class="max-w-20" src="/static/images/goshipit-logo.png" alt="goship.it"/>

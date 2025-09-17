@@ -5,7 +5,7 @@ import "github.com/haatos/goshipit/internal/views/components"
 // example
 // Different size checkboxes
 templ DifferentSizeCheckboxes() {
-	<div class="mx-auto pt-4">
+	<div class="flex flex-col space-y-4 mx-auto pt-4">
 		@components.Checkbox(
 			components.CheckboxProps{
 				Before:  "Remember me",
@@ -49,7 +49,7 @@ templ DifferentSizeCheckboxes() {
 }
 
 // example
-// Checkbox with label after
+// Primary color checkbox with label after
 templ PrimaryCheckbox() {
 	<div class="mx-auto pt-4">
 		@components.Checkbox(

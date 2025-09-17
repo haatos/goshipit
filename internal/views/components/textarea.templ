@@ -10,17 +10,19 @@ type TextareaProps struct {
 	Name        string
 	Placeholder string
 	Value       string
-	Rows        int
+	Description string
 	Err         string
 	Class       string
-	Attrs       templ.Attributes
 	Size        string
+	Required    bool
+	Rows        int
+	Attrs       templ.Attributes
 }
 
 templ Textarea(props TextareaProps) {
-	<fieldset>
+	<fieldset class="fieldset">
 		if props.Label != "" {
-			<legend class="fieldset-legend !font-normal">{ props.Label }</legend>
+			<legend class="fieldset-legend">{ props.Label }</legend>
 		}
 		<textarea
 			{ props.Attrs... }
@@ -43,9 +45,15 @@ templ Textarea(props TextareaProps) {
 			} else {
 				rows="3"
 			}
+			if props.Required {
+				required
+			}
 		>
 			{ props.Value }
 		</textarea>
+		if props.Description != "" {
+			<div class="label">{ props.Description }</div>
+		}
 		<div class="h-6 !p-0 fieldset-label text-error text-sm">{ props.Err }</div>
 	</fieldset>
 }

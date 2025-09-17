@@ -14,7 +14,7 @@ type CheckboxProps struct {
 }
 
 templ Checkbox(props CheckboxProps) {
-	<label class="label justify-center cursor-pointer space-x-4">
+	<label class="label justify-center cursor-pointer">
 		if props.Before != "" {
 			<span
 				class={
@@ -22,6 +22,7 @@ templ Checkbox(props CheckboxProps) {
 					templ.KV("text-sm", props.Size == "sm"),
 					templ.KV("text-lg", props.Size == "lg"),
 					templ.KV("text-xl", props.Size == "xl"),
+					"mr-2",
 				}
 			>
 				{ props.Before }
@@ -46,7 +47,7 @@ templ Checkbox(props CheckboxProps) {
 			}
 		/>
 		if props.After != "" {
-			<span class="label-text">
+			<span class="ml-2">
 				{ props.After }
 			</span>
 		}

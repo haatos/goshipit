@@ -119,13 +119,13 @@
   "checkbox": [
     {
       "name": "DifferentSizeCheckboxes",
-      "code": "```go\ntempl DifferentSizeCheckboxes() {\n\t\u003cdiv class=\"mx-auto pt-4\"\u003e\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"xs\",\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"sm\",\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"lg\",\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"xl\",\n\t\t\t},\n\t\t)\n\t\u003c/div\u003e\n}\n\n```",
+      "code": "```go\ntempl DifferentSizeCheckboxes() {\n\t\u003cdiv class=\"flex flex-col space-y-4 mx-auto pt-4\"\u003e\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"xs\",\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"sm\",\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"lg\",\n\t\t\t},\n\t\t)\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tBefore:  \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: false,\n\t\t\t\tSize:    \"xl\",\n\t\t\t},\n\t\t)\n\t\u003c/div\u003e\n}\n\n```",
       "title": "Different size checkboxes"
     },
     {
       "name": "PrimaryCheckbox",
       "code": "```go\ntempl PrimaryCheckbox() {\n\t\u003cdiv class=\"mx-auto pt-4\"\u003e\n\t\t@components.Checkbox(\n\t\t\tcomponents.CheckboxProps{\n\t\t\t\tAfter:   \"Remember me\",\n\t\t\t\tName:    \"remember_me\",\n\t\t\t\tChecked: true,\n\t\t\t\tClass:   \"checkbox-primary\",\n\t\t\t},\n\t\t)\n\t\u003c/div\u003e\n}\n```",
-      "title": "Checkbox with label after"
+      "title": "Primary color checkbox with label after"
     }
   ],
   "collapse": [
