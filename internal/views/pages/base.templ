@@ -45,12 +45,27 @@ templ Head(title string, stylesheets []string, scripts []Script) {
 </script>
 		}
 		<title>{ title }</title>
+		<script>
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+
+            function checkAndApplyTheme() {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    applyTheme('dark');
+                } else {
+                    applyTheme('light');
+                }
+            }
+            checkAndApplyTheme();
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', checkAndApplyTheme);
+        </script>
 	</head>
 }
 
 templ SideNavLayout(head templ.Component) {
 	<!DOCTYPE html>
-	<html data-theme="getColorScheme()" lang="en">
+	<html lang="en">
 		@DefaultHead()
 		<body>
 			<div class="drawer xl:drawer-open">
@@ -206,13 +221,6 @@ templ SideNavLayout(head templ.Component) {
 				)
 			</div>
 			<script>
-				function getColorScheme() {
-					if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-						return "dark"
-					} else {
-						return "light"
-					}
-				}
 
 				// check request status before htmx swap
 				// set swapping incoming html to true and isError to false
