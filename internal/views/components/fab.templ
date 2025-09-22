@@ -1,0 +1,34 @@
+// actions
+// https://daisyui.com/components/fab
+package components
+
+type FABProps struct {
+	Class       string
+	Toggle      any // string or templ.Component
+	ToggleClass string
+	Close       templ.Component
+	MainAction  templ.Component
+}
+
+templ FAB(props FABProps) {
+	<div class={ "fab", props.Class }>
+		<div tabindex="0" role="button" class={ "btn", props.ToggleClass }>
+			if t, ok := props.Toggle.(string); ok {
+				{ t }
+			} else {
+				@props.Toggle.(templ.Component)
+			}
+		</div>
+		if props.Close != nil {
+			<div class="fab-close">
+				@props.Close
+			</div>
+		}
+		if props.MainAction != nil {
+			<div class="fab-main-action">
+				@props.MainAction
+			</div>
+		}
+		{ children... }
+	</div>
+}

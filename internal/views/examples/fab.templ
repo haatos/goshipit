@@ -1,0 +1,137 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ BasicFAB() {
+	<div class="h-68 relative">
+		@components.FAB(
+			components.FABProps{
+				Class:       "absolute z-1", // !! preview purpose only
+				Toggle:      "F",
+				ToggleClass: "btn-lg btn-circle",
+			}) {
+			<button class="btn btn-lg btn-circle">A</button>
+			<button class="btn btn-lg btn-circle">B</button>
+			<button class="btn btn-lg btn-circle">C</button>
+		}
+	</div>
+}
+
+// example
+// FAB with SVGs as toggle and content buttons
+templ FABWithSVGButtons() {
+	<div class="h-68 relative">
+		@components.FAB(
+			components.FABProps{
+				Class:       "absolute z-1", // !! preview purpose only
+				Toggle:      fabSVGToggle(),
+				ToggleClass: "btn-lg btn-circle",
+			}) {
+			@fabSVGVoiceButton()
+			@fabSVGImageButton()
+			@fabSVGCameraButton()
+		}
+	</div>
+}
+
+templ fabSVGToggle() {
+	<svg
+		aria-label="New"
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		stroke-width="2"
+		stroke="currentColor"
+		class="size-6"
+	>
+		<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+	</svg>
+}
+
+templ fabSVGVoiceButton() {
+	<button class="btn btn-lg btn-circle">
+		<svg
+			aria-label="Camera"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="size-6"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"
+			></path>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"
+			></path>
+		</svg>
+	</button>
+}
+
+templ fabSVGImageButton() {
+	<button class="btn btn-lg btn-circle">
+		<svg
+			aria-label="Gallery"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="size-6"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+			></path>
+		</svg>
+	</button>
+}
+
+templ fabSVGCameraButton() {
+	<button class="btn btn-lg btn-circle">
+		<svg
+			aria-label="Voice"
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
+			viewBox="0 0 24 24"
+			stroke-width="1.5"
+			stroke="currentColor"
+			class="size-6"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
+			></path>
+		</svg>
+	</button>
+}
+
+// example
+// FAB flower
+templ FABFlowerExample() {
+	<div class="h-68 relative">
+		@components.FAB(components.FABProps{
+			Class:       "fab-flower absolute z-1", // !! absolute & z-1 preview purpose only
+			Toggle:      "F",
+			ToggleClass: "btn btn-lg btn-circle",
+			MainAction:  fabFlowerMainAction(),
+		}) {
+			<button class="btn btn-lg btn-circle">A</button>
+			<button class="btn btn-lg btn-circle">B</button>
+			<button class="btn btn-lg btn-circle">C</button>
+			<button class="btn btn-lg btn-circle">D</button>
+		}
+	</div>
+}
+
+templ fabFlowerMainAction() {
+	<button class="btn btn-lg btn-circle btn-primary">M</button>
+}

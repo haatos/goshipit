@@ -6,6 +6,11 @@
       "daisy_ui_url": "https://daisyui.com/components/dropdown"
     },
     {
+      "name": "fab",
+      "code": "```go\ntype FABProps struct {\n\tClass       string\n\tToggle      any // string or templ.Component\n\tToggleClass string\n\tClose       templ.Component\n\tMainAction  templ.Component\n}\n\ntempl FAB(props FABProps) {\n\t\u003cdiv class={ \"fab\", props.Class }\u003e\n\t\t\u003cdiv tabindex=\"0\" role=\"button\" class={ \"btn\", props.ToggleClass }\u003e\n\t\t\tif t, ok := props.Toggle.(string); ok {\n\t\t\t\t{ t }\n\t\t\t} else {\n\t\t\t\t@props.Toggle.(templ.Component)\n\t\t\t}\n\t\t\u003c/div\u003e\n\t\tif props.Close != nil {\n\t\t\t\u003cdiv class=\"fab-close\"\u003e\n\t\t\t\t@props.Close\n\t\t\t\u003c/div\u003e\n\t\t}\n\t\tif props.MainAction != nil {\n\t\t\t\u003cdiv class=\"fab-main-action\"\u003e\n\t\t\t\t@props.MainAction\n\t\t\t\u003c/div\u003e\n\t\t}\n\t\t{ children... }\n\t\u003c/div\u003e\n}\n```",
+      "daisy_ui_url": "https://daisyui.com/components/fab"
+    },
+    {
       "name": "modal",
       "code": "```go\ntype ModalProps struct {\n\tID    string\n\tLabel any\n}\n\ntempl Modal(props ModalProps) {\n\t@modalWrapper(\n\t\tprops,\n\t\ttempl.Attributes{\"onclick\": fmt.Sprintf(\"%s.showModal()\", props.ID)},\n\t) {\n\t\t{ children... }\n\t}\n}\n\ntempl modalWrapper(props ModalProps, attrs templ.Attributes) {\n\t// you can use a string or a templ.Component as the 'label'\n\t// of the modal button\n\tif s, ok := props.Label.(string); ok {\n\t\t\u003cdiv class=\"btn\" { attrs... }\u003e\n\t\t\t{ s }\n\t\t\u003c/div\u003e\n\t} else if c, ok := props.Label.(templ.Component); ok {\n\t\t@c\n\t}\n\t\u003cdialog id={ props.ID } class=\"modal\"\u003e\n\t\t\u003cdiv class=\"modal-box\"\u003e\n\t\t\t{ children... }\n\t\t\u003c/div\u003e\n\t\t\u003cform method=\"dialog\" class=\"modal-backdrop\"\u003e\n\t\t\t\u003cbutton\u003eclose\u003c/button\u003e\n\t\t\u003c/form\u003e\n\t\u003c/dialog\u003e\n}\n```",
       "daisy_ui_url": "https://daisyui.com/components/modal"
