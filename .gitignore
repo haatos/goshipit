@@ -4,6 +4,5 @@
 *_templ.txt
 bin/
 node_modules/
-package-lock.json
 public/static/css/tw.css
 .DS_Store
