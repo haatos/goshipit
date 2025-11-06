@@ -99,3 +99,15 @@ func GetLazyLoadExample(c echo.Context) error {
 ```
 
 The handler must be enclosed with the name of the example component as comment on both sides of the handler's function(s).
+
+## CLI
+
+To install the goship.it CLI, run `go install github.com/haatos/goshipit/cmd/gsi`, or clone the repository and build it yourself: `go build -o gsi cmd/gsi/main.go`.
+
+### Usage
+
+Add components by running `gsi add button`. Components are added to _internal/views/components_ folder.
+
+To see a list of all (and installed components) run `gsi list`.
+
+To remove a component, run `gsi remove button`.
