@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/a-h/templ"
-	"github.com/haatos/goshipit/generated"
 	"github.com/haatos/goshipit/internal"
+	"github.com/haatos/goshipit/internal/assets/generated"
 	"github.com/haatos/goshipit/internal/markdown"
 	"github.com/haatos/goshipit/internal/model"
 	"github.com/haatos/goshipit/internal/views/components"

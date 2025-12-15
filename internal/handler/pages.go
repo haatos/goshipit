@@ -3,9 +3,9 @@ package handler
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/haatos/goshipit/internal"
+	"github.com/haatos/goshipit/internal/assets"
 	"github.com/haatos/goshipit/internal/markdown"
 	"github.com/haatos/goshipit/internal/views/pages"
 	"github.com/labstack/echo/v4"
@@ -24,7 +24,7 @@ func getGettingStartedHTML() {
 		return
 	}
 
-	pageContent, err := os.ReadFile(gettingStartedMarkdownPath)
+	pageContent, err := assets.ContentFS.ReadFile(gettingStartedMarkdownPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,7 +37,7 @@ func getTypesHTML() {
 		return
 	}
 
-	pageContent, err := os.ReadFile(contentTypesMarkdownPath)
+	pageContent, err := assets.ContentFS.ReadFile(contentTypesMarkdownPath)
 	if err != nil {
 		log.Fatal(err)
 	}

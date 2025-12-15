@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/haatos/goshipit/internal"
+	"github.com/haatos/goshipit/internal/assets"
 	"github.com/haatos/goshipit/internal/handler"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -31,7 +32,8 @@ func main() {
 		}),
 	)
 
-	e.Static("/", "public")
+	publicFS := echo.MustSubFS(assets.PublicFS, "public")
+	e.StaticFS("/", publicFS)
 
 	e.GET("/", handler.GetIndexPage)
 	e.GET("/about", handler.GetAboutPage)

@@ -4,5 +4,5 @@
 *_templ.txt
 bin/
 node_modules/
-public/static/css/tw.css
+internal/assets/public/static/css/tw.css
 .DS_Store

@@ -17,13 +17,13 @@ import (
 )
 
 const (
-	componentCodeMapJSONPath        = "generated/component_code_map.json"
-	componentExampleCodeMapJSONPath = "generated/component_example_code_map.json"
+	componentCodeMapJSONPath        = "internal/assets/generated/component_code_map.json"
+	componentExampleCodeMapJSONPath = "internal/assets/generated/component_example_code_map.json"
 	componentsDir                   = "internal/views/components/"
 	componentsHandlerPath           = "internal/handler/components.go"
 	examplesDir                     = "internal/views/examples/"
-	generatedDir                    = "generated"
-	generatedComponentsPath         = "generated/components.go"
+	generatedDir                    = "internal/assets/generated"
+	generatedComponentsPath         = "internal/assets/generated/components.go"
 )
 
 func main() {

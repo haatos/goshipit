@@ -3,8 +3,8 @@ package internal
 import (
 	"encoding/json"
 	"log"
-	"os"
 
+	"github.com/haatos/goshipit/internal/assets"
 	"github.com/haatos/goshipit/internal/model"
 )
 
@@ -17,7 +17,7 @@ func init() {
 }
 
 func getComponentCodeMap() {
-	b, err := os.ReadFile("generated/component_code_map.json")
+	b, err := assets.GeneratedFS.ReadFile("generated/component_code_map.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,7 +34,7 @@ func getComponentCodeMap() {
 }
 
 func getComponentExampleCodeMap() {
-	b, err := os.ReadFile("generated/component_example_code_map.json")
+	b, err := assets.GeneratedFS.ReadFile("generated/component_example_code_map.json")
 	if err != nil {
 		log.Fatal(err)
 	}
