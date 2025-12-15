@@ -82,6 +82,7 @@ var ExampleComponents = map[string]templ.Component{
 	"BasicTable":                  examples.BasicTable(),
 	"BasicTabs":                   examples.BasicTabs(),
 	"TestimonialGridExample":      examples.TestimonialGridExample(),
+	"TextRotateExample":           examples.TextRotateExample(),
 	"BasicTextarea":               examples.BasicTextarea(),
 	"DifferentSizeTextareas":      examples.DifferentSizeTextareas(),
 	"BasicTextareaWithError":      examples.BasicTextareaWithError(),

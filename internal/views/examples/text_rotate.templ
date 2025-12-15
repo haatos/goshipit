@@ -1,0 +1,17 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ TextRotateExample() {
+	@components.TextRotate(
+		components.TextRotateProps{
+			Class: "text-5xl font-bold",
+			Items: []components.TextRotateItem{
+				{Text: "ONE", Class: "text-primary"},
+				{Text: "TWO", Class: "text-accent"},
+				{Text: "THREE", Class: "text-secondary"},
+			},
+		},
+	)
+}

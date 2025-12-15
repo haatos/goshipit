@@ -1,0 +1,22 @@
+// data_display
+package components
+
+type TextRotateProps struct {
+	Class string
+	Items []TextRotateItem
+}
+
+type TextRotateItem struct {
+	Text  string
+	Class string
+}
+
+templ TextRotate(props TextRotateProps) {
+	<span class={ "text-rotate", props.Class }>
+		<span>
+			for _, item := range props.Items {
+				<span class={ item.Class }>{ item.Text }</span>
+			}
+		</span>
+	</span>
+}
