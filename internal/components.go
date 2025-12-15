@@ -45,7 +45,9 @@ func getComponentExampleCodeMap() {
 
 	for k := range ComponentExampleCodeMap {
 		for i := range ComponentExampleCodeMap[k] {
-			ComponentExampleCodeMap[k][i].Label = SnakeCaseToCapitalized(ComponentExampleCodeMap[k][i].Name)
+			ComponentExampleCodeMap[k][i].Label = SnakeCaseToCapitalized(
+				ComponentExampleCodeMap[k][i].Name,
+			)
 		}
 	}
 }
@@ -54,7 +56,9 @@ func SnakeCaseToCapitalized(s string) string {
 	b := []byte(s)
 	for i := range b {
 		if i == 0 || (i > 0 && b[i-1] == ' ') {
-			b[i] = b[i] - ('a' - 'A')
+			if (b[i] >= 'a' && b[i] <= 'z') || (b[i] >= 'A' && b[i] <= 'Z') {
+				b[i] = b[i] - ('a' - 'A')
+			}
 		}
 		if b[i] == '_' {
 			b[i] = ' '

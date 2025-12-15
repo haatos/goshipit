@@ -45,6 +45,7 @@ var ExampleComponents = map[string]templ.Component{
 	"DifferentSizeFileInputs":     examples.DifferentSizeFileInputs(),
 	"BasicFooterWithLinks":        examples.BasicFooterWithLinks(),
 	"BasicHero":                   examples.BasicHero(),
+	"Hover3DCardExample":          examples.Hover3DCardExample(),
 	"InfiniteScrollTableExample":  examples.InfiniteScrollTableExample(),
 	"DifferentSizeInputs":         examples.DifferentSizeInputs(),
 	"IntegerInput":                examples.IntegerInput(),

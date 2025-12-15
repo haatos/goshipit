@@ -226,6 +226,12 @@
       "code": "```go\ntempl BasicHero() {\n\t\u003cdiv class=\"pt-4\"\u003e\n\t\t@components.Hero(components.HeroProps{\n\t\t\tSource: \"/static/images/avatar.jpg\",\n\t\t\tAlt:    \"hero avatar\",\n\t\t\tClass:  \"bg-base-200 min-h-[600px]\",\n\t\t}) {\n\t\t\t\u003cdiv class=\"prose\"\u003e\n\t\t\t\t\u003ch1\u003eLorem ipsum!\u003c/h1\u003e\n\t\t\t\t\u003cp\u003e\n\t\t\t\t\tLorem ipsum dolor sit, amet consectetur adipisicing elit.\n\t\t\t\t\tEx quibusdam dicta necessitatibus! Deleniti temporibus iure\n\t\t\t\t\tporro cupiditate dolorum modi voluptate perferendis velit\n\t\t\t\t\ttempora repudiandae expedita, impedit omnis vitae. Laborum,\n\t\t\t\t\tdignissimos?\n\t\t\t\t\u003c/p\u003e\n\t\t\t\t\u003cbutton class=\"btn btn-primary\"\u003eGet Started\u003c/button\u003e\n\t\t\t\u003c/div\u003e\n\t\t}\n\t\t@components.Hero(components.HeroProps{\n\t\t\tSource:  \"/static/images/avatar.jpg\",\n\t\t\tAlt:     \"hero avatar\",\n\t\t\tClass:   \"bg-base-200 min-h-[600px]\",\n\t\t\tReverse: true,\n\t\t}) {\n\t\t\t\u003cdiv class=\"prose\"\u003e\n\t\t\t\t\u003ch1\u003eLorem ipsum!\u003c/h1\u003e\n\t\t\t\t\u003cp\u003e\n\t\t\t\t\tLorem ipsum dolor sit, amet consectetur adipisicing elit.\n\t\t\t\t\tEx quibusdam dicta necessitatibus! Deleniti temporibus iure\n\t\t\t\t\tporro cupiditate dolorum modi voluptate perferendis velit\n\t\t\t\t\ttempora repudiandae expedita, impedit omnis vitae. Laborum,\n\t\t\t\t\tdignissimos?\n\t\t\t\t\u003c/p\u003e\n\t\t\t\t\u003cbutton class=\"btn btn-primary\"\u003eGet Started\u003c/button\u003e\n\t\t\t\u003c/div\u003e\n\t\t}\n\t\u003c/div\u003e\n}\n```"
     }
   ],
+  "hover_3d_card": [
+    {
+      "name": "Hover3DCardExample",
+      "code": "```go\ntempl Hover3DCardExample() {\n\t@components.Hover3DCard() {\n\t\t@components.Card(\n\t\t\tcomponents.CardProps{\n\t\t\t\tTitle:   \"Hover 3D Card\",\n\t\t\t\tContent: \"This is a hover 3D card. Move your mouse around the card.\",\n\t\t\t\tClass:   \"h-[200px] card-border\",\n\t\t\t},\n\t\t)\n\t}\n}\n```"
+    }
+  ],
   "infinite_scroll": [
     {
       "name": "InfiniteScrollTableExample",

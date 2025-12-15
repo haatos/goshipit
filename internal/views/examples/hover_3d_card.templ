@@ -1,0 +1,16 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+templ Hover3DCardExample() {
+	@components.Hover3DCard() {
+		@components.Card(
+			components.CardProps{
+				Title:   "Hover 3D Card",
+				Content: "This is a hover 3D card. Move your mouse around the card.",
+				Class:   "h-[200px] card-border",
+			},
+		)
+	}
+}
