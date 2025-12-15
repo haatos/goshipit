@@ -33,7 +33,7 @@ templ Head(title string, stylesheets []string, scripts []Script) {
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<style>
-			@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@600&display=swap');
+			@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Montserrat:ital,wght@0,100..900;1,100..900&Saira:ital,wght@900&display=swap');
 		</style>
 		for _, st := range stylesheets {
 			<link rel="stylesheet" href={ st }/>
@@ -52,7 +52,7 @@ templ Head(title string, stylesheets []string, scripts []Script) {
 
             function checkAndApplyTheme() {
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    applyTheme('dark');
+                    applyTheme('night');
                 } else {
                     applyTheme('light');
                 }
@@ -300,8 +300,8 @@ templ drawerSide(anchors []components.AnchorProps) {
 		<label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 		<ul class="menu bg-base-200 text-base-content min-h-full w-[330px] p-4 space-y-2">
 			<li class="pb-4">
-				<a href="/" class="group hover:!bg-transparent flex justify-center items-center">
-					<img class="max-w-20" src="/static/images/goshipit-logo.png" alt="goship.it"/>
+				<a href="/" class="group hover:!bg-transparent flex justify-center items-center font-saira-black text-6xl bg-clip-text text-transparent bg-gradient-to-br from-primary/60 via-base-content to-primary/60">
+					GSI
 				</a>
 			</li>
 			<div id="my-active-search" class="pl-1">

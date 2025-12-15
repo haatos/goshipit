@@ -47,10 +47,8 @@ func GetComponentPage(c echo.Context) error {
 	for i, exampleCode := range exampleCodes {
 		tabs := []components.TabProps{
 			{
-				Label: "Preview",
-				Content: templ.Raw(
-					getHTMLFromComponent(generated.ExampleComponents[exampleCode.Name]),
-				),
+				Label:   "Preview",
+				Content: generated.ExampleComponents[exampleCode.Name],
 			},
 			{
 				Label:   "Templ",
