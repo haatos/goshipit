@@ -6,89 +6,103 @@ import (
 	"time"
 )
 
-templ Countdown(expires time.Time) {
-	<div
-		class="flex items-center space-x-1"
-		x-cloak
-		x-data={ fmt.Sprintf("countdownTimer(new Date(\"%s\"))", expires.Format("2006-01-02T15:04:05Z")) }
-		x-init="initCountdownTimer();"
-		hx-get="/"
-		hx-trigger="countdownExpired from:body"
-	>
-		@countDownItem("time().days", "days")
-		@countDownItem("time().hours", "hours")
-		@countDownItem("time().minutes", "min")
-		@countDownItem("time().seconds", "sec")
-	</div>
-	<script>
-		function countdownTimer(expiry) {
-			return {
-				expiry: expiry,
-				remaining:null,
-				initCountdownTimer() {
-					this.setCountdownTimerRemaining()
-					this.intervalId = setInterval(() => {
-						this.setCountdownTimerRemaining();
-					}, 1000);
-				},
-				setCountdownTimerRemaining() {
-					const diff = this.expiry - new Date().getTime();
-					this.remaining =  parseInt(diff / 1000);
-					let now = this.time()
-					if (now.days === "00" && now.hours === "00" && now.minutes === "00" && now.seconds === "00") {
-						clearInterval(this.intervalId)
-						let body = document.querySelector("body")
-						body.dispatchEvent(new Event("countdownExpired"))
-					}
-				},
-				countdownTimerDays() {
-					return {
-						value:this.remaining / 86400,
-						remaining:this.remaining % 86400
-					};
-				},
-				countdownTimerHours() {
-					return {
-						value:this.countdownTimerDays().remaining / 3600,
-						remaining:this.countdownTimerDays().remaining % 3600
-					};
-				},
-				countdownTimerMinutes() {
-					return {
-					value:this.countdownTimerHours().remaining / 60,
-					remaining:this.countdownTimerHours().remaining % 60
-				};
-				},
-				countdownTimerSeconds() {
-					return {
-					value:this.countdownTimerMinutes().remaining,
-				};
-				},
-				format(value) {
-					return ("0" + parseInt(value)).slice(-2)
-				},
-				time() {
-					return {
-						days:this.format(this.countdownTimerDays().value),
-						hours:this.format(this.countdownTimerHours().value),
-						minutes:this.format(this.countdownTimerMinutes().value),
-						seconds:this.format(this.countdownTimerSeconds().value),
-					}
-				},
-			}
-		}
-	</script>
-	<script src="/static/js/alpine.js" defer></script>
+type CountdownProps struct {
+	Expires time.Time
+	Days    bool
+	Hours   bool
+	Minutes bool
+	Seconds bool
 }
 
-templ countDownItem(xText, label string) {
-	<div
-		class={
-			"flex flex-col justify-center items-center",
-			"w-16 h-20 rounded-box bg-base-content text-base-300",
-		}
-	>
-		<p class="text-5xl font-mono" x-text={ xText }></p>
-		<p>{ label }</p>
+templ Countdown(props CountdownProps) {
+	{{ spanID := time.Now().UnixNano() }}
+	<div class="grid auto-cols-max grid-flow-col gap-5 text-center">
+		<div
+			class={
+				"bg-neutral rounded-box text-neutral-content flex flex-col p-2",
+				templ.KV("hidden", !props.Days),
+			}
+		>
+			<span class="countdown font-mono text-5xl">
+				<span id={ fmt.Sprintf("span-days-%d", spanID) } style="--value:15;" aria-live="polite" aria-label="15">15</span>
+			</span>
+			days
+		</div>
+		<div
+			class={
+				"bg-neutral rounded-box text-neutral-content flex flex-col p-2",
+				templ.KV("hidden", !props.Hours),
+			}
+		>
+			<span class="countdown font-mono text-5xl">
+				<span id={ fmt.Sprintf("span-hours-%d", spanID) } style="--value:10;" aria-live="polite" aria-label="10">10</span>
+			</span>
+			hours
+		</div>
+		<div
+			class={
+				"bg-neutral rounded-box text-neutral-content flex flex-col p-2",
+				templ.KV("hidden", !props.Minutes),
+			}
+		>
+			<span class="countdown font-mono text-5xl">
+				<span id={ fmt.Sprintf("span-minutes-%d", spanID) } style="--value:24;" aria-live="polite" aria-label="24">24</span>
+			</span>
+			min
+		</div>
+		<div
+			class={
+				"bg-neutral rounded-box text-neutral-content flex flex-col p-2",
+				templ.KV("hidden", !props.Seconds),
+			}
+		>
+			<span class="countdown font-mono text-5xl">
+				<span id={ fmt.Sprintf("span-seconds-%d", spanID) } style="--value:59;" aria-live="polite" aria-label="59">59</span>
+			</span>
+			sec
+		</div>
+		<script data-expires={ props.Expires.Format("2006-01-02T15:04:05Z") } data-id={ spanID }>
+            var intervalId = null;
+
+            function updateTimes(expires, days, hours, minutes, seconds) {
+                let expiresDate = Date.parse(expires);
+                let now = new Date()
+                let diffMs = Math.abs(expiresDate - now.getTime());
+                let totalSeconds = diffMs / 1000;
+
+                if (now.getTime() >= expiresDate) {
+                    clearInterval(intervalId);
+                    return
+                }
+
+                const daysRemaining = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+                diffMs -= daysRemaining * (1000 * 60 * 60 *24)
+                days.setAttribute("style", `--value:${daysRemaining};`)
+
+                const hoursRemaining = Math.floor(diffMs / (1000 * 60 * 60));
+                diffMs -= hoursRemaining * (1000 * 60 * 60)
+                hours.setAttribute("style", `--value:${hoursRemaining};`)
+
+                const minutesRemaining = Math.floor(diffMs / (1000 * 60));
+                diffMs -= minutesRemaining * (1000 * 60);
+                minutes.setAttribute("style", `--value:${minutesRemaining};`)
+
+                const secondsRemaining = Math.floor(diffMs / 1000);
+                seconds.setAttribute("style", `--value:${secondsRemaining};`)
+            }
+
+            function startUpdatingTimes(expires, days, hours, minutes, seconds) {
+                updateTimes(expires, days, hours, minutes, seconds);
+                intervalId = setInterval(() => updateTimes(expires, days, hours, minutes, seconds), 1000);
+            }
+
+            ((expires) => {
+                let days = document.getElementById(`span-days-${document.currentScript.getAttribute("data-id")}`);
+                let hours = document.getElementById(`span-hours-${document.currentScript.getAttribute("data-id")}`);
+                let minutes = document.getElementById(`span-minutes-${document.currentScript.getAttribute("data-id")}`);
+                let seconds = document.getElementById(`span-seconds-${document.currentScript.getAttribute("data-id")}`);
+                startUpdatingTimes(expires, days, hours, minutes, seconds);
+            })(document.currentScript.getAttribute("data-expires"))
+        </script>
 	</div>
 }

@@ -6,8 +6,51 @@ import (
 )
 
 // example
-templ CountdownExample() {
+templ CountdownFullExample() {
 	<div class="flex justify-center items-center pt-4">
-		@components.Countdown(time.Now().UTC().Add(time.Hour*48 - 40*time.Second))
+		@components.Countdown(
+			components.CountdownProps{
+				Expires: time.Now().UTC().Add(25*time.Hour + 10*time.Second),
+				Days:    true,
+				Hours:   true,
+				Seconds: true,
+				Minutes: true,
+			})
+	</div>
+}
+
+// example
+templ CountdownHoursExample() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Countdown(
+			components.CountdownProps{
+				Expires: time.Now().UTC().Add(10*time.Hour + 10*time.Second),
+				Hours:   true,
+				Seconds: true,
+				Minutes: true,
+			})
+	</div>
+}
+
+// example
+templ CountdownMinutesExample() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Countdown(
+			components.CountdownProps{
+				Expires: time.Now().UTC().Add(15*time.Minute + 10*time.Second),
+				Seconds: true,
+				Minutes: true,
+			})
+	</div>
+}
+
+// example
+templ CountdownSecondsExample() {
+	<div class="flex justify-center items-center pt-4">
+		@components.Countdown(
+			components.CountdownProps{
+				Expires: time.Now().UTC().Add(20 * time.Second),
+				Seconds: true,
+			})
 	</div>
 }

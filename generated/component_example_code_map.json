@@ -144,8 +144,20 @@
   ],
   "countdown": [
     {
-      "name": "CountdownExample",
-      "code": "```go\ntempl CountdownExample() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Countdown(time.Now().UTC().Add(time.Hour*48 - 40*time.Second))\n\t\u003c/div\u003e\n}\n```"
+      "name": "CountdownFullExample",
+      "code": "```go\ntempl CountdownFullExample() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Countdown(\n\t\t\tcomponents.CountdownProps{\n\t\t\t\tExpires: time.Now().UTC().Add(25*time.Hour + 10*time.Second),\n\t\t\t\tDays:    true,\n\t\t\t\tHours:   true,\n\t\t\t\tSeconds: true,\n\t\t\t\tMinutes: true,\n\t\t\t})\n\t\u003c/div\u003e\n}\n\n```"
+    },
+    {
+      "name": "CountdownHoursExample",
+      "code": "```go\ntempl CountdownHoursExample() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Countdown(\n\t\t\tcomponents.CountdownProps{\n\t\t\t\tExpires: time.Now().UTC().Add(10*time.Hour + 10*time.Second),\n\t\t\t\tHours:   true,\n\t\t\t\tSeconds: true,\n\t\t\t\tMinutes: true,\n\t\t\t})\n\t\u003c/div\u003e\n}\n\n```"
+    },
+    {
+      "name": "CountdownMinutesExample",
+      "code": "```go\ntempl CountdownMinutesExample() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Countdown(\n\t\t\tcomponents.CountdownProps{\n\t\t\t\tExpires: time.Now().UTC().Add(15*time.Minute + 10*time.Second),\n\t\t\t\tSeconds: true,\n\t\t\t\tMinutes: true,\n\t\t\t})\n\t\u003c/div\u003e\n}\n\n```"
+    },
+    {
+      "name": "CountdownSecondsExample",
+      "code": "```go\ntempl CountdownSecondsExample() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Countdown(\n\t\t\tcomponents.CountdownProps{\n\t\t\t\tExpires: time.Now().UTC().Add(20 * time.Second),\n\t\t\t\tSeconds: true,\n\t\t\t})\n\t\u003c/div\u003e\n}\n```"
     }
   ],
   "date_picker": [
