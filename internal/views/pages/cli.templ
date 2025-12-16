@@ -1,0 +1,13 @@
+package pages
+
+templ CLIPage(html string) {
+	@SideNavLayout(nil) {
+		@CLIPageMain(html)
+	}
+}
+
+templ CLIPageMain(html string) {
+	<div class="prose max-w-screen-lg mt-8">
+		@templ.Raw(html)
+	</div>
+}

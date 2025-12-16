@@ -138,6 +138,16 @@ templ SideNavLayout(head templ.Component) {
 									},
 								},
 								{
+									Label: "CLI",
+									Attrs: templ.Attributes{
+										"name":        "hx-anchor",
+										"hx-get":      "/cli",
+										"hx-target":   "main",
+										"hx-swap":     "innerHTML",
+										"hx-push-url": "true",
+									},
+								},
+								{
 									Label:    "GitHub",
 									LeftIcon: examples.GithubIcon(),
 									Attrs: templ.Attributes{
@@ -211,6 +221,16 @@ templ SideNavLayout(head templ.Component) {
 							},
 						},
 						{
+							Label: "CLI",
+							Attrs: templ.Attributes{
+								"name":        "hx-anchor",
+								"hx-get":      "/cli",
+								"hx-target":   "main",
+								"hx-swap":     "innerHTML",
+								"hx-push-url": "true",
+							},
+						},
+						{
 							Label:    "GitHub",
 							LeftIcon: examples.GithubIcon(),
 							Attrs: templ.Attributes{
@@ -221,7 +241,6 @@ templ SideNavLayout(head templ.Component) {
 				)
 			</div>
 			<script>
-
 				// check request status before htmx swap
 				// set swapping incoming html to true and isError to false
 				document.addEventListener("DOMContentLoaded", function() {

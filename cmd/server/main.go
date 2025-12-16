@@ -39,6 +39,7 @@ func main() {
 	e.GET("/about", handler.GetAboutPage)
 	e.GET("/get-started", handler.GetGettingStartedPage)
 	e.GET("/types", handler.GetTypesPage)
+	e.GET("/cli", handler.GetCLIPage)
 	e.GET("/component-anchors", handler.GetComponentAnchors)
 	e.GET("/privacy", handler.GetPrivacyPolicyPage)
 	e.GET("/terms-of-service", handler.GetTermsOfServicePage)

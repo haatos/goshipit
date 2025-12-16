@@ -13,10 +13,12 @@ import (
 
 var gettingStartedHTML string
 var typesHTML string
+var cliHTML string
 
 const (
 	contentTypesMarkdownPath   = "content/types.md"
 	gettingStartedMarkdownPath = "content/getting_started.md"
+	cliMarkdownPath            = "content/cli.md"
 )
 
 func getGettingStartedHTML() {
@@ -43,6 +45,18 @@ func getTypesHTML() {
 	}
 
 	typesHTML = markdown.GetHTMLFromMarkdown(pageContent)
+}
+
+func getCLIHTML() {
+	if cliHTML != "" {
+		return
+	}
+
+	pageContent, err := assets.ContentFS.ReadFile(cliMarkdownPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	cliHTML = markdown.GetHTMLFromMarkdown(pageContent)
 }
 
 func GetIndexPage(c echo.Context) error {
@@ -75,6 +89,15 @@ func GetTypesPage(c echo.Context) error {
 		return render(c, http.StatusOK, pages.TypesPageMain(typesHTML))
 	}
 	return render(c, http.StatusOK, pages.TypesPage(typesHTML))
+}
+
+func GetCLIPage(c echo.Context) error {
+	getCLIHTML()
+
+	if isHXRequest(c) {
+		return render(c, http.StatusOK, pages.CLIPageMain(cliHTML))
+	}
+	return render(c, http.StatusOK, pages.CLIPage(cliHTML))
 }
 
 func GetPrivacyPolicyPage(c echo.Context) error {
