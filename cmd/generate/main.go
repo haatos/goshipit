@@ -63,7 +63,9 @@ func generateComponentCodeMap() {
 	}
 	defer fg.Close()
 
-	fg.Write(b)
+	if _, err := fg.Write(b); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getComponentCode(path string, info fs.FileInfo, fmap model.ComponentCodeMap) error {
@@ -128,77 +130,9 @@ func generateComponentExampleCodeMap() {
 	m := model.ComponentExampleCodeMap{}
 	if err := filepath.Walk(examplesDir, func(path string, info fs.FileInfo, err error) error {
 		if !info.IsDir() && strings.HasSuffix(path, ".templ") {
-			f, err := os.Open(path)
-			if err != nil {
+			if err := addComponentExampleToMap(m, info, path); err != nil {
 				return err
 			}
-
-			functionLines := []string{}
-			var functionName string
-			componentName := strings.TrimSuffix(info.Name(), ".templ")
-			m[componentName] = []model.ComponentCode{}
-			inExample := false
-			description := []string{}
-			title := ""
-			inDescription := false
-
-			scanner := bufio.NewScanner(f)
-			for scanner.Scan() {
-				line := scanner.Text()
-				if strings.HasPrefix(line, "// example") {
-					if inExample {
-						m[componentName] = append(
-							m[componentName],
-							model.ComponentCode{
-								Name:        functionName,
-								Code:        markdown.CodeSliceToMarkdown(functionLines),
-								Title:       title,
-								Description: strings.Join(description, "\n"),
-							})
-						functionName = ""
-						functionLines = []string{}
-						description = []string{}
-					}
-					inExample = true
-					continue
-				}
-
-				if strings.HasPrefix(line, "// ") && !strings.HasPrefix(line, "// example") {
-					title = strings.TrimPrefix(line, "// ")
-					continue
-				}
-
-				if strings.HasPrefix(line, "/*") {
-					inDescription = true
-					continue
-				}
-				if strings.HasPrefix(line, "*/") {
-					inDescription = false
-					continue
-				}
-				if inDescription {
-					description = append(description, line)
-				}
-
-				if strings.HasPrefix(line, "templ ") && functionName == "" {
-					functionName = strings.TrimPrefix(line, "templ ")
-					functionName = functionName[:strings.Index(functionName, "(")]
-				}
-
-				if inExample && !inDescription {
-					functionLines = append(functionLines, line)
-				}
-			}
-
-			f.Close()
-			m[componentName] = append(
-				m[componentName],
-				model.ComponentCode{
-					Name:        functionName,
-					Code:        markdown.CodeSliceToMarkdown(functionLines),
-					Title:       title,
-					Description: strings.Join(description, "\n"),
-				})
 		}
 		return nil
 	}); err != nil {
@@ -207,33 +141,9 @@ func generateComponentExampleCodeMap() {
 
 	for comName := range m {
 		for i := range m[comName] {
-			f, err := os.Open(componentsHandlerPath)
-			if err != nil {
+			if err := addComponentExampleBackendParts(m, comName, i); err != nil {
 				log.Fatal(err)
 			}
-
-			inExampleHandler := false
-			functionLines := []string{}
-			scanner := bufio.NewScanner(f)
-			for scanner.Scan() {
-				line := scanner.Text()
-				if strings.HasPrefix(line, fmt.Sprintf("// %s", m[comName][i].Name)) {
-					if inExampleHandler {
-						inExampleHandler = false
-						m[comName][i].Handler = markdown.CodeSliceToMarkdown(functionLines)
-						break
-					} else {
-						inExampleHandler = true
-					}
-					continue
-				}
-
-				if inExampleHandler {
-					functionLines = append(functionLines, line)
-				}
-			}
-
-			f.Close()
 		}
 	}
 
@@ -248,7 +158,123 @@ func generateComponentExampleCodeMap() {
 	}
 	defer fg.Close()
 
-	fg.Write(b)
+	if _, err := fg.Write(b); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func addComponentExampleToMap(
+	m model.ComponentExampleCodeMap,
+	info fs.FileInfo,
+	path string,
+) error {
+	f, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	functionLines := []string{}
+	var functionName string
+	componentName := strings.TrimSuffix(info.Name(), ".templ")
+	m[componentName] = []model.ComponentCode{}
+	inExample := false
+	description := []string{}
+	title := ""
+	inDescription := false
+
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.HasPrefix(line, "// example") {
+			if inExample {
+				m[componentName] = append(
+					m[componentName],
+					model.ComponentCode{
+						Name:        functionName,
+						Code:        markdown.CodeSliceToMarkdown(functionLines),
+						Title:       title,
+						Description: strings.Join(description, "\n"),
+					})
+				functionName = ""
+				functionLines = []string{}
+				description = []string{}
+			}
+			inExample = true
+			continue
+		}
+
+		if strings.HasPrefix(line, "// ") && !strings.HasPrefix(line, "// example") {
+			title = strings.TrimPrefix(line, "// ")
+			continue
+		}
+
+		if strings.HasPrefix(line, "/*") {
+			inDescription = true
+			continue
+		}
+		if strings.HasPrefix(line, "*/") {
+			inDescription = false
+			continue
+		}
+		if inDescription {
+			description = append(description, line)
+		}
+
+		if strings.HasPrefix(line, "templ ") && functionName == "" {
+			functionName = strings.TrimPrefix(line, "templ ")
+			functionName = functionName[:strings.Index(functionName, "(")]
+		}
+
+		if inExample && !inDescription {
+			functionLines = append(functionLines, line)
+		}
+	}
+
+	m[componentName] = append(
+		m[componentName],
+		model.ComponentCode{
+			Name:        functionName,
+			Code:        markdown.CodeSliceToMarkdown(functionLines),
+			Title:       title,
+			Description: strings.Join(description, "\n"),
+		},
+	)
+	return nil
+}
+
+func addComponentExampleBackendParts(
+	m model.ComponentExampleCodeMap,
+	comName string,
+	index int,
+) error {
+	f, err := os.Open(componentsHandlerPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	inExampleHandler := false
+	functionLines := []string{}
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.HasPrefix(line, fmt.Sprintf("// %s", m[comName][index].Name)) {
+			if inExampleHandler {
+				inExampleHandler = false
+				m[comName][index].Handler = markdown.CodeSliceToMarkdown(functionLines)
+				break
+			} else {
+				inExampleHandler = true
+			}
+			continue
+		}
+
+		if inExampleHandler {
+			functionLines = append(functionLines, line)
+		}
+	}
+	return nil
 }
 
 func generateComponentMap() {
@@ -295,7 +321,7 @@ func writeGeneratedFunctions(functionNames []string) {
 	src.WriteString(")\n\n")
 	src.WriteString("var ExampleComponents = map[string]templ.Component{\n")
 	for _, name := range functionNames {
-		src.WriteString(fmt.Sprintf("\t\"%s\": examples.%s(),\n", name, name))
+		fmt.Fprintf(src, "\t\"%s\": examples.%s(),\n", name, name)
 	}
 	src.WriteString("}\n")
 
@@ -311,5 +337,7 @@ func writeGeneratedFunctions(functionNames []string) {
 		log.Fatal(err)
 	}
 	defer fg.Close()
-	fg.Write(b)
+	if _, err := fg.Write(b); err != nil {
+		log.Fatal(err)
+	}
 }
