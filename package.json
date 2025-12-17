@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.13",
-    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
     "daisyui": "^5.5.14",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.18"
   },
   "scripts": {
     "build:css": "npx @tailwindcss/cli -i input.css -o ./public/static/css/tw.css --watch"
