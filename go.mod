@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/PuerkitoBio/goquery v1.10.1
-	github.com/a-h/templ v0.3.960
+	github.com/a-h/templ v0.3.977
 	github.com/alecthomas/chroma v0.10.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/labstack/gommon v0.4.2
