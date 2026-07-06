@@ -1,0 +1,10 @@
+
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+// OTP Input with 4 digits
+templ OTPInputWith4Digits() {
+	@components.OTPInput(components.OTPProps{ID: "otp-4-digits", Name: "otp", InputCount: 4})
+}

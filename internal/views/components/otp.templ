@@ -1,0 +1,28 @@
+// data_input
+package components
+
+import "fmt"
+
+type OTPProps struct {
+	ID         string
+	Name       string
+	InputCount int
+}
+
+templ OTPInput(props OTPProps) {
+	<label class="otp">
+		for range props.InputCount {
+			<span></span>
+		}
+		<input
+			id={ props.ID }
+			name={ props.Name }
+			type="text"
+			autocomplete="one-time-code"
+			inputmode="numeric"
+			maxlength={ props.InputCount }
+			pattern={ fmt.Sprintf("[0-9]{%d}", props.InputCount) }
+			required
+		/>
+	</label>
+}

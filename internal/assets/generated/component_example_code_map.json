@@ -318,6 +318,13 @@
       "title": "Modal to confirm delete action"
     }
   ],
+  "otp": [
+    {
+      "name": "OTPInputWith4Digits",
+      "code": "```go\ntempl OTPInputWith4Digits() {\n\t@components.OTPInput(components.OTPProps{ID: \"otp-4-digits\", Name: \"otp\", InputCount: 4})\n}\n```",
+      "title": "OTP Input with 4 digits"
+    }
+  ],
   "pagination": [
     {
       "name": "BasicPaginationExample",
