@@ -56,7 +56,9 @@ func ReadDotenv() {
 			name := strings.TrimSpace(split[0])
 			value := strings.TrimSpace(split[1])
 			value = strings.Trim(value, `"`)
-			os.Setenv(name, value)
+			if err := os.Setenv(name, value); err != nil {
+				slog.Error("unable to setenv", slog.String(name, value))
+			}
 		} else {
 			slog.Debug("not including invalid or empty line", "line", string(line))
 		}

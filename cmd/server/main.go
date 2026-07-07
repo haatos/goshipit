@@ -23,8 +23,10 @@ func main() {
 	e.Use(middleware.RateLimiterWithConfig(config))
 
 	e.Use(
-		middleware.LoggerWithConfig(middleware.LoggerConfig{
-			Format: loggerFormat,
+		middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+			LogMethod:  true,
+			LogURIPath: true,
+			LogStatus:  true,
 		}),
 		middleware.GzipWithConfig(middleware.GzipConfig{
 			Skipper: middleware.DefaultSkipper,

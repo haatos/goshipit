@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 	"strings"
 
@@ -12,15 +13,42 @@ func ErrorHandler(err error, c echo.Context) {
 	c.Logger().Errorf("Handler error: %+v\n", err)
 	switch e := err.(type) {
 	case ErrorToast:
-		renderErrorConfirm(c, e.Status, e.Messages)
+		if err := renderErrorConfirm(c, e.Status, e.Messages); err != nil {
+			slog.ErrorContext(
+				c.Request().Context(),
+				"unable to render error confirm",
+				slog.Any("error", err),
+			)
+		}
 	case *echo.HTTPError:
 		switch e.Code {
 		case http.StatusNotFound:
-			render(c, e.Code, pages.NotFound())
+			if err := render(c, e.Code, pages.NotFound()); err != nil {
+				slog.ErrorContext(
+					c.Request().Context(),
+					"unable to render error",
+					slog.Any("error", err),
+				)
+			}
 		case http.StatusInternalServerError:
-			render(c, e.Code, pages.InternalServerError())
+			if err := render(c, e.Code, pages.InternalServerError()); err != nil {
+				slog.ErrorContext(
+					c.Request().Context(),
+					"unable to render 500",
+					slog.Any("error", err),
+				)
+			}
 		case http.StatusForbidden:
-			render(c, e.Code, pages.Forbidden("Invalid permissions to view this page."))
+			if err := render(
+				c, e.Code,
+				pages.Forbidden("Invalid permissions to view this page."),
+			); err != nil {
+				slog.ErrorContext(
+					c.Request().Context(),
+					"unable to render 403",
+					slog.Any("error", err),
+				)
+			}
 		}
 	}
 }
