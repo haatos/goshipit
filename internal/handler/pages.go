@@ -104,20 +104,20 @@ func GetPrivacyPolicyPage(c echo.Context) error {
 	if isHXRequest(c) {
 		return render(
 			c, http.StatusOK,
-			pages.PrivacyMain(internal.Settings.Domain, internal.Settings.ContactEmail))
+			pages.PrivacyMain(internal.Settings.Domain))
 	}
 	return render(
 		c, http.StatusOK,
-		pages.PrivacyPage(internal.Settings.Domain, internal.Settings.ContactEmail))
+		pages.PrivacyPage(internal.Settings.Domain))
 }
 
 func GetTermsOfServicePage(c echo.Context) error {
 	if isHXRequest(c) {
 		return render(
 			c, http.StatusOK,
-			pages.TermsOfServiceMain(internal.Settings.Domain, internal.Settings.ContactEmail))
+			pages.TermsOfServiceMain(internal.Settings.Domain))
 	}
 	return render(
 		c, http.StatusOK,
-		pages.TermsOfService(internal.Settings.Domain, internal.Settings.ContactEmail))
+		pages.TermsOfService(internal.Settings.Domain))
 }

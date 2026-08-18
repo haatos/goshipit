@@ -42,7 +42,7 @@ templ IndexPageContent() {
 				<li>Updated changed class names</li>
 				<li>Refactored Input-component</li>
 				<li>
-					Removed Form-component. Just use 
+					Removed Form-component. Just use
 					<a href="https://daisyui.com/components/form">
 						DaisyUI
 						@externalLinkIcon()
@@ -50,14 +50,14 @@ templ IndexPageContent() {
 					directly
 				</li>
 				<li>
-					Removed Join-component. Just use 
+					Removed Join-component. Just use
 					<a href="https://daisyui.com/components/join">
 						DaisyUI
 						@externalLinkIcon()
 					</a> directly
 				</li>
 				<li>
-					Removed Stack-component. Just use 
+					Removed Stack-component. Just use
 					<a href="https://daisyui.com/components/stack">
 						DaisyUI
 						@externalLinkIcon()
@@ -293,13 +293,13 @@ templ TypesPageMain(html string) {
 	@scripts.HXCodeCopyButtonScript()
 }
 
-templ PrivacyPage(domain, contactEmail string) {
+templ PrivacyPage(domain string) {
 	@SideNavLayout(nil) {
-		@PrivacyMain(domain, contactEmail)
+		@PrivacyMain(domain)
 	}
 }
 
-templ PrivacyMain(domain, contactEmail string) {
+templ PrivacyMain(domain string) {
 	<section class="w-full max-w-screen-md mx-auto px-8 xl:px-0 prose pt-12 pb-32 min-h-screen flex flex-col text-justify">
 		<h1>
 			Privacy Policy for { domain }
@@ -373,20 +373,16 @@ templ PrivacyMain(domain, contactEmail string) {
 		<p>
 			This Privacy Policy may change from time to time, and all updates will be posted on this page.
 		</p>
-		<p>
-			If you require any more information or have any questions about our Privacy Policy,
-			please feel free to contact us through email at { contactEmail }.
-		</p>
 	</section>
 }
 
-templ TermsOfService(domain, contactEmail string) {
+templ TermsOfService(domain string) {
 	@SideNavLayout(nil) {
-		@TermsOfServiceMain(domain, contactEmail)
+		@TermsOfServiceMain(domain)
 	}
 }
 
-templ TermsOfServiceMain(domain, contactEmail string) {
+templ TermsOfServiceMain(domain string) {
 	<section class="prose pt-12 pb-32 px-8 xl:px-0 w-full mx-auto max-w-screen-md min-h-screen flex flex-col text-justify">
 		<h1>Terms of Service for { domain }</h1>
 		<p>
@@ -440,9 +436,6 @@ templ TermsOfServiceMain(domain, contactEmail string) {
 			{ domain } reserves the right to revise these Terms of Service at any time without notice.
 			By using { domain }, you are agreeing to be bound by the then-current version of these
 			Terms of Service.
-		</p>
-		<p>
-			If you have any questions about these Terms of Service, please contact us at { contactEmail }.
 		</p>
 	</section>
 }

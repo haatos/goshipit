@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-	internal.ReadDotenv()
 	internal.Settings = internal.NewSettings()
 
 	e := echo.New()

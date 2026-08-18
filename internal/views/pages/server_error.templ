@@ -1,7 +1,6 @@
 package pages
 
 import (
-	"fmt"
 	"github.com/haatos/goshipit/internal"
 	"github.com/haatos/goshipit/internal/views/components"
 )
@@ -13,7 +12,7 @@ templ InternalServerError() {
 				components.StatusProps{
 					Code:              500,
 					Title:             "Internal Server Error",
-					Description:       fmt.Sprintf("Something went terribly wrong! Please contact us at %s if the problem persists.", internal.Settings.ContactEmail),
+					Description:       "Something went terribly wrong!",
 					ReturnButtonLabel: "Go back home",
 					ReturnButtonAttrs: templ.Attributes{
 						"hx-get":      "/",
