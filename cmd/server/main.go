@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log/slog"
+
 	"github.com/haatos/goshipit/internal"
 	"github.com/haatos/goshipit/internal/assets"
 	"github.com/haatos/goshipit/internal/handler"
@@ -24,8 +26,22 @@ func main() {
 	e.Use(
 		middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 			LogMethod:  true,
-			LogURIPath: true,
 			LogStatus:  true,
+			LogURI:     true,
+			LogLatency: true,
+			LogError:   true,
+			LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
+				slog.InfoContext(
+					c.Request().Context(), "request received",
+					slog.String("method", v.Method),
+					slog.String("uri", v.URI),
+					slog.Int("status", v.Status),
+					slog.Duration("latency", v.Latency),
+					slog.Any("error", v.Error),
+				)
+
+				return nil
+			},
 		}),
 		middleware.GzipWithConfig(middleware.GzipConfig{
 			Skipper: middleware.DefaultSkipper,

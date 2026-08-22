@@ -1,27 +1,22 @@
 package pages
 
-import (
-	"github.com/haatos/goshipit/internal"
-	"github.com/haatos/goshipit/internal/views/components"
-)
+import "github.com/haatos/goshipit/internal/views/components"
 
 templ InternalServerError() {
 	@SideNavLayout(nil) {
-		@SideNavLayout(nil) {
-			@components.Status(
-				components.StatusProps{
-					Code:              500,
-					Title:             "Internal Server Error",
-					Description:       "Something went terribly wrong!",
-					ReturnButtonLabel: "Go back home",
-					ReturnButtonAttrs: templ.Attributes{
-						"hx-get":      "/",
-						"hx-target":   "main",
-						"hx-swap":     "innerHTML",
-						"hx-push-url": "true",
-					},
+		@components.Status(
+			components.StatusProps{
+				Code:              500,
+				Title:             "Internal Server Error",
+				Description:       "Something went terribly wrong!",
+				ReturnButtonLabel: "Go back home",
+				ReturnButtonAttrs: templ.Attributes{
+					"hx-get":      "/",
+					"hx-target":   "main",
+					"hx-swap":     "innerHTML",
+					"hx-push-url": "true",
 				},
-			)
-		}
+			},
+		)
 	}
 }

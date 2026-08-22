@@ -1,18 +1,17 @@
 .DEFAULT_GOAL := dev
 
-GOOS := "linux"
-GOARCH := "amd64"
+region ?= europe-west4
+port ?= 8080
 
 deploy:
-	npx @tailwindcss/cli -i input.css -o ./internal/assets/public/static/css/tw.css --minify
-	go run cmd/generate/main.go
-	templ generate
-	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -ldflags "-s -w" -o bin/new-main cmd/server/main.go
-	scp 'bin/new-main' $(user)@$(ip):/opt/goshipit/
-	ssh $(user)@$(ip) "sudo service goshipit stop"
-	ssh $(user)@$(ip) "rm /opt/goshipit/main"
-	ssh $(user)@$(ip) "mv /opt/goshipit/new-main /opt/goshipit/main"
-	ssh $(user)@$(ip) "sudo service goshipit start"
+    docker build --platform=linux/amd64 -t $(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest .
+    docker push $(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest
+    gcloud run deploy goshipit-service \
+      --image=$(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest \
+      --region=$(region) \
+      --platform=managed \
+      --port=$(port) \
+      --allow-unauthenticated
 
 gen:
 	go run cmd/generate/main.go
