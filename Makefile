@@ -2,16 +2,17 @@
 
 region ?= europe-west4
 port ?= 8080
+IMAGE ?= $(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest
 
 deploy:
-    docker build --platform=linux/amd64 -t $(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest .
-    docker push $(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest
-    gcloud run deploy goshipit-service \
-      --image=$(region)-docker.pkg.dev/goshipit/goshipit-repo/goship-it-app:latest \
-      --region=$(region) \
-      --platform=managed \
-      --port=$(port) \
-      --allow-unauthenticated
+	docker build --platform=linux/amd64 -t $(IMAGE) .
+	docker push $(IMAGE)
+	gcloud run deploy goshipit-service \
+		--image=$(IMAGE) \
+		--region=$(region) \
+		--platform=managed \
+		--port=$(port) \
+		--allow-unauthenticated
 
 gen:
 	go run cmd/generate/main.go
