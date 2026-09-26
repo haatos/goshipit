@@ -1,0 +1,196 @@
+package examples
+
+import "github.com/haatos/goshipit/internal/views/components"
+
+// example
+// Megamenu with vertical menu items
+templ MegamenuSimpleVertical() {
+	@components.Megamenu(components.MegamenuProps{
+		ID:          "example-1",
+		ButtonLabel: "Menu",
+		Popovers: []components.PopoverProps{
+			{
+				ID:    "vertical-example-menu",
+				Label: "Main",
+				Items: []components.PopoverItem{
+					{ID: "main-1", Href: "#", Label: "Home"},
+					{ID: "main-2", Href: "#", Label: "About"},
+				},
+			},
+		},
+		Classes: "max-sm:megamenu-vertical p-2 border border-base-300",
+	})
+}
+
+// example
+// Megamenu with horizontal menu items
+templ MegamenuSimpleHorizontal() {
+	@components.Megamenu(components.MegamenuProps{
+		ID:          "example-2",
+		ButtonLabel: "Menu",
+		Popovers: []components.PopoverProps{
+			{
+				ID:    "horizontal-example-menu",
+				Label: "Main",
+				Items: []components.PopoverItem{
+					{ID: "main-1", Href: "#", Label: "Home"},
+					{ID: "main-2", Href: "#", Label: "About"},
+				},
+				Classes: "menu-horizontal",
+			},
+		},
+		Classes: "max-sm:megamenu-vertical p-2 border border-base-300",
+	})
+}
+
+// example
+// Megamenu with custom dropdown items
+templ MegamenuWithItemComponents() {
+	@components.Megamenu(components.MegamenuProps{
+		ID:          "component-example",
+		ButtonLabel: "Menu",
+		Popovers: []components.PopoverProps{
+			{
+				ID:        "component-example-menu-1",
+				Label:     "One",
+				Component: PopoverMenuOne(),
+				Classes:   "md:menu-horizontal",
+			},
+			{
+				ID:        "component-example-menu-2",
+				Label:     "Two",
+				Component: PopoverMenuTwo(),
+				Classes:   "md:menu-horizontal",
+			},
+		},
+		Classes: "max-sm:megamenu-vertical p-2 border border-base-300",
+	})
+}
+
+templ PopoverMenuOne() {
+	<li>
+		<a>Enterprise</a>
+		<ul>
+			<li><a>CRM software</a></li>
+			<li><a>Marketing management</a></li>
+			<li><a>Security</a></li>
+			<li><a>Consulting</a></li>
+		</ul>
+	</li>
+	<li>
+		<a>Company</a>
+		<ul>
+			<li><a>About us</a></li>
+			<li><a>Contact us</a></li>
+			<li><a>Privacy policy</a></li>
+			<li><a>Press kit</a></li>
+		</ul>
+	</li>
+}
+
+templ PopoverMenuTwo() {
+	<li>
+		<a>Enterprise</a>
+		<ul>
+			<li><a>CRM software</a></li>
+			<li><a>Marketing management</a></li>
+			<li><a>Security</a></li>
+			<li><a>Consulting</a></li>
+			<li><a>Privacy policy</a></li>
+			<li><a>Press kit</a></li>
+		</ul>
+	</li>
+	<li>
+		<a>Products</a>
+		<ul>
+			<li><a>UI Kit</a></li>
+			<li><a>WordPress themes</a></li>
+			<li><a>WordPress plugins</a></li>
+			<li><a>Color picker app</a></li>
+			<li><a>About us</a></li>
+			<li><a>Contact us</a></li>
+		</ul>
+	</li>
+}
+
+// example
+// Megamenu in a navbar
+templ MegamenuInANavbar() {
+	<div class="navbar bg-base-100 shadow-sm">
+		<div class="navbar-start">
+			<a class="btn btn-ghost text-xl">goship.it</a>
+		</div>
+		<div class="navbar-center">
+			@components.Megamenu(components.MegamenuProps{
+				ID:          "example-4",
+				ButtonLabel: "Menu",
+				Popovers: []components.PopoverProps{
+					{
+						ID:        "nav-example-menu-1",
+						Label:     "One",
+						Component: NavPopoverMenuOne(),
+						Classes:   "md:menu-horizontal",
+					},
+					{
+						ID:        "nav-example-menu-2",
+						Label:     "Two",
+						Component: NavPopoverMenuTwo(),
+						Classes:   "md:menu-horizontal",
+					},
+				},
+				Classes:       "max-sm:megamenu-vertical megamenu-wide p-2 border border-base-300",
+				ButtonClasses: "hidden",
+			})
+		</div>
+		<div class="navbar-end">
+			<a class="btn">Login</a>
+			<button class="btn sm:hidden" ID="example-4">Menu</button>
+		</div>
+	</div>
+}
+
+templ NavPopoverMenuOne() {
+	<li>
+		<a>Enterprise</a>
+		<ul>
+			<li><a>CRM software</a></li>
+			<li><a>Marketing management</a></li>
+			<li><a>Security</a></li>
+			<li><a>Consulting</a></li>
+		</ul>
+	</li>
+	<li>
+		<a>Company</a>
+		<ul>
+			<li><a>About us</a></li>
+			<li><a>Contact us</a></li>
+			<li><a>Privacy policy</a></li>
+			<li><a>Press kit</a></li>
+		</ul>
+	</li>
+}
+
+templ NavPopoverMenuTwo() {
+	<li>
+		<a>Enterprise</a>
+		<ul>
+			<li><a>CRM software</a></li>
+			<li><a>Marketing management</a></li>
+			<li><a>Security</a></li>
+			<li><a>Consulting</a></li>
+			<li><a>Privacy policy</a></li>
+			<li><a>Press kit</a></li>
+		</ul>
+	</li>
+	<li>
+		<a>Products</a>
+		<ul>
+			<li><a>UI Kit</a></li>
+			<li><a>WordPress themes</a></li>
+			<li><a>WordPress plugins</a></li>
+			<li><a>Color picker app</a></li>
+			<li><a>About us</a></li>
+			<li><a>Contact us</a></li>
+		</ul>
+	</li>
+}

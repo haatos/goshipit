@@ -1,0 +1,65 @@
+// navigation
+// https://daisyui.com/components/megamenu
+package components
+
+import "fmt"
+
+type PopoverItem struct {
+	ID    string
+	Href  string
+	Label string
+}
+
+type PopoverProps struct {
+	ID      string
+	Label   string
+	Classes string
+
+	Items     []PopoverItem
+	Component templ.Component
+}
+
+type MegamenuProps struct {
+	ID            string
+	Classes       string
+	ButtonLabel   string
+	ButtonClasses string
+
+	Popovers []PopoverProps
+}
+
+templ Megamenu(props MegamenuProps) {
+	<button
+		class={ "btn sm:hidden", props.ButtonClasses }
+		popovertarget={ props.ID }
+	>
+		{ props.ButtonLabel }
+	</button>
+	<div
+		class={ "megamenu", props.Classes }
+		id={ props.ID }
+		popover
+	>
+		<span class="megamenu-active"></span>
+		for i, popover := range props.Popovers {
+			<button popovertarget={ fmt.Sprintf("%s-%d", popover.ID, i) }>
+				{ popover.Label }
+			</button>
+			<div id={ fmt.Sprintf("%s-%d", popover.ID, i) } popover>
+				<ul class={ "menu", popover.Classes }>
+					if popover.Component != nil {
+						@popover.Component
+					} else {
+						for _, item := range popover.Items {
+							<li id={ item.ID }>
+								<a href={ item.Href }>
+									{ item.Label }
+								</a>
+							</li>
+						}
+					}
+				</ul>
+			</div>
+		}
+	</div>
+}
