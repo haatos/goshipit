@@ -60,7 +60,7 @@ templ DatastarRange(props RangeProps) {
 	<script type="module" src="/static/js/datastar.js"></script>
 	<label
 		class="label space-x-1"
-		data-signals={ fmt.Sprintf("{value: %d}", props.Value) }
+		data-signals:value={ fmt.Sprintf("%d", props.Value) }
 	>
 		if props.Label != "" {
 			<span
@@ -88,11 +88,8 @@ templ DatastarRange(props RangeProps) {
 				templ.KV("range-xl", props.Size == "xl"),
 			}
 			step={ fmt.Sprintf("%d", props.Step) }
-			data-bind-value
+			data-bind:value
 		/>
-		<div
-			class="w-full max-w-7"
-			data-text="$value"
-		></div>
+		<div class="w-full max-w-7" data-text="$value"></div>
 	</label>
 }
