@@ -29,7 +29,7 @@ templ ComponentMain(cc model.ComponentCode, examples []templ.Component) {
 					})
 				}
 			</h1>
-			<div class="prose !max-w-screen-lg text-justify">
+			<div class="prose max-w-5xl! text-justify">
 				@templ.Raw(markdown.GetHTMLFromMarkdown([]byte(cc.Description)))
 			</div>
 			if cc.Code != "" {

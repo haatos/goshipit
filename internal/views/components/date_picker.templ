@@ -1,5 +1,5 @@
 // data_input
-package components 
+package components
 
 import "fmt"
 import "time"
@@ -45,7 +45,7 @@ templ DatePicker(props DatePickerProps) {
 	{{ days := props.Days() }}
 	<div
 		name="datepicker-div"
-		class="flex flex-col space-y-1 w-[300px] h-[405px]"
+		class="flex flex-col space-y-1 w-75 h-101.25"
 	>
 		<div class="flex space-x-1">
 			<button
@@ -62,12 +62,12 @@ templ DatePicker(props DatePickerProps) {
 					</g>
 				</svg>
 			</button>
-			<details class="dropdown w-full max-w-[300px]">
+			<details class="dropdown w-full max-w-75">
 				<summary class="btn btn-sm w-full">{ fmt.Sprintf("%d", props.Year) }</summary>
 				<div
 					class={
 						"menu dropdown-content grid grid-cols-3 gap-1",
-						"w-full max-w-[300px] p-1 bg-base-300 rounded-b-box",
+						"w-full max-w-75 p-1 bg-base-300 rounded-b-box",
 					}
 					hx-get={ fmt.Sprintf("/datepicker/yearpicker?year=%d", props.Year) }
 					hx-trigger="datePickerDropdownClosed from:body"

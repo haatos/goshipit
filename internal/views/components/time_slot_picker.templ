@@ -44,7 +44,7 @@ func (x *TimeSlotPickerProps) GetSlots(day time.Time) []TimeSlot {
 
 templ TimeSlotPicker(props TimeSlotPickerProps) {
 	<div id={ props.ID } class="p-4">
-		<div class="grid grid-cols-7 gap-1 h-[500px] w-full max-w-screen-xl">
+		<div class="grid grid-cols-7 gap-1 h-125 w-full max-w-7xl">
 			for _, day := range props.Days() {
 				@timeSlotPickerDay(props, day)
 			}
@@ -62,7 +62,7 @@ templ timeSlotPickerDay(props TimeSlotPickerProps, day time.Time) {
 	>
 		<div class="text-center pt-1">
 			<span>{ day.Format("Mon Jan 02") }</span>
-			<div class="divider !my-0 !py-0"></div>
+			<div class="divider my-0! py-0!"></div>
 		</div>
 		<ul class="space-y-1">
 			for _, slot := range props.GetSlots(day) {

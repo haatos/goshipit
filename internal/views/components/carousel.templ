@@ -12,7 +12,7 @@ type CarouselProp struct {
 templ Carousel(props CarouselProps) {
 	<div class="carousel carousel-center rounded-box">
 		for _, prop := range props {
-			<div class="carousel-item [&:not(:last-child)]:border-r border-r-base-300">
+			<div class="carousel-item not-last:border-r border-r-base-300">
 				<img class="max-w-xs" src={ prop.Source } alt={ prop.Alt }/>
 			</div>
 		}

@@ -90,12 +90,12 @@ templ SideNavLayout(head templ.Component) {
 						</label>
 						<a
 							href="/"
-							class="group btn !shadow-none !bg-transparent !border-none flex items-center xl:hidden"
+							class="group btn shadow-none! bg-transparent! border-none! flex items-center xl:hidden"
 						>
 							<img class="h-10" src="/static/images/goshipit-logo.png" alt="goship.it"/>
 						</a>
 					</div>
-					<main class="w-full max-w-screen-lg min-h-svh pl-8 pr-8 xl:pr-0">
+					<main class="w-full max-w-5xl min-h-svh pl-8 pr-8 xl:pr-0">
 						{ children... }
 					</main>
 					@components.Footer(
@@ -303,9 +303,9 @@ templ SideNavLayout(head templ.Component) {
 templ drawerSide(anchors []components.AnchorProps) {
 	<div class="drawer-side">
 		<label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-		<ul class="menu bg-base-200 text-base-content min-h-full w-[330px] p-4 space-y-2">
+		<ul class="menu bg-base-200 text-base-content min-h-full w-82.5 p-4 space-y-2">
 			<li class="pb-4">
-				<a href="/" class="group hover:!bg-transparent flex justify-center items-center font-saira-black text-6xl bg-clip-text text-transparent bg-gradient-to-br from-primary/60 via-base-content to-primary/60">
+				<a href="/" class="group hover:bg-transparent! flex justify-center items-center font-saira-black text-6xl bg-clip-text text-transparent bg-linear-to-br from-primary/60 via-base-content to-primary/60">
 					GSI
 				</a>
 			</li>

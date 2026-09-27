@@ -14,12 +14,12 @@ templ IndexPage() {
 templ IndexPageContent() {
 	@openSourceToast()
 	<div class="w-full space-y-12">
-		<div class="pt-12 lg:pt-24 pb-8 lg:pb-12 flex flex-col lg:flex-row w-full max-w-screen-md mx-auto">
+		<div class="pt-12 lg:pt-24 pb-8 lg:pb-12 flex flex-col lg:flex-row w-full max-w-3xl mx-auto">
 			<div class="hero">
-				<div class="flex flex-col text-6xl sm:text-7xl md:text-8xl font-saira-black text-transparent bg-clip-text bg-gradient-to-br from-primary/60 via-base-content to-primary/60 uppercase">
+				<div class="flex flex-col text-6xl sm:text-7xl md:text-8xl font-saira-black text-transparent bg-clip-text bg-linear-to-br from-primary/60 via-base-content to-primary/60 uppercase">
 					<span>Go</span>
-					<span class="pl-[50px] sm:pl-[52px] md:pl-[78px]">Ship</span>
-					<span class="pl-[98px] sm:pl-[104px] md:pl-[142px]">.it</span>
+					<span class="pl-12.5 sm:pl-13 md:pl-19.5">Ship</span>
+					<span class="pl-24.5 sm:pl-26 md:pl-35.5">.it</span>
 				</div>
 			</div>
 			<div class="flex justify-center items-center w-full max-w-72 sm:max-w-lg mx-auto text-xl sm:text-2xl lg:max-w-5xl pt-8 lg:pt-2">
@@ -36,7 +36,7 @@ templ IndexPageContent() {
 				</ul>
 			</div>
 		</div>
-		<div class="max-w-screen-md mx-auto prose">
+		<div class="max-w-3xl mx-auto prose">
 			<p>Now updated to DaisyUI5</p>
 			<ul>
 				<li>Updated changed class names</li>
@@ -228,16 +228,16 @@ templ AboutPage() {
 }
 
 templ AboutPageMain() {
-	<div class="flex flex-col justify-center items-center w-full max-w-screen-md mx-auto px-8 xl:px-0 min-h-svh pb-24">
+	<div class="flex flex-col justify-center items-center w-full max-w-3xl mx-auto px-8 xl:px-0 min-h-svh pb-24">
 		<div class="hero">
-			<div class="hero-content !px-4 lg:!px-0 flex-col-reverse lg:flex-row-reverse">
+			<div class="hero-content px-4! lg:px-0! flex-col-reverse lg:flex-row-reverse">
 				<img
 					src="/static/images/profile-long.jpg"
-					class="hidden lg:block max-w-[240px] rounded-box"
+					class="hidden lg:block max-w-60 rounded-box"
 				/>
 				<img
 					src="/static/images/profile.jpg"
-					class="lg:hidden max-w-[240px] rounded-box"
+					class="lg:hidden max-w-60 rounded-box"
 				/>
 				<div>
 					<h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">
@@ -273,7 +273,7 @@ templ GettingStartedPage(html string) {
 }
 
 templ GettingStartedPageMain(html string) {
-	<div class="prose !max-w-screen-lg pt-8">
+	<div class="prose max-w-5xl! pt-8">
 		@templ.Raw(html)
 	</div>
 	@scripts.HXCodeCopyButtonScript()
@@ -287,7 +287,7 @@ templ TypesPage(html string) {
 }
 
 templ TypesPageMain(html string) {
-	<div class="prose !max-w-screen-lg pt-8">
+	<div class="prose max-w-5xl! pt-8">
 		@templ.Raw(html)
 	</div>
 	@scripts.HXCodeCopyButtonScript()
@@ -300,7 +300,7 @@ templ PrivacyPage(domain string) {
 }
 
 templ PrivacyMain(domain string) {
-	<section class="w-full max-w-screen-md mx-auto px-8 xl:px-0 prose pt-12 pb-32 min-h-screen flex flex-col text-justify">
+	<section class="w-full max-w-3xl mx-auto px-8 xl:px-0 prose pt-12 pb-32 min-h-screen flex flex-col text-justify">
 		<h1>
 			Privacy Policy for { domain }
 		</h1>
@@ -383,7 +383,7 @@ templ TermsOfService(domain string) {
 }
 
 templ TermsOfServiceMain(domain string) {
-	<section class="prose pt-12 pb-32 px-8 xl:px-0 w-full mx-auto max-w-screen-md min-h-screen flex flex-col text-justify">
+	<section class="prose pt-12 pb-32 px-8 xl:px-0 w-full mx-auto max-w-3xl min-h-screen flex flex-col text-justify">
 		<h1>Terms of Service for { domain }</h1>
 		<p>
 			These Terms of Service govern your use of { domain }. By accessing or using { domain },
