@@ -81,6 +81,7 @@ func main() {
 	e.GET("/datepicker/yearpicker", handler.GetDatePickerYearPicker)
 	e.GET("/timeslotpicker", handler.GetTimeSlotPicker)
 	e.POST("/timeslotpicker/reserve", handler.PostTimeSlotPickerReserve)
+	e.POST("/rating", handler.PostRating)
 	// handlers for component examples
 
 	internal.GracefulShutdown(e, internal.Settings.Port)

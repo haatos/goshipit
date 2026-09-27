@@ -19,84 +19,80 @@ type RangeProps struct {
 // Note: usage requires alpine.js
 templ Range(props RangeProps) {
 	<script src="/static/js/alpine.js" defer></script>
-	<div class="form-control">
-		<label
-			class="label space-x-1"
-			x-data={ fmt.Sprintf("{ value: %d }", props.Value) }
-		>
-			if props.Label != "" {
-				<span
-					class={
-						templ.KV("text-xs", props.Size == "xs"),
-						templ.KV("text-sm", props.Size == "sm"),
-						templ.KV("text-lg", props.Size == "lg"),
-						templ.KV("text-xl", props.Size == "xl"),
-					}
-				>{ props.Label }</span>
-			}
-			<input
-				type="range"
-				if props.ID != "" {
-					id={ props.ID }
-				}
-				name={ props.Name }
-				min={ fmt.Sprintf("%d", props.Min) }
-				max={ fmt.Sprintf("%d", props.Max) }
-				x-model="value"
+	<label
+		class="label space-x-1"
+		x-data={ fmt.Sprintf("{ value: %d }", props.Value) }
+	>
+		if props.Label != "" {
+			<span
 				class={
-					"range", props.Class,
-					templ.KV("range-xs", props.Size == "xs"),
-					templ.KV("range-sm", props.Size == "sm"),
-					templ.KV("range-lg", props.Size == "lg"),
-					templ.KV("range-xl", props.Size == "xl"),
+					templ.KV("text-xs", props.Size == "xs"),
+					templ.KV("text-sm", props.Size == "sm"),
+					templ.KV("text-lg", props.Size == "lg"),
+					templ.KV("text-xl", props.Size == "xl"),
 				}
-				step={ fmt.Sprintf("%d", props.Step) }
-			/>
-			<div x-text="value" class="w-full max-w-7"></div>
-		</label>
-	</div>
+			>{ props.Label }</span>
+		}
+		<input
+			type="range"
+			if props.ID != "" {
+				id={ props.ID }
+			}
+			name={ props.Name }
+			min={ fmt.Sprintf("%d", props.Min) }
+			max={ fmt.Sprintf("%d", props.Max) }
+			x-model="value"
+			class={
+				"range", props.Class,
+				templ.KV("range-xs", props.Size == "xs"),
+				templ.KV("range-sm", props.Size == "sm"),
+				templ.KV("range-lg", props.Size == "lg"),
+				templ.KV("range-xl", props.Size == "xl"),
+			}
+			step={ fmt.Sprintf("%d", props.Step) }
+		/>
+		<div x-text="value" class="w-full max-w-7"></div>
+	</label>
 }
 
 // Note: usage requires datastar.js
 templ DatastarRange(props RangeProps) {
 	<script type="module" src="/static/js/datastar.js"></script>
-	<div class="form-control">
-		<label
-			class="label space-x-1"
-			data-signals={ fmt.Sprintf("{value: %d}", props.Value) }
-		>
-			if props.Label != "" {
-				<span
-					class={
-						templ.KV("text-xs", props.Size == "xs"),
-						templ.KV("text-sm", props.Size == "sm"),
-						templ.KV("text-lg", props.Size == "lg"),
-						templ.KV("text-xl", props.Size == "xl"),
-					}
-				>{ props.Label }</span>
-			}
-			<input
-				type="range"
-				if props.ID != "" {
-					id={ props.ID }
-				}
-				name={ props.Name }
-				min={ fmt.Sprintf("%d", props.Min) }
-				max={ fmt.Sprintf("%d", props.Max) }
+	<label
+		class="label space-x-1"
+		data-signals={ fmt.Sprintf("{value: %d}", props.Value) }
+	>
+		if props.Label != "" {
+			<span
 				class={
-					"range", props.Class,
-					templ.KV("range-xs", props.Size == "xs"),
-					templ.KV("range-sm", props.Size == "sm"),
-					templ.KV("range-lg", props.Size == "lg"),
-					templ.KV("range-xl", props.Size == "xl"),
+					templ.KV("text-xs", props.Size == "xs"),
+					templ.KV("text-sm", props.Size == "sm"),
+					templ.KV("text-lg", props.Size == "lg"),
+					templ.KV("text-xl", props.Size == "xl"),
 				}
-				step={ fmt.Sprintf("%d", props.Step) }
-				data-bind-value
-			/>
-			<div
-				class="w-full max-w-7"
-				data-text="$value"
-			></div>
-		</label>
-	</div>
+			>{ props.Label }</span>
+		}
+		<input
+			type="range"
+			if props.ID != "" {
+				id={ props.ID }
+			}
+			name={ props.Name }
+			min={ fmt.Sprintf("%d", props.Min) }
+			max={ fmt.Sprintf("%d", props.Max) }
+			class={
+				"range", props.Class,
+				templ.KV("range-xs", props.Size == "xs"),
+				templ.KV("range-sm", props.Size == "sm"),
+				templ.KV("range-lg", props.Size == "lg"),
+				templ.KV("range-xl", props.Size == "xl"),
+			}
+			step={ fmt.Sprintf("%d", props.Step) }
+			data-bind-value
+		/>
+		<div
+			class="w-full max-w-7"
+			data-text="$value"
+		></div>
+	</label>
 }

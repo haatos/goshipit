@@ -5,27 +5,49 @@ import "github.com/haatos/goshipit/internal/views/components"
 // example
 // Rating from 1 to 5
 templ RatingFromOneToFive() {
-	<div class="flex justify-center items-center pt-4">
-		@components.Rating(
-			components.RatingProps{
-				Name: "my-rating",
-				Min:  1,
-				Max:  5,
-			},
-		)
+	<div class="flex flex-col justify-center items-center pt-4 space-y-2">
+		<form
+			class="flex space-x-4 items-center"
+			hx-post="/rating"
+			hx-swap="innerHTML"
+			hx-target="#my-rating-result"
+		>
+			@components.Rating(
+				components.RatingProps{
+					Name: "rating-value",
+					Min:  1,
+					Max:  5,
+				},
+			)
+			<button type="submit" class="btn">submit</button>
+		</form>
+		<div>
+			Received result: <span id="my-rating-result"></span>
+		</div>
 	</div>
 }
 
 // example
 // Rating from 0 to 5
 templ RatingFromZeroToFive() {
-	<div class="flex justify-center items-center pt-4">
-		@components.Rating(
-			components.RatingProps{
-				Name: "my-rating2",
-				Min:  0,
-				Max:  5,
-			},
-		)
+	<div class="flex flex-col justify-center items-center pt-4 space-y-2">
+		<form
+			class="flex space-x-4 items-center"
+			hx-post="/rating"
+			hx-swap="innerHTML"
+			hx-target="#my-rating2-result"
+		>
+			@components.Rating(
+				components.RatingProps{
+					Name: "rating-value",
+					Min:  0,
+					Max:  5,
+				},
+			)
+			<button type="submit" class="btn">submit</button>
+		</form>
+		<div>
+			Received result: <span id="my-rating2-result"></span>
+		</div>
 	</div>
 }

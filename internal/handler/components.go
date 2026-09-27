@@ -458,3 +458,16 @@ func PostTimeSlotPickerReserve(c echo.Context) error {
 }
 
 // BasicTimeSlotPicker
+
+// RatingFromOneToFive
+func PostRating(c echo.Context) error {
+	ratingValueStr := c.FormValue("rating-value")
+	ratingValue, err := strconv.Atoi(ratingValueStr)
+	if err != nil {
+		return fmt.Errorf("rating must be an integer, got '%s'", ratingValueStr)
+	}
+
+	return c.String(http.StatusOK, fmt.Sprintf("%d", ratingValue))
+}
+
+// RatingFromOneToFive

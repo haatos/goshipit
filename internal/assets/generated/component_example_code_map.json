@@ -393,12 +393,13 @@
   "rating": [
     {
       "name": "RatingFromOneToFive",
-      "code": "```go\ntempl RatingFromOneToFive() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Rating(\n\t\t\tcomponents.RatingProps{\n\t\t\t\tName: \"my-rating\",\n\t\t\t\tMin:  1,\n\t\t\t\tMax:  5,\n\t\t\t},\n\t\t)\n\t\u003c/div\u003e\n}\n\n```",
+      "code": "```go\ntempl RatingFromOneToFive() {\n\t\u003cdiv class=\"flex flex-col justify-center items-center pt-4 space-y-2\"\u003e\n\t\t\u003cform\n\t\t\tclass=\"flex space-x-4 items-center\"\n\t\t\thx-post=\"/rating\"\n\t\t\thx-swap=\"innerHTML\"\n\t\t\thx-target=\"#my-rating-result\"\n\t\t\u003e\n\t\t\t@components.Rating(\n\t\t\t\tcomponents.RatingProps{\n\t\t\t\t\tName: \"rating-value\",\n\t\t\t\t\tMin:  1,\n\t\t\t\t\tMax:  5,\n\t\t\t\t},\n\t\t\t)\n\t\t\t\u003cbutton type=\"submit\" class=\"btn\"\u003esubmit\u003c/button\u003e\n\t\t\u003c/form\u003e\n\t\t\u003cdiv\u003e\n\t\t\tReceived result: \u003cspan id=\"my-rating-result\"\u003e\u003c/span\u003e\n\t\t\u003c/div\u003e\n\t\u003c/div\u003e\n}\n\n```",
+      "handler": "```go\nfunc PostRating(c echo.Context) error {\n\tratingValueStr := c.FormValue(\"rating-value\")\n\tratingValue, err := strconv.Atoi(ratingValueStr)\n\tif err != nil {\n\t\treturn fmt.Errorf(\"rating must be an integer, got '%s'\", ratingValueStr)\n\t}\n\n\treturn c.String(http.StatusOK, fmt.Sprintf(\"%d\", ratingValue))\n}\n\n```",
       "title": "Rating from 1 to 5"
     },
     {
       "name": "RatingFromZeroToFive",
-      "code": "```go\ntempl RatingFromZeroToFive() {\n\t\u003cdiv class=\"flex justify-center items-center pt-4\"\u003e\n\t\t@components.Rating(\n\t\t\tcomponents.RatingProps{\n\t\t\t\tName: \"my-rating2\",\n\t\t\t\tMin:  0,\n\t\t\t\tMax:  5,\n\t\t\t},\n\t\t)\n\t\u003c/div\u003e\n}\n```",
+      "code": "```go\ntempl RatingFromZeroToFive() {\n\t\u003cdiv class=\"flex flex-col justify-center items-center pt-4 space-y-2\"\u003e\n\t\t\u003cform\n\t\t\tclass=\"flex space-x-4 items-center\"\n\t\t\thx-post=\"/rating\"\n\t\t\thx-swap=\"innerHTML\"\n\t\t\thx-target=\"#my-rating2-result\"\n\t\t\u003e\n\t\t\t@components.Rating(\n\t\t\t\tcomponents.RatingProps{\n\t\t\t\t\tName: \"rating-value\",\n\t\t\t\t\tMin:  0,\n\t\t\t\t\tMax:  5,\n\t\t\t\t},\n\t\t\t)\n\t\t\t\u003cbutton type=\"submit\" class=\"btn\"\u003esubmit\u003c/button\u003e\n\t\t\u003c/form\u003e\n\t\t\u003cdiv\u003e\n\t\t\tReceived result: \u003cspan id=\"my-rating2-result\"\u003e\u003c/span\u003e\n\t\t\u003c/div\u003e\n\t\u003c/div\u003e\n}\n```",
       "title": "Rating from 0 to 5"
     }
   ],
