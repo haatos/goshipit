@@ -1,11 +1,11 @@
 # Step 1: Build stage with Go and Node.js
-FROM golang:1.26-alpine AS builder
+FROM golang:1.27-alpine AS builder
 
 # Install Node.js, npm, and certificates
 RUN apk add --no-cache nodejs npm ca-certificates git
 
 # Install templ CLI
-RUN go install github.com/a-h/templ/cmd/templ@v0.3.1020
+RUN go install github.com/a-h/templ/cmd/templ@v0.3.1100
 
 WORKDIR /app
 
