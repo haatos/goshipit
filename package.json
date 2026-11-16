@@ -2,7 +2,7 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.5",
     "@tailwindcss/typography": "^0.5.20",
-    "daisyui": "^5.7.50",
+    "daisyui": "^5.8.1",
     "tailwindcss": "^4.3.5"
   },
   "scripts": {
